@@ -1,4 +1,4 @@
-# Week 1: Linear Algebra - Vectors and Transformations
+# Linear Algebra
 
 ## Resources
 - 3Blue1Brown: Essence of Linear Algebra (Videos 1-16)
@@ -192,6 +192,29 @@
     - And because it is associative A(BC) = (AB)C, or in notation (M₂M₁)v = M₂(M₁v), we can pre-compute the composite matrix.
     - Meaning that, as long as we keep the correct cross-matrix calculation order, original vector (C) can be either multiplied with Matrix1 (B), and then their result multiplied with Matrix2 (A), or we can wait for Matrix1 (B) to be multiplied by Matrix2 (A), and then their result multiplied by original vector (C).
     
+---
+
+### Video 5: Three-dimensional Linear Transformations
+
+**Key Concepts:**
+
+- 3D Transformations:
+    - So far we studied transformations from 2D vectors to 2D vectors
+    - Transformations from 3D vectors to 3D vectors behave similarly
+    - Now we have 3 basis vectors: i-hat for x-axis; j-hat for y-axis; k-hat for z-axis
+    - Matrices are now 3x3
+    - A 3x3 Matrix completely describes the transformation using only 9 numbers (which represent the 3 coordinates of where each of the 3 basis vectors ended up)
+
+- Simple Transformations:
+    - Same multiplication reasoning as with 2D: input vector * transformation
+    - To see where our vector lands, we multiply the input vector coordinates by the corresponding columns of the matrix
+    - Vector x-coordinate * transformed i-hat; vector y-coordinate * transformed j-hat; vector z-coordinate * transformed k-hat
+    - And then we add together the three results
+
+- Matrix Multiplication: 
+    - For composite transformations, we can multiply two 3x3 matrices
+    - First we apply the transformation encoded by the right Matrix, and then the left one
+
 ---
 
 
