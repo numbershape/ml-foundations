@@ -49,7 +49,7 @@
     - Multiplying a vector by a number results in scaling, so we call the number a "scalar"
     - Mupliplying by 2: stretches out the vector to get twice as long (each component is stretched by two)
     - Multiplying by 1/3: squishes down the vector by a third
-    - Multiplying by -1.8: flips the vector around, then stretches it by 1.8
+    - Multiplying by -1.8: flips the vector around and stretches it by 1.8
     
 ---
 
@@ -75,7 +75,7 @@
     
 - Linear Combination cases:
     - Usual case: if both scalars change value you will reach every possible point in plane
-    - Rare case: if the two original vectors line up, then the tip of the resuming vector is limited to this line
+    - Rare case: if the two original vectors line up, then the tip of the resulting vector is limited to this line
     - Exception: if both original vectors are 0, you get stuck at the origin
 
 - Span:
@@ -93,6 +93,7 @@
 
 - Span in 3D (three vectors):
     - Rare case: if the 3rd vector is sitting on the span of the first 2 vectors, it is redundant and span doesn't change (stays a flat sheet)
+    - The 3rd vector must provide a component "out of" the plane formed by the first two vectors to span all of 3D space.
     - Usual case: if the 3rd vector is not on the span of the first 2 vectors, the result is every possible 3D vector
     - This is as if the 3rd vector moves 'around' or 'up and down' the sheet of the previous 2-vector span in 3D
 
@@ -123,17 +124,18 @@
     - All lines must remain lines without getting curved
     - The origin must remain fixed in place
     - Grid lines must remain parallel and evenly spaced
-    - In these trasformations, we only need to record where the basis vectors land
+    - In these transformations, we only need to record where the basis vectors land
     
 - Transformation Process:
     - Say a vector is represented as the sum of the two (scaled accordingly) basis-vectors i-hat and j-hat
     - Now lets transform and follow where the three vectors go
-    - Lines remain parallel and evenly spaced
+    - Linear transformations preserve the grid structure (parallel lines stay parallel, evenly spaced lines stay evenly spaced, origin stays fixed)
     - The transformed vector equals the sum of the two transformed basis-vectors, scaled using the same scalars as before (the original basis scalars we used to represent the original vector)
     - So basically the transformed result-vector equals the original scalar for i-hat multiplied by the transformed i-hat, plus the original scalar for j-hat multiplied by the transformed j-hat! 
-    - In other words, if an original vector has coordinates x and y (i-hat and j-hat scalars), to find where it lands we multiply x by the new i-hat coordinates, plus y by the new j-hat coordinates
+    - In other words, if an original vector has coordinates x and y (i-hat and j-hat scalars), to find where it lands we multiply its original x coordinate by the new i-hat coordinates, plus its original y coordinate by the new j-hat coordinates
+    - The final result is where the original vector landed
     - So we only need to know where the basis vectors landed, and we can deduce where any other vector landed, without visual aid
-    - Any 2D Linear Transformation is described by just 4 numbers (the two coordinates where i-hat lands, and the two coordinates where j-hat lands)
+    - Any 2D Linear Transformation is described by just 4 numbers (the two coordinates where i-hat lands, and the two coordinates where j-hat lands), because linear transformations preserve linear combinations
 
 - 2x2 Matrix:
     - We package the four numbers into a 2x2 grid
@@ -146,11 +148,50 @@
     - This is called the 1-D span of linearly dependent vectors
 
 - Linear Trasformations summary:
-    - A way to move around space such that gridlines remain parallel and such as the origin remains fixed
+    - A way to move around space such that grid lines remain parallel and evenly spaced
     - These transformations can be described using the coordinates where each basis vector lands
     - Matrices give us a way to describe these transformations, where columns represend those coordinates
     - Matrix vector multiplication is a way to compute what that transformation does to a given vector
     - Every time we see a Matrix we can interpret it as a certain transformation of space
+    - In notation: if a vector v = x·î + y·ĵ, then after transformation: v' = x·î' + y·ĵ'
+
+---
+
+### Video 4: Matrix Multiplication as Composition
+
+**Key Concepts:**
+
+- Combine two transformations into one - Composite Function (longer way):
+    - If we did them one by one, we would multiply the original vector by the first matrix (the firstly-transformed i-hat and j-hat), get an intermediate result of where the vector is now, and then multiply this intermediate vector by the second matrix (the secondly-transformed i-hat and j-hat) to get the final vector
+    - We do this as: Matrix2*(Matrix1*vector) 
+    - This is like the composite function f(g(x)) - read and done right to left
+
+- Combine two transformations into one - Matrix Multiplication (faster, preferred way):
+    - CompositeMatrix = (i-hat of Matrix1 * Matrix2) for composite i-hat; (j-hat of Matrix1 * Matrix2) for composite j-hat; which expands to:
+    - CompositeMatrix i-hat = (x"scalar" of Matrix1 i-hat-vector * Matrix2 i-hat) + (y"scalar" of Matrix1 i-hat-vector * Matrix2 j-hat)
+    - CompositeMatrix j-hat = (x"scalar" of Matrix1 j-hat-vector * Matrix2 i-hat) + (y"scalar" of Matrix1 j-hat-vector * Matrix2 j-hat)
+
+- Symbolic representation of the above for calculations:
+    - Written in notation: Matrix1 = M₁; Matrix2 = M₂
+    - Column1 of (M₂M₁) = x₁(M₂ column1) + y₁(M₂ column2), where [x₁, y₁] is M₁'s column1
+    - Column2 of (M₂M₁) = x₂(M₂ column1) + y₂(M₂ column2), where [x₂, y₂] is M₁'s column2
+
+- Finalizing the calculation:
+    - After we find Composite Matrix, we multiply it by the original vector
+    - The result is where the original vector landed after both transformations
+
+- Order importance: 
+    - The order we do the intermediate calculation matters! 
+    - "In CompositeMatrix [Matrix2 Matrix1], first apply Matrix1 and then Matrix2 - read right to left like function composition
+    - Transformations are applied sequentially: Matrix1 first moves the basis vectors to new positions, then Matrix2 transforms those already-moved vectors. Reversing the order would mean that Matrix2 transforms the original basis vectors first, leading to different intermediate positions and thus a different final result.
+    - In the intermediate stage, we treat the Matrix1's (not Matrix2's) i-hat and j-hat as regular vectors (since their value changed from implicit unit vectors to a different value), and we multiply each one of them by Matrix2
+    - THEN we multiply the final Composite Matrix by the original vector
+
+- Associativity:
+    - Why does this work? Because in Linear Transformations we can use the same scalars of the original vector 
+    - And because it is associative A(BC) = (AB)C, or in notation (M₂M₁)v = M₂(M₁v), we can pre-compute the composite matrix.
+    - Meaning that, as long as we keep the correct cross-matrix calculation order, original vector (C) can be either multiplied with Matrix1 (B), and then their result multiplied with Matrix2 (A), or we can wait for Matrix1 (B) to be multiplied by Matrix2 (A), and then their result multiplied by original vector (C).
+    
 ---
 
 
