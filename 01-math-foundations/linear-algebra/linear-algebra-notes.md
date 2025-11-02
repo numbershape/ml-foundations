@@ -217,4 +217,63 @@
 
 ---
 
+### Video 6: The Determinant
+
+**Key Concepts:**
+
+- The Determinant:
+    - A way to measure how much the transformation stretches or squishes things
+    - By measuring the factor by which the area of a given region increases or decreases (all areas are scaled uniformly)
+    - The area of te unit square formed by the basis vectors is 1x1; if it increases to 2x3, the new area is 6
+    - In this case, the linear transformation has scaled the area by 6
+    - This scaling factor by which a linear transformation changes any area is called the determinant
+    - Some transformations leave the area unchanged, like the shear that transforms a 1x1 square into a 1x1 parallelogram
+
+- Usefulness:
+    - If you know how much the unit square area changes, it can tell you how much the area of any possible region changes
+    - What happens to one square happens to all no matter the size (because grid lines remain parallel and evenly shaped)
+    - And anything that's not a grid square can be approximated by them (any region can be approximated by a collection of small grid squares)
+
+- Cases: 
+    - Usual: The determinant is a positive number. For example, a determinant of 3 means that the area is increased by a factor of 3; while a determinant of 0.5 reduces the area to half its original size
+    - Also usual: The determinant is a negative number. Actually, the negative sign only means an invertion of orientation. The scaling factor is still only defined by the absolute value of the determinant
+    - Less commonly: the determinant is 0. This means that the transformation squishes everything into a SMALLER DIMENSION! Either a line (1D), or a point (0D)
+
+- Spotting inversion (2D):
+    - The basis vector i-hat is always on the right of j-hat, while j-hat is on the left of i-hat. If this is reversed, it means the entire orientation has been inverted and the determinant will be negative.
+    - Intuitively, we can think of the grid being squished as the determinant approaches 0, and expanding again on the other side after flipping, as the determinant becomes negative
+
+- The Determinant in 3D:
+    - Instead of areas, now volumes are what gets scaled
+    - Instead of unit square, we have a unit cube 1x1x1 with edges resting on the basis vectors
+    - Instead of square becoming a rectange, cube becomes a parallelepiped
+    - Since the cube starts with the volume of 1 and the determinant gives the factor by which any volume is scaled, we can think of the determinant as the actual VOLUME of the parallelepiped the cube turns into
+    - So the Determinant of [Matrix of scaled basis vectors] = the volume
+    - Similar to 2D, a determinant of 0 means that space is squished into 0 volume and therefore into a SMALLER DIMENSION. In this case a flat plane (2D), a line (1D), or a point (0D)
+    - As a reminder, this happens when Matrix columns are linearly dependent
+
+- Spotting inversion (3D):
+    - Use "right hand rule" to confirm positive determinant
+    - Forefinger: i-hat direction
+    - Middle finger: j-hat direction
+    - Thumb up: k-hat direction
+    - If left hand makes more sense: orientation has been flipped and the determinant is negative
+
+- How to compute the Determinant (2D):
+    - For 2D: In a 2x2 Matrix, where i-hat coordinates are a and c, and j-hat coordinates are b and d, the determinant = ad - bc
+    - Why this formula? Since c = (y-coordinate of i-hat) and b = (x-coordinate of j-hat):
+        - If both c and b are 0: Basis vectors simply stretch along their axes by factors a and d, forming a rectangle of area ad
+        - If only one of c or b is 0: One basis vector stays on its axis while the other tilts, creating a vertical or horizontal shear. The parallelogram leans but maintains the same base (a) and perpendicular height (d), so area remains ad
+        - If both c and b are non-zero: Neither basis vector stays axis-aligned—both tilt, creating a diagonal shear. The perpendicular height is no longer d because it's affected by how both vectors tilt
+        - When c and b have the same sign, vectors tilt "together," reducing perpendicular height; opposite signs increase it
+        - The formula ad - bc accounts for this: ad gives the "naive" rectangle area, bc corrects for the actual perpendicular height
+    
+- How to compute the Determinant (3D):
+    - The 3D determinant can be broken down into three smaller 2D determinant problems
+    - Take each value from the first row (a,b,c) and pair it with a 2×2 determinant calculated from the remaining values
+    - Form each 2×2 determinant by deleting the row and column of its paired coordinate:
+        - a · det([[e,f],[h,i]]) - delete row 1 and column 1
+        - b · det([[d,f],[g,i]]) - delete row 1 and column 2
+        - c · det([[d,e],[g,h]]) - delete row 1 and column 3
+    - Combine with alternating signs: determinant = a·(ei - fh) - b·(di - fg) + c·(dh - eg)
 
