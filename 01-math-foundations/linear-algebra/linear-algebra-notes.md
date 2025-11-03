@@ -277,3 +277,148 @@
         - c · det([[d,e],[g,h]]) - delete row 1 and column 3
     - Combine with alternating signs: determinant = a·(ei - fh) - b·(di - fg) + c·(dh - eg)
 
+---
+
+### Video 7: Inverse Matrices, Column Space and Null Space
+
+**Key Concepts:**
+
+- Linear systems of equations:
+    - Linear Algebra lets us solve certain systems of equations (for example, 3 systems with 3 variables each)
+    - Variables are just scaled by some constant, and those scaled variables are added to each other
+    - No exponents, variable multiplications and other complex forms
+    - To prepare our equations, align variables on the left, constants on the right
+    - Vertically line up similar variables, adding 0 coefficients if necessary
+    - Linear systems of equations look like vector Matrix multiplication
+
+- Linear systems as Matrices:
+    - We can package all equations together into a single vector equation (of the form Matrix * vector)
+    - This "constant" Matrix will contain all the coefficients (we will call it Matrix A)
+    - The vector will hold all the variables (we will call it vector X)
+    - Their matrix-vector product will hold a new "constant" vector (we will call it vector V)
+    - In this way, the simplified representation of this matrix-vector equation is: Ax = v
+
+- Geometric interpretation of the problem:
+    - The Matrix A corresponds to some linear transformation (because that's what a Matrix is!)
+    - As we know, the Matrix columns represent the position of the basis vectors after the transformation has taken place
+    - And to find where any other vector has landed, we multiply its starting position by the transformation Matrix
+    - The resulting vector is where the initial vector has landed
+    - Solving for Ax = v means that we are looking for a starting vector X which, after the transformation, lands on V
+
+- Cases:
+    - The determinant is non-0: most commonly; keeps the existing dimension
+    - The determinant is 0: space is squished into a lower dimension
+    
+- Non-0 determinant:
+    - In this case there will always be one and only one starting vector X that lands on V
+    - We can find it by playing the transformation IN REVERSE
+    - "Which vector X would we find, if we went backwards from V and played the transformation in reverse?"
+    - Inverse transformation is just another tranformation itself
+    - A-inverse is the unique transformation with the property that if you first apply A and then A-inverse, you end up back where you started 
+    - As we know, applying one transformation after another is captured algebraically with Matrix multiplication (and then we multiply the final transformation with the original vector)
+    - So A-inverse * A = remaining in place
+    - The composite Matrix that corresponds to "doing nothing" is the identity transformation
+    - So A-inverse * A = identity transformation (A⁻¹A = I)
+    - In practice, we use computers to find the inverses of transformations
+    - Once we have the inverse, we can solve by multiplying A-inverse * v:
+        - Ax = v 
+        - A-inverse * A * x = A-inverse * v
+        - A-inverse and A cancel out (identity transformation)
+        - x = A-inverse * v
+        - So now this means we are playing the transformation in reverse and following v
+    - So for non-0 determinant, if we have 2 unknowns and 2 equations, it's almost certainly the case that there is a single unique solution
+    - This is also the case in higher dimensions, when the number of equations equals the number of unknowns
+
+- When determinant is 0:
+    - In this case, there is no inverse. For instance in 2D, we cannot "unsquish" a line to turn it into a plane!
+    - At least not with any function. To do that, we would have to transform each individual vector into a full line of vectors
+    - But functions can only take a single input to a single output; they cannot map to multiple vectors
+    - So a determinant of 0 means that the transformation is non-invertible or "singular"
+    - Solutions can exist even without an inverse, if for example 2D gets squished into a line, and vector V is on that line
+    
+- Rank and column space:
+    - Rank is the number of dimensions in the output of a transformation
+        - Rank 1: When the output of a transformation is a line
+        - Rank 2: When the output of a transformation is a 2D plane
+        - Rank 3: When the output of a transformation is a 3D space
+    - The set of all possible outputs for our Matrix Av (line, 2D plane, 3D space) is the "column space" of our Matrix
+    - Why? Because the columns of a Matrix tell us where the basis vectors land
+    - And the span of those transformed basis vectors gives us all possible outputs
+    - So span of Matrix columns = column space
+    - And rank is the number of dimensions in the column space
+    - Full-rank Matrix: when rank equals the number of Matrix columns, it is as high as can be for that dimension
+    - For square matrices, the transformation preserves the dimension, the determinant is nonn-0 and the inverse exists
+    - For non-square matrices, "full rank" means the maximum possible rank, where rank cannot exceed the smaller of the two dimensions (rows or columns)
+    - Why? Because rank represents the dimension of the output space you actually reach, and you're limited by:
+        - How many independent directions you start with (columns = input dimension)
+        - How many independent directions you can express in the output (rows = output dimension)
+        - You can't create more independent directions than you started with, AND you can't express more independent directions than the output space allows.
+        - Therefore, 3x5 and 5x3 matrices both have a rank of 3
+
+- Null space:
+    - The 0 vector is always included in the column space (because the origin remains fixed)
+    - For a full-rank transformation, the only vector that lands at the origin is the 0 vector itself
+    - But for matrices that aren't full rank (which squish space into a smaller dimension), we can have many vectors that land on 0
+    - If a 2D transformation squishes space onto a line, there is a separate line (in a different direction) full of vectors that get squished onto the origin
+    - If a 3D transformation squishes space onto a plane, there is a line full of vectors that land on the origin
+    - So for example, if a 3×3 matrix has rank 2, the dimension of its null space is a 1-D line
+    - If a 3D transformation squishes space onto a line, there is a PLANE full of vectors that land on the origin
+    - The set of vectors that lands on the origin is called the Null space or Kernel of the Matrix
+    - It is the space of all vectors that become null (land on the 0 vector)
+    - In terms of a linear system of equations, the null space gives you all the possible solutions to the Ax = 0 equation
+    - For the general solution to Ax = v, we need the particular solution + the null space.
+    - Why? Example analogy: Imagine a 3D transformation that squishes space onto a plane (rank 2). The null space is a line perpendicular to that plane. If v is on the output plane, there's a whole line of starting vectors that land on v
+    - That line of solutions = one particular solution + all vectors in the null space 
+    - Moving along the null space doesn't change where you land (you stay on v)
+
+- Summary:
+    - How to think of linear systems of equations geometrically
+    - Each system has a linear transformation associated with it 
+    - When transformation has an inverse, we can use it to solve the system
+    - Otherwise, column space lets us understand when a solution even exists (when v is on the column space)
+    - And the idea of null space helps us understand what the set of all possible solutions can look like
+
+--
+
+### Video 8: Non-square matrices as transformation between dimensions
+
+**Key Concepts:**
+
+- Transformations can happen between dimensions
+- Again, grid line remain parallel and evenly spaced, and the origin maps to the origin
+- If 3 rows (3 landing coordinates: x-row, y-row, z-row) and 2 columns (2 basis vectors): 3x2 Matrix goes from 2D to 3D
+- The span of columns or column space (the place all vectors land) is a 2D plane slicing through the origin of 3D space
+- BUT the Matrix is still full rank because the number of dimensions in the column space (2) equals the number of dimensions in the input space (2)
+- So a 3x2 Matrix maps 2 dimensions to 3 dimensions
+- Conversely, a 2x3 Matrix maps 3 dimensions to 2 dimensions (2 rows as 2 coordinates and 3 columns as 3 basis vectors)
+- We could also have a transformation from 2D to 1D, on a 1x2 Matrix (1 row for x coordinate only, 2 rows as basis vectors)
+- Grid lines remain parallel and evenly spaced even here: if you have a line of evenly spaced dots, it would remain evenly spaced once they've mapped onto the number line
+
+**Additional notes:**
+
+- Difference between a 3x3 Matrix vs a 2x3 Matrix ending up in 2D:
+    - 3×3 Matrix (R³ → R³) maps 3D space to 3D space (same dimensional space)
+    - When rank = 2, it squishes the full 3D input onto a 2D plane embedded in 3D
+    - The output is still technically in R³, just confined to a plane within it
+    - 3×3 matrix with rank 2:
+        - Input: vector [x, y, z] in R³
+        - Output: vector [x+z, y, 0] in R³ (on the xy-plane within 3D space)
+        - The output has 3 components, third is always 0
+            [1  0  1]
+            [0  1  0]  
+            [0  0  0]
+    - Null space is a line through origin in R³ (perpendicular to the output plane)
+    - Analogy: Taking a 3D sculpture and flattening it against a wall in a 3D room. The flattened result is still "in the room" (R³), just stuck to a 2D surface.
+
+    - 2×3 Matrix (R³ → R²) maps 3D space to 2D space (different dimensional space)
+    - The output lives in R² (flat 2D world), not a plane embedded in R³
+    - Even at full rank (rank 2), you're going from 3D down to 2D
+    - 2x3 matrix with rank 2:
+        - Input: vector [x, y, z] in R³
+        - Output: vector [x+z, y] in R² (just 2 components, living in flat 2D)
+        - No third component exists at all
+            [1  0  1]
+            [0  1  0]
+        - Null space is a line through origin in R³ (all input vectors that map to [0,0])
+        - Analogy: Taking a 3D sculpture and projecting its shadow onto a piece of paper. The shadow exists in actual 2D space (R²), not as a plane in 3D.
+
