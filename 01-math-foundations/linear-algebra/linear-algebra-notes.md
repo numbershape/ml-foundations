@@ -416,23 +416,25 @@
 - Regarding the fact that grid lines remain parallel and evenly spaced, in 1D there are no grid lines, but this property is retained: if you have a line of evenly spaced dots on the 2D plane, it would remain evenly spaced once they've mapped onto the number line
 
 
-**Additional notes:**
+**Additional note: 3x3 Matrix with rank 2 VS 2x3 Matrix with rank 2**
 
-- Difference between a 3x3 Matrix vs a 2x3 Matrix with rank 2 (ending up in 2D):
-    - 3×3 Matrix maps 3D space to 3D space (same dimensional space)
+- 3x3 Matrix with rank 2:
+  - 3×3 Matrix maps 3D space to 3D space (same dimensional space):
     - When rank = 2, it squishes the full 3D input onto a 2D plane embedded in 3D
     - Output lives in 3D but is constrained to a 2D plane (like a sheet of paper floating in a room)
     - Analogy: Taking a 3D sculpture and flattening it against a wall in a 3D room. The flattened result is still "in the room" (3D), just stuck to a 2D surface
-    - Null space is a line through origin, perpendicular to the output plane WITHIN 3D space
+    - Null space is a line through origin, perpendicular to the output plane WITHIN 3D input/output space
     - So 3×3 matrix with rank 2:
         - Input: vector [x, y, z] in 3D
         - Output: vector [x+z, y, 0] in 3D (on the xy-plane within 3D space)
         - The output has 3 components, third is always 0: [1 0 1] [0 1 0] [0 0 0]
-    - Conversely, 2×3 Matrix maps 3D space to 2D space (different dimensional space)
+
+- 2x3 Matrix with rank 2:
+    - 2×3 Matrix maps 3D space to 2D space (different dimensional space):
     - The output lives in flat 2D world, not a plane embedded in 3D
     - Even at what is now considered a full rank (rank 2), you're going from 3D down to 2D
     - 2×3 with rank 2: Output lives in 2D entirely (like actual flatland - no third dimension exists)
-    - Null space is a line in the 3D input space that collapses to zero in the 2D output space
+    - Null space is a line in the 3D input space, that collapses to zero in the 2D output space
     - Analogy: Taking a 3D sculpture and projecting its shadow onto a piece of paper. The shadow exists in actual 2D space 2D, not as a plane in 3D.
     - 2x3 matrix with rank 2:
         - Input: vector [x, y, z] in 3D
