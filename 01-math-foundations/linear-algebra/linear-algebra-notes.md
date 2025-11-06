@@ -4,6 +4,20 @@
 - 3Blue1Brown: Essence of Linear Algebra (Videos 1-16)
 - Khan Academy: Linear Algebra exercises
 
+## Notation
+
+**Symbols and Formatting:**
+- Multiplication: *
+- Dot product: ·
+- Matrix dimensions: rows×columns (1×2, 2x3)
+- Vector: squared brackets with comma to indicate verticality [1, 2]
+- Matrix: squared brackets without comma [1 2]
+
+**Variables:**
+- Scalar: lowercase (a, b, c, x, y)
+- Vector: lowercase (v, w, x)
+- Matrix: uppercase (A, M)
+
 ---
 
 ## Notes
@@ -294,8 +308,8 @@
 - Linear systems as Matrices:
     - We can package all equations together into a single vector equation (of the form Matrix * vector)
     - This "constant" Matrix will contain all the coefficients (we will call it Matrix A)
-    - The vector will hold all the variables (we will call it vector X)
-    - Their matrix-vector product will hold a new "constant" vector (we will call it vector V)
+    - The vector will hold all the variables (we will call it vector x)
+    - Their matrix-vector product will hold a new "constant" vector (we will call it vector v)
     - In this way, the simplified representation of this matrix-vector equation is: Ax = v
 
 - Geometric interpretation of the problem:
@@ -306,16 +320,16 @@
     - Solving for Ax = v means that we are doing the reverse calculation (transformation Matrix * unknown starting vector = known landing position)
     - Normal case: A * x = ? (find where x lands)
     - Reverse case: A * ? = v (find what lands on v)
-    - So we are looking for a starting vector X which, after the transformation, lands on V
+    - So we are looking for a starting vector X which, after the transformation, lands on v
 
 - Cases:
     - The determinant is non-0: most commonly; keeps the existing dimension
     - The determinant is 0: space is squished into a lower dimension
     
 - Non-0 determinant:
-    - In this case there will always be one and only one starting vector X that lands on V
+    - In this case there will always be one and only one starting vector x that lands on v
     - We can find it by playing the transformation IN REVERSE
-    - "Which vector X would we find, if we went backwards from V and played the transformation in reverse?"
+    - "Which vector x would we find, if we went backwards from v and played the transformation in reverse?"
     - Inverse transformation is just another tranformation itself
     - A-inverse is the unique transformation with the property that if you first apply A and then A-inverse, you end up back where you started 
     - As we know, applying one transformation after another is captured algebraically with Matrix multiplication (followed by multiplying the final transformation by the original vector)
@@ -423,7 +437,7 @@
     - When rank = 2, it squishes the full 3D input onto a 2D plane embedded in 3D
     - Output lives in 3D but is constrained to a 2D plane (like a sheet of paper floating in a room)
     - Analogy: Taking a 3D sculpture and flattening it against a wall in a 3D room. The flattened result is still "in the room" (3D), just stuck to a 2D surface
-    - Null space is a line through origin, perpendicular to the output plane WITHIN 3D input/output space
+    - Null space is a line through origin, WITHIN the 3D input/output space and perpendicular to the output plane
     - So 3×3 matrix with rank 2:
         - Input: vector [x, y, z] in 3D
         - Output: vector [x+z, y, 0] in 3D (on the xy-plane within 3D space)
@@ -435,12 +449,142 @@
     - Even at what is now considered a full rank (rank 2), you're going from 3D down to 2D
     - 2×3 with rank 2: Output lives in 2D entirely (like actual flatland - no third dimension exists)
     - Null space is a line in the 3D input space, that collapses to zero in the 2D output space
-    - Analogy: Taking a 3D sculpture and projecting its shadow onto a piece of paper. The shadow exists in actual 2D space 2D, not as a plane in 3D.
+    - Analogy: Taking a 3D sculpture and projecting its shadow onto a piece of paper. The shadow exists in actual 2D space 2D, not as a plane in 3D
     - 2x3 matrix with rank 2:
         - Input: vector [x, y, z] in 3D
         - Output: vector [x+z, y] in 2D (just 2 components, living in flat 2D)
         - No third component exists at all: [1 0 1] [0 1 0]
         
+---
+
+### Video 9: Dot products and Duality
+
+**Key Concepts:**
+
+- Dot product numerically:
+    - If you have two vectors of the same dimension, taking their dot product means:
+        - starting with: [2, 7, 1] · [8, 2, 8]
+        - pairing up all of the coordinates: [2, 8] [7, 2] [8, 1]
+        - multiplying those pairs together: 2 * 8, 7 * 2, 1 * 8
+        - and adding the results: 2 * 8  +  7 * 2  +  1 * 8
+
+- Dot product geometrically:
+    - If the two vectors have the same direction:
+        - their dot product is positive (v · w > 0)
+        - imagine projecting w onto the line that passes through the origin and the tip of v
+        - multiplying the length of this projected w by the length of v, we get the dot product v · w
+    - If the two vectors have the opposite direction:
+        - their dot product is negative (v · w < 0)
+        - imagine the projection of w pointing in the opposite direction from v
+        - the w vector will have negative coordinates, so their product will be naturally negative
+    - If the two vectors are perpendicular to each other;
+        - their dot product is zero (v · w = 0)
+        - imagine the projection of w into v, disappears into the 0 vector
+        - since the coordinates of w are 0, their product will be 0
+    - The length of projected w is: |w| * cos(θ) so the total calculation is |v| * |w| * cos(θ)
+
+- Order doesn't matter:
+    - Initially we would think that the above interpretation is asymmetric and treats the two vectors differently
+    - However, the order of multiplying for the dot product does not matter
+    - Instead of projecting w onto v, we could: project v onto w, multiply the length of projected v by the length of w and get the same result
+    - Explanation: 
+        - if w and v had the same length, we could leverage some symmetry and say that no matter which vector we chose to project, their dot product would be the same
+        - if we scaled one of them by 2, for example w · 2v, that symmetry would break
+        - but actually, the ratio of changes would still balance out in the end
+        - if we projected w onto 2v, the length of projected w would stay the same, while the length of v would double
+        - so their dot product 2v · w would be exactly twice that of v . w and would result in 2 (v · w)
+        - if we projected 2v onto w instead, now the length of projected 2v is what gets scaled, while the actual length of w would stay constant, resulting again in 2 (v · w)
+        - so the overall effect in both cases is to just double the dot product        
+
+- Numerical and Geometrical relationship:
+
+    - How does the numerical process of matching coordinates, multiplying the pairs and adding them, is related to geometrical projection:
+        - the answer comes from the concept of DUALITY
+
+    - Geometric operation:
+        - Linear Transformations that go from 2D to 1D, are functions that take in a 2D vector and return a single number
+        - but Linear Transformations have some restrictions
+        - in the case of 2D to 1D, if you take a diagonal line of evenly spaced dots and apply a transformation, if it's linear the dots will remain evenly spaced in the output line
+        - one of these linear transformations is completely determined by where it takes i-hat and j-hat
+        - in this case they land on a number each
+        - so when we record them in a matrix it will be a 1x2 matrix: [2 1]
+    
+    - Applying this transformation to a vector:
+        - imagine a linear transformation that takes i-hat to 1 and j-hat to -2
+        - to follow an original vector of coordinates [4, 3], we can break it into 4i-hat + 3j-hat (since the basis vectors have a unit of 1)
+        - after the transformation, due to linearity the vector will be 4 * [where i-hat lands (1)], plus 3 * [where j-hat lands (-2)], so 4 * 1  +  3 * (-2), so 4 + (-6), resulting in -2
+        - just like where j-hat landed! (the original vector was longer and diagonal to j-hat)
+       
+    - Numerical operations:
+        - when we do this calculation purely numerically, it's a matrix vector multiplication
+        - we multiply a 1x2 matrix by a vector [1 -2] * [4, 3] = 4 * 1 + 3 * (-2)
+        - and it's just like taking the dot product of two vectors [1, -2] * [4, 3]
+        - so there is a nice association between 1x2 (2D -> 1D) matrices and 2D vectors
+        - we can tilt the numerical representation of a vector on its side to get the associated matrix, or tip the matrix back up to get the associated vector
+        - so there is a connection between linear transformations that take vectors to numbers, and vectors THEMSELVES!
+
+- Another way to see the connection:
+
+    - Define a linear transformation from 2D to 1D:
+        - let's say we didn't know that a dot product relates to projection
+        - place a numberline copy diagonally in space, with 0 at the origin
+        - think of the 2D unit vector whose tip sits at 1 on that line, let's call it u-hat
+        - if we project 2D vectors straight onto this diagonal line, we just defined a function that takes 2D vectors to numbers (2D to 1D)!
+        - and this function is actually linear, since it passes our visual test that any line of evenly spaced dots remains evenly spaced once it lands on the number line
+        - remember that the output of the function are numbers, not 2D vectors, as we are in 1D
+        - the function takes 2 coordinates and outputs one
+        - u-hat is a diagonal 2D vector of the input space that overlaps with the embedding of the number line
+    
+    - Find the associated Matrix:
+        - now let's try to find, WHERE did the basis vectors landed? 
+        - if we find that, we will find the 1x2 matrix that describes this transformation
+        - but the only information we have is where u-hat landed (1)
+        - we know that i-hat and j-hat are both unit vectors, and the angle between them is the same regardless of which you project onto which
+        - the projection of a unit vector onto another unit vector equals the cosine of the angle between them: i-hat · u-hat = cos(θ) = ux (the x-component of u-hat)
+        - therefore, projecting i-hat into the line that passes through u-hat, is symmetric to projecting u-hat into the x-axis (so taking the x-coordinate of u-hat: ux)
+        - and so they land on the SAME number on their respective projection lines (ux)
+        - this reasoning is similar for the j-hat case
+        - using symmetry in this way we find that [ux uy] is where i-hat and j-hat landed 
+        - therefore, the 1x2 matrix describing the transformation are actually the coordinates of u-hat!
+        - so more generally, computing this projection transformation for any arbitrary vector in space, and multiplying the matrix by that vector [ux uy] * [x, y] = ux·x + uy·y, is computationally identical to taking a dot product of the vector and u-hat! [ux, uy] * [x, y] = ux·x + uy·y
+        - this is why taking the dot product of a vector and a unit vector, can be interpreted as PROJECTING a vector onto the SPAN of that unit vector and taking the projection length
+
+    - Non-unit vectors:
+        - now let's see scaled vectors
+        - let's say we have a vector 3u-hat
+        - following a similar reasoning as before, its coordinates will be [3ux, 3uy]
+        - and its associated transformation matrix will be [3ux 3uy]
+        - looking at the matrix, it takes i-hat and j-hat to 3 times the values where they landed before
+        - due to linearity, this new matrix can be interpreted as projeting ANY vector onto the numberline copy, and multiplying where it lands by 3
+        - this is why the dot product with a non-unit vector can be interpreted as first projecting onto that vector, and then scaling up the length of that projection by the length of the vector
+        
+    - Process summary:
+        - we had a linear transformation from 2D to 1D
+        - NOT defined in terms of numerical vectors or numerical dot products
+        - just defined by projecting space on to a diagonal copy of the numberline 
+        - but because the transformation is linear, it was NECESSARILY described by some 1x2 Matrix
+        - since multiplying a 1x2 matrix by a 2D vector is the same as turning that matrix on its side and taking the dot product, this transformation was RELATED to some vector
+        - in conclusion, any time we have one of these linear transformations where output space is the number line, no matter how it was defined, there will be some unique vector v corresponding to that transformation, in the sense that applying the transformation is the same thing as taking a dot product with that vector
+
+    - Duality:
+        - the DUAL of a vector is the linear transformation it encodes
+        - the DUAL of a linear transformation from some space to 1D is a certain vector in that space
+        - Why does duality work? The fundamental reason is that the dual space (space of linear functionals) has the same dimension as the original space. In finite dimensions, this creates a natural isomorphism
         
 
+- Summary of important concepts:
+    - The dot product is a very useful geometrical tool for:
+        - understanding projections
+        - test whether or not vectors tend to point in the same direction
+    - In a deeper level, dotting two vectors together is a way to translate one of them into the world of transformations
+    - Vectors are not just arrows in space, but also the physical embodiment or conceptual shorthand, of a linear transformation
 
+
+**Additional notes:**
+
+-  When we compute v · w, we are using v as a measuring stick to see how much of w aligns with v's direction.
+- Every vector w can be broken into components: w = (component along v) + (component perpendicular to v)
+- The dot product v · w extracts only the first part and filters out everything perpendicular to v
+- The duality reveals that every vector defines a way to "measure" other vectors
+- When we compute v · w, we are essentially asking: "How much does w contribute in the v-direction?"
+- This is why dot products appear everywhere; they're the natural way to decompose vectors into components
