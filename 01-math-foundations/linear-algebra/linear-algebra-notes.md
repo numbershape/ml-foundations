@@ -10,8 +10,11 @@
 - Multiplication: *
 - Dot product: ·
 - Matrix dimensions: rows×columns (1×2, 2x3)
-- Vector: squared brackets with comma to indicate verticality [1, 2]
-- Matrix: squared brackets without comma [1 2]
+- Vector: [1, 2] (comma indicates vertical stacking)
+- Matrix: [a b; c d] where a b and c d are rows
+    - row elements separated by spaces [a b] 
+    - rows separated by semicolon [a b; c d]
+    - columns separated by comma [a, c]
 
 **Variables:**
 - Scalar: lowercase (a, b, c, x, y)
@@ -56,7 +59,7 @@
     - Each vector represents a STEP or MOVE (distance and direction)
     - Taking both individually or taking their sum "path" lands you at the same point in space
     - Like 2 + 5 is like taking 7 steps to the right
-    - Example: "Walk 1 to the right, then two up, then 3 to the right,, then 1 down"
+    - Example: "Walk 1 to the right, then two up, then 3 to the right, then 1 down"
     - We can first do all the rightward motions and then all the vertical motions
 
 - Vector multiplication by a number:
@@ -96,7 +99,7 @@
     - The set of all possible vectors you can reach with a linear combination of a pair of vectors (+ all possible scalars) is their SPAN
     - So span is all possible vectors you can reach using only the two fundamental operations (vector addition and scalar multiplication)
     - So basically, adding two pre-scaled vectors
-    - The span of most pairs of 2D vectors is all vectors of 2D space (remember exception 1: all vectors whose tips sits on a straight line)
+    - The span of most pairs of 2D vectors is all vectors of 2D space (remember rare case: all vectors whose tips sits on a straight line)
     - So basically, the span of most vectors is the entire 2D space sheet
     - To avoid a crowded space, when dealing with collections of vectors, we represent them as points
     - Tip of the vector is the point in space; tail is implicitly at the origin
@@ -151,15 +154,16 @@
     - So we only need to know where the basis vectors landed, and we can deduce where any other vector landed, without visual aid
     - Any 2D Linear Transformation is described by just 4 numbers (the two coordinates where i-hat lands, and the two coordinates where j-hat lands), because linear transformations preserve linear combinations
 
-- 2x2 Matrix:
+- 2x2 Matrix-Vector Multiplication:
     - We package the four numbers into a 2x2 grid
     - Two columns: where i-hat lands, and where j-hat lands
-    - We can even define the process as Matrix Vector Multiplication
-    - The multiplication formula order is not too clear, but it's actually just due to the vertical bracket notation (x coordinate goes with i-hat and y coordinate goes with j-hat)
+    - We can even define the process as Matrix-Vector Multiplication
+    - The multiplication formula order is due to the vertical bracket notation (x coordinate goes with i-hat and y coordinate goes with j-hat)
+    - For a Matrix-vector multiplication with Matrix ***[a b; c d] * [x, y]*** vector, we do ***x * [a, c] + y * [b, d]***, which equals the resulting vector ***[ax+by, cx+dy]***
 
 - Linear dependence (added note):
     - If i-hat and j-hat are linearly dependent (one is a scaled version of the other), linear transformation squishes all 2D into the line where vectors sit
-    - This is called the 1-D span of linearly dependent vectors
+    - This is called the 1D span of linearly dependent vectors
 
 - Linear Trasformations summary:
     - A way to move around space such that grid lines remain parallel and evenly spaced
@@ -167,7 +171,7 @@
     - Matrices give us a way to describe these transformations, where columns represend those coordinates
     - Matrix vector multiplication is a way to compute what that transformation does to a given vector
     - Every time we see a Matrix we can interpret it as a certain transformation of space
-    - In notation: if a vector v = x·î + y·ĵ, then after transformation: v' = x·î' + y·ĵ'
+    - In standard notation: if a vector v = x·i + y·ĵ, then after transformation: v' = x·î' + y·ĵ'
 
 ---
 
@@ -181,29 +185,30 @@
     - This is like the composite function f(g(x)) - read and done right to left
 
 - Combine two transformations into one - Matrix Multiplication (faster, preferred way):
-    - CompositeMatrix = (i-hat of Matrix1 * Matrix2) for composite i-hat; (j-hat of Matrix1 * Matrix2) for composite j-hat; which expands to:
-    - CompositeMatrix i-hat = (x"scalar" of Matrix1 i-hat-vector * Matrix2 i-hat) + (y"scalar" of Matrix1 i-hat-vector * Matrix2 j-hat)
-    - CompositeMatrix j-hat = (x"scalar" of Matrix1 j-hat-vector * Matrix2 i-hat) + (y"scalar" of Matrix1 j-hat-vector * Matrix2 j-hat)
+    - Composite_Matrix = (i-hat of Matrix1 * Matrix2) for composite i-hat; (j-hat of Matrix1 * Matrix2) for composite j-hat; which expands to:
+    - Composite_Matrix i-hat = (x "scalar" of Matrix1 i-hat-vector * Matrix2 i-hat) + (y "scalar" of Matrix1 i-hat-vector * Matrix2 j-hat)
+    - Composite_Matrix j-hat = (x "scalar" of Matrix1 j-hat-vector * Matrix2 i-hat) + (y "scalar" of Matrix1 j-hat-vector * Matrix2 j-hat)
 
-- Symbolic representation of the above for calculations:
-    - Written in notation: Matrix1 = M₁; Matrix2 = M₂
-    - Column1 of (M₂M₁) = x₁(M₂ column1) + y₁(M₂ column2), where [x₁, y₁] is M₁'s column1
-    - Column2 of (M₂M₁) = x₂(M₂ column1) + y₂(M₂ column2), where [x₂, y₂] is M₁'s column2
-
-- Finalizing the calculation:
-    - After we find Composite Matrix, we multiply it by the original vector
+- 2x2 Matrix-Matrix Multiplication:
+    - Matrix2 = [a b; c d]
+    - Matrix1 = [e f; g h]
+    - We break down Matrix1 into two intermediate vectors, multiply each by Matrix2, and get a resulting vector each
+        - [a b; c d] * [e, g] ->  e * [a, c] + g * [b, d] ->  [ae, ce] + [bg, dg] ->  vector [ae+bg, ce+dg]
+        - [a b; c d] * [f, h] ->  f * [a, c] + h * [b, d] ->  [af, cf] + [bh, dh] ->  vector [af+bh, cf+dh]
+    - Composite_Matrix is: [ae+bg af+bh; ce+dg cf+dh]
+    - After we find Composite_Matrix, we multiply it by the ORIGINAL vector: ***[ae+bg af+bh; ce+dg cf+dh] * [x, y]***
     - The result is where the original vector landed after both transformations
 
 - Order importance: 
     - The order we do the intermediate calculation matters! 
-    - "In CompositeMatrix [Matrix2 Matrix1], first apply Matrix1 and then Matrix2 - read right to left like function composition
-    - Transformations are applied sequentially: Matrix1 first moves the basis vectors to new positions, then Matrix2 transforms those already-moved vectors. Reversing the order would mean that Matrix2 transforms the original basis vectors first, leading to different intermediate positions and thus a different final result.
+    - In Composite_Matrix [Matrix2 Matrix1], first apply Matrix1 and then Matrix2 - read right to left like function composition
+    - Transformations are applied sequentially: Matrix1 first moves the basis vectors to new positions, then Matrix2 transforms those already-moved vectors. Reversing the order would mean that Matrix2 transforms the original basis vectors first, leading to different intermediate positions and thus a different final result
     - In the intermediate stage, we treat the Matrix1's (not Matrix2's) i-hat and j-hat as regular vectors (since their value changed from implicit unit vectors to a different value), and we multiply each one of them by Matrix2
-    - THEN we multiply the final Composite Matrix by the original vector
+    - THEN we multiply the final Composite_Matrix by the original vector
 
 - Associativity:
     - Why does this work? Because in Linear Transformations we can use the same scalars of the original vector 
-    - And because it is associative A(BC) = (AB)C, or in notation (M₂M₁)v = M₂(M₁v), we can pre-compute the composite matrix.
+    - And because it is associative A(BC) = (AB)C, or (Matrix2 * Matrix1) * vector = Matrix2 (Matrix1 * vector), we can pre-compute the composite matrix.
     - Meaning that, as long as we keep the correct cross-matrix calculation order, original vector (C) can be either multiplied with Matrix1 (B), and then their result multiplied with Matrix2 (A), or we can wait for Matrix1 (B) to be multiplied by Matrix2 (A), and then their result multiplied by original vector (C).
     
 ---
@@ -217,17 +222,17 @@
     - Transformations from 3D vectors to 3D vectors behave similarly
     - Now we have 3 basis vectors: i-hat for x-axis; j-hat for y-axis; k-hat for z-axis
     - Matrices are now 3x3
-    - A 3x3 Matrix completely describes the transformation using only 9 numbers (which represent the 3 coordinates of where each of the 3 basis vectors ended up)
+    - A 3x3 Matrix completely describes the transformation using only 9 numbers (which represent the 3 coordinates of where each of the 3 basis vectors end up)
 
-- Simple Transformations:
+- 3x3 Matrix-Vector Multiplication (Simple Transformations):
     - Same multiplication reasoning as with 2D: input vector * transformation
     - To see where our vector lands, we multiply the input vector coordinates by the corresponding columns of the matrix
-    - Vector x-coordinate * transformed i-hat; vector y-coordinate * transformed j-hat; vector z-coordinate * transformed k-hat
-    - And then we add together the three results
+    - For a Matrix-vector multiplication with a 3x3 Matrix, we do ***vector x-coordinate * transformed i-hat; plus vector y-coordinate * transformed j-hat; plus vector z-coordinate * transformed k-hat***, to find the resulting vector
 
-- Matrix Multiplication: 
+- 3x3 Matrix-Matrix Multiplication: 
     - For composite transformations, we can multiply two 3x3 matrices
-    - First we apply the transformation encoded by the right Matrix, and then the left one
+    - Order: first we apply the transformation encoded by the right Matrix, and then the transformation encoded by the left one
+    - Calculation process follows the same logic as in 2x2 Matrix-Matrix Multiplication
 
 ---
 
@@ -236,9 +241,8 @@
 **Key Concepts:**
 
 - The Determinant:
-    - A way to measure how much the transformation stretches or squishes things
-    - By measuring the factor by which the area of a given region increases or decreases (all areas are scaled uniformly)
-    - The area of te unit square formed by the basis vectors is 1x1; if it increases to 2x3, the new area is 6
+    - A way to measure how much the transformation stretches or squishes things, by measuring the factor by which the area of a given region increases or decreases (all areas are scaled uniformly)
+    - The area of the unit square formed by the basis vectors is 1x1; if it increases to 2x3, the new area is 6
     - In this case, the linear transformation has scaled the area by 6
     - This scaling factor by which a linear transformation changes any area is called the determinant
     - Some transformations leave the area unchanged, like the shear that transforms a 1x1 square into a 1x1 parallelogram
@@ -260,7 +264,7 @@
 - The Determinant in 3D:
     - Instead of areas, now volumes are what gets scaled
     - Instead of unit square, we have a unit cube 1x1x1 with edges resting on the basis vectors
-    - Instead of square becoming a rectange, cube becomes a parallelepiped
+    - Instead of square becoming a rectangle, cube becomes a parallelepiped
     - Since the cube starts with the volume of 1 and the determinant gives the factor by which any volume is scaled, we can think of the determinant as the actual VOLUME of the parallelepiped the cube turns into
     - So the Determinant of [Matrix of scaled basis vectors] = the volume
     - Similar to 2D, a determinant of 0 means that space is squished into 0 volume and therefore into a SMALLER DIMENSION. In this case a flat plane (2D), a line (1D), or a point (0D)
@@ -274,22 +278,27 @@
     - If left hand makes more sense: orientation has been flipped and the determinant is negative
 
 - How to compute the Determinant (2D):
-    - For 2D: In a 2x2 Matrix, where i-hat coordinates are a and c, and j-hat coordinates are b and d, the determinant = ad - bc
+    - For 2D: In a 2x2 Matrix [a b; c d], where i-hat coordinates are a and c, and j-hat coordinates are b and d, the 2D determinant equals: ***ad - bc***
     - Why this formula? Since c = (y-coordinate of i-hat) and b = (x-coordinate of j-hat):
         - If both c and b are 0: Basis vectors simply stretch along their axes by factors a and d, forming a rectangle of area ad
         - If only one of c or b is 0: One basis vector stays on its axis while the other tilts, creating a vertical or horizontal shear. The parallelogram leans but maintains the same base (a) and perpendicular height (d), so area remains ad
-        - If both c and b are non-zero: Neither basis vector stays axis-aligned—both tilt, creating a diagonal shear. The perpendicular height is no longer d because it's affected by how both vectors tilt
-        - When c and b have the same sign, vectors tilt "together," reducing perpendicular height; opposite signs increase it
+        - If both c and b are non-zero: Neither basis vector stays axis-aligned, both tilt creating a diagonal shear. The perpendicular height is no longer d because it's affected by how both vectors tilt
+        - When c and b have the same sign, vectors tilt "together," reducing perpendicular height; conversely, opposite signs increase it
         - The formula ad - bc accounts for this: ad gives the "naive" rectangle area, bc corrects for the actual perpendicular height
     
 - How to compute the Determinant (3D):
-    - The 3D determinant can be broken down into three smaller 2D determinant problems
+    - For 3D: In a 3x3 Matrix, the 3D determinant can be broken down into three smaller 2D determinant problems
     - Take each value from the first row (a,b,c) and pair it with a 2×2 determinant calculated from the remaining values
     - Form each 2×2 determinant by deleting the row and column of its paired coordinate:
-        - a · det([[e,f],[h,i]]) - delete row 1 and column 1
-        - b · det([[d,f],[g,i]]) - delete row 1 and column 2
-        - c · det([[d,e],[g,h]]) - delete row 1 and column 3
-    - Combine with alternating signs: determinant = a·(ei - fh) - b·(di - fg) + c·(dh - eg)
+        - a · det([e f; h i]) - delete row 1 and column 1
+        - b · det([d f; g i]) - delete row 1 and column 2
+        - c · det([d e; g h]) - delete row 1 and column 3
+    - Calculate: value * (top left * bottom right) - (top right * bottom left)
+        - a · det([e f; h i]) = a·(ei - fh)
+        - b · det([d f; g i]) = b·(di - fg)
+        - c · det([d e; g h]) = c·(dh - eg)
+    - Combine the results of the three 2x2 determinants, with alternating signs (+, -, +) to get the final 3D determinant
+    - The final 3D determinant equals: ***a·(ei - fh) - b·(di - fg) + c·(dh - eg)***
 
 ---
 
@@ -303,14 +312,14 @@
     - No exponents, variable multiplications and other complex forms
     - To prepare our equations, align variables on the left, constants on the right
     - Vertically line up similar variables, adding 0 coefficients if necessary
-    - Linear systems of equations look like vector Matrix multiplication
 
 - Linear systems as Matrices:
+    - Linear systems of equations look like vector Matrix multiplication
     - We can package all equations together into a single vector equation (of the form Matrix * vector)
     - This "constant" Matrix will contain all the coefficients (we will call it Matrix A)
     - The vector will hold all the variables (we will call it vector x)
     - Their matrix-vector product will hold a new "constant" vector (we will call it vector v)
-    - In this way, the simplified representation of this matrix-vector equation is: Ax = v
+    - In this way, the simplified representation of this matrix-vector equation is: ***Ax = v***
 
 - Geometric interpretation of the problem:
     - The Matrix A corresponds to some linear transformation (because that's what a Matrix is!)
@@ -320,7 +329,7 @@
     - Solving for Ax = v means that we are doing the reverse calculation (transformation Matrix * unknown starting vector = known landing position)
     - Normal case: A * x = ? (find where x lands)
     - Reverse case: A * ? = v (find what lands on v)
-    - So we are looking for a starting vector X which, after the transformation, lands on v
+    - So we are looking for a starting vector x which, after the transformation, lands on v
 
 - Cases:
     - The determinant is non-0: most commonly; keeps the existing dimension
@@ -332,23 +341,23 @@
     - "Which vector x would we find, if we went backwards from v and played the transformation in reverse?"
     - Inverse transformation is just another tranformation itself
     - A-inverse is the unique transformation with the property that if you first apply A and then A-inverse, you end up back where you started 
-    - As we know, applying one transformation after another is captured algebraically with Matrix multiplication (followed by multiplying the final transformation by the original vector)
+    - As we know, applying one transformation after another is captured algebraically with Matrix Multiplication (followed by multiplying the final transformation by the original vector)
     - So A-inverse * A = remaining in place
-    - The composite Matrix that corresponds to "doing nothing" is the identity transformation
-    - So A-inverse * A = identity transformation (A⁻¹A = I)
+    - The composite Matrix that corresponds to "doing nothing" is called the "identity transformation"
+    - So A-inverse * A = identity transformation (standard notation: A⁻¹A = I)
     
 - Non-0 det calculation process:
     - Once we have the inverse, we can solve by multiplying A-inverse * v:
         - Ax = v 
         - A-inverse * A * x = A-inverse * v
         - A-inverse and A cancel out (identity transformation)
-        - x = A-inverse * v
-        - So now this means we are playing the transformation in reverse and following v
+        - ***x = A-inverse * v***
+        - So now this means we are playing the transformation in reverse and following v back to its original place
     - In practice, we use computers to find the inverses of transformations
     - Example: Say we have the equations 2x + 3y = 8 and 1x + 2y = 5
-        - This is the Matrix equation: [[2,3], [1,2]] times [x,y] = [8,5]
-        - Find the inverse of [[2,3], [1,2]] (using a computer or formula)
-        - Multiply: inverse times [8,5] gives [x,y] = [1,2]
+        - This is the Matrix equation: [2 3]; [1 2] * [x, y] = [8, 5]
+        - Find the inverse of [2 3]; [1 2] (using a computer or formula)
+        - Multiply: inverse * [8, 5] = [x, y] = [1, 2]
         - Check: 2(1) + 3(2) = 8 ✓ and 1(1) + 2(2) = 5 ✓
     - So for non-0 determinant, if we have 2 unknowns and 2 equations, it's almost certainly the case that there is a single unique solution
     - This is also the case in higher dimensions, when the number of equations equals the number of unknowns
@@ -358,7 +367,7 @@
     - At least not with any function. To do that, we would have to transform each individual vector into a full line of vectors
     - But functions can only take a single input to a single output; they cannot map to multiple vectors
     - So a determinant of 0 means that the transformation is non-invertible or "singular"
-    - Solutions can exist even without an inverse, if for example 2D gets squished into a line, and vector V is on that line
+    - Solutions can exist even without an inverse, if for example 2D gets squished into a line, and vector v is ON that line
     
 - Rank and column space:
     - Rank is the number of dimensions in the output of a transformation
@@ -391,15 +400,15 @@
     - If a 3D transformation squishes space onto a 2D plane, there is also a line full of vectors that land on the origin
     - So for instance, if a 3×3 matrix has rank 2, the dimension of its null space is a 1D line 
     - If a 3D transformation squishes space onto a 1D line, there is a PLANE full of vectors that land on the origin
-    - Rank-nullity theorem: For any matrix, number of columns - rank = null space dimension
-    - Why? 3×3 with rank 2 means null space dimension is 1 (because 3 - 2 = 1)
+    - Rank-nullity theorem: For any matrix, ***number of columns - rank = null space dimension***
+    - Why? 3×3 matrix with rank 2 means null space dimension is 1 (because 3 - 2 = 1)
     - A 5×7 matrix with rank 4 means null space dimension is 3 (because 7 - 4 = 3)
 
 - Null space in equations:
     - In terms of a linear system of equations, the null space gives us all the possible solutions to the Ax = 0 equation
     - For the general solution to Ax = v, we need the particular solution + the null space.
     - Why? If a 3D transformation squishes onto a 2D plane, and v is on that 2D plane, then there is an entire LINE of starting vectors that all landed on v! That line is parallel to the null space line. So if we pick any point on that line, it's a solution for v. 
-    - So we do: find one vector that lands on v + null space = line of vectors that land on v
+    - So we do: ***find one vector that lands on v + null space = line of vectors that land on v***
     - This is shifting the null space line so it passes through our particular solution point
     - If the null space is a line through the origin, our solution line is that same line but translated so it passes through our particular solution instead of through the origin
     - The particular solution (one vector that satisfies Ax = v)
@@ -421,7 +430,7 @@
 
 - Transformations can happen between dimensions
 - Again, grid line remain parallel and evenly spaced, and the origin maps to the origin
-- If 3 rows (3 landing coordinates: x-row, y-row, z-row) and 2 columns (2 basis vectors): 3x2 Matrix goes from 2D to 3D
+- If we have 3 rows (3 landing coordinates: x-row, y-row, z-row) and 2 columns (2 basis vectors): 3x2 Matrix goes from 2D to 3D
 - The span of columns or column space (the place all vectors land) is a 2D plane slicing through the origin of 3D space
 - BUT the Matrix is still full rank because the number of dimensions in the column space (2) equals the number of dimensions in the input space (2)
 - So a 3x2 Matrix maps 2 dimensions to 3 dimensions
@@ -436,11 +445,11 @@
   - 3×3 Matrix maps 3D space to 3D space (same dimensional space):
     - When rank = 2, it squishes the full 3D input onto a 2D plane embedded in 3D
     - Output lives in 3D but is constrained to a 2D plane (like a sheet of paper floating in a room)
-    - Analogy: Taking a 3D sculpture and flattening it against a wall in a 3D room. The flattened result is still "in the room" (3D), just stuck to a 2D surface
-    - Null space is a line through origin, WITHIN the 3D input/output space and perpendicular to the output plane
+    - Analogy: Taking a 3D sculpture and squishing it against a wall in a 3D room. The flattened result is still "in the room" (3D), just stuck to a 2D surface
+    - Null space is a line through origin, WITHIN the 3D input/output space (shared by both) and perpendicular to the output plane
     - So 3×3 matrix with rank 2:
         - Input: vector [x, y, z] in 3D
-        - Output: vector [x+z, y, 0] in 3D (on the xy-plane within 3D space)
+        - Output: vector [x+z, y, 0] in 3D (on the 2D xy-plane within 3D space)
         - The output has 3 components, third is always 0: [1 0 1] [0 1 0] [0 0 0]
 
 - 2x3 Matrix with rank 2:
@@ -465,8 +474,8 @@
     - If you have two vectors of the same dimension, taking their dot product means:
         - starting with: [2, 7, 1] · [8, 2, 8]
         - pairing up all of the coordinates: [2, 8] [7, 2] [8, 1]
-        - multiplying those pairs together: 2 * 8, 7 * 2, 1 * 8
-        - and adding the results: 2 * 8  +  7 * 2  +  1 * 8
+        - multiplying those pairs together: (2 * 8) (7 * 2) (1 * 8)
+        - and adding the results: (2 * 8) + (7 * 2) + (1 * 8)
 
 - Dot product geometrically:
     - If the two vectors have the same direction:
@@ -588,3 +597,11 @@
 - The duality reveals that every vector defines a way to "measure" other vectors
 - When we compute v · w, we are essentially asking: "How much does w contribute in the v-direction?"
 - This is why dot products appear everywhere; they're the natural way to decompose vectors into components
+        
+---
+
+### Video 10: [video]
+
+**Key Concepts:**
+
+- 
