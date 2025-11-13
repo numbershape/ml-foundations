@@ -379,8 +379,7 @@
     - And the span of those transformed basis vectors gives us all possible outputs
     - So span of Matrix columns = column space
     - And rank is the number of dimensions in the column space
-    - Full-rank Matrix: when rank equals the number of Matrix columns, it is as high as can be for that dimension
-
+ 
 - Full rank cases: 
     - For square matrices, "full rank" means that the transformation preserves the dimension, the determinant is non-0 and the inverse exists
     - For non-square matrices, "full rank" means the maximum possible rank, where rank cannot exceed the smaller of the two dimensions (rows or columns); and it does not guarantee invertibility
@@ -390,16 +389,28 @@
         - We can't create more independent directions than we started with, AND we can't express more independent directions than the output space allows.
         - Therefore, 3x5 and 5x3 matrices both have a rank of 3
 
+- Full-rank definition:
+    - A Matrix is "full rank" when rank is as high as possible for that matrix shape
+        - for tall/square matrices (rows ≥ columns): rank = number of columns
+        - for wide matrices (columns > rows): rank = number of rows
+    - A matrix is not full rank, if and only if it has linear dependencies
+        - if rank < number of columns, that means you have fewer independent columns than total columns, which means at least one column can be written as a combination of others
+        - this connects to the rank-nullity theorem we are about to see below (rank + nullity = number of columns), as when nullity is > 0, it means linear dependencies exist among the columns
+    - Example with a 3x4 matrix:
+        - full rank (3) means we moved from 4D to 3D and now we have just 3 linearly independent columns (the 4th is now linearly dependent on the first 3)
+        - not full rank (<3) means we have fewer than 3 independent columns, meaning multiple dependencies exist
+
 - Null space:
-    - The 0 vector is always included in the column space (because the origin remains fixed)
+    - When we multiply a matrix by an input vector, the column space is the set of all possible outputs
+    - When we multiply the matrix by the zero vector input, we get the zero vector as output (A * 0 = 0). So the initial 0 vector is always included in the column space. 
     - The set of vectors that lands on the origin is called the "null space" or "kernel" of the Matrix
     - It is the space of all vectors that become null (land on the 0 vector)
     - For a full-rank transformation, the only vector that lands at the origin is the 0 vector itself
     - But for matrices that aren't full rank (which squish space into a smaller dimension), we can have many vectors that land on 0
-    - If a 2D transformation squishes space onto a 1D line, there is a separate line (in a different direction) full of vectors that get squished onto the origin
-    - If a 3D transformation squishes space onto a 2D plane, there is also a line full of vectors that land on the origin
-    - So for instance, if a 3×3 matrix has rank 2, the dimension of its null space is a 1D line 
-    - If a 3D transformation squishes space onto a 1D line, there is a PLANE full of vectors that land on the origin
+        - If a 2D transformation squishes space onto a 1D line, there is a separate line (in a different direction) full of vectors that get squished onto the origin
+        - If a 3D transformation squishes space onto a 2D plane, there is also a line full of vectors that land on the origin
+        - So for instance, if a 3×3 matrix has rank 2, the dimension of its null space is a 1D line 
+        - If a 3D transformation squishes space onto a 1D line, there is a PLANE full of vectors that land on the origin
     - Rank-nullity theorem: For any matrix, ***number of columns - rank = null space dimension***
     - Why? 3×3 matrix with rank 2 means null space dimension is 1 (because 3 - 2 = 1)
     - A 5×7 matrix with rank 4 means null space dimension is 3 (because 7 - 4 = 3)
@@ -428,13 +439,12 @@
 
 **Key Concepts:**
 
-- Transformations can happen between dimensions
+- Transformations can happen between dimensions, represented by non-square matrices
 - Again, grid line remain parallel and evenly spaced, and the origin maps to the origin
 - If we have 3 rows (3 landing coordinates: x-row, y-row, z-row) and 2 columns (2 basis vectors): 3x2 Matrix goes from 2D to 3D
 - The span of columns or column space (the place all vectors land) is a 2D plane slicing through the origin of 3D space
-- BUT the Matrix is still full rank because the number of dimensions in the column space (2) equals the number of dimensions in the input space (2)
-- So a 3x2 Matrix maps 2 dimensions to 3 dimensions
-- Conversely, a 2x3 Matrix maps 3 dimensions to 2 dimensions (2 rows as 2 coordinates and 3 columns as 3 basis vectors)
+- But the Matrix is still full rank, because the rank equals the smaller dimension, which in this 3×2 case is the number of columns (2), assuming both columns are linearly independent (neither is a scalar of the other)
+- Conversely, a 2x3 Matrix maps 3D to 2D (2 rows as 2 coordinates and 3 columns as basis vectors)
 - We could also have a transformation from 2D to 1D, on a 1x2 Matrix (1 row for x coordinate only, 2 rows as basis vectors)
 - Regarding the fact that grid lines remain parallel and evenly spaced, in 1D there are no grid lines, but this property is retained: if you have a line of evenly spaced dots on the 2D plane, it would remain evenly spaced once they've mapped onto the number line
 
@@ -471,11 +481,12 @@
 **Key Concepts:**
 
 - Dot product numerically:
-    - If you have two vectors of the same dimension, taking their dot product means:
-        - starting with: [2, 7, 1] · [8, 2, 8]
-        - pairing up all of the coordinates: [2, 8] [7, 2] [8, 1]
-        - multiplying those pairs together: (2 * 8) (7 * 2) (1 * 8)
-        - and adding the results: (2 * 8) + (7 * 2) + (1 * 8)
+    - If you have two vectors of the same dimension, we can compute their dot product
+    - Starting with: [2, 7, 1] · [8, 2, 8]
+        - pair up all of the coordinates: [2, 8] [7, 2] [8, 1]
+        - multiply the pairs together: (2 * 8) (7 * 2) (1 * 8)
+        - add the results: (2 * 8) + (7 * 2) + (1 * 8)
+        - complete calculation: ***[2, 7, 1] · [8, 2, 8] = (2 * 8) + (7 * 2) + (1 * 8)***
 
 - Dot product geometrically:
     - If the two vectors have the same direction:
@@ -490,12 +501,12 @@
         - their dot product is zero (v · w = 0)
         - imagine the projection of w into v, disappears into the 0 vector
         - since the coordinates of w are 0, their product will be 0
-    - The length of projected w is: |w| * cos(θ) so the total calculation is |v| * |w| * cos(θ)
+    - The length of projected w is: |w| * cos(θ) so the total calculation is ***|v| * |w| * cos(θ)***
 
 - Order doesn't matter:
     - Initially we would think that the above interpretation is asymmetric and treats the two vectors differently
     - However, the order of multiplying for the dot product does not matter
-    - Instead of projecting w onto v, we could: project v onto w, multiply the length of projected v by the length of w and get the same result
+    - Instead of projecting w onto v, we could project v onto w, multiply the length of projected v by the length of w and get the same result
     - Explanation: 
         - if w and v had the same length, we could leverage some symmetry and say that no matter which vector we chose to project, their dot product would be the same
         - if we scaled one of them by 2, for example w · 2v, that symmetry would break
@@ -506,9 +517,8 @@
         - so the overall effect in both cases is to just double the dot product        
 
 - Numerical and Geometrical relationship:
-
-    - How does the numerical process of matching coordinates, multiplying the pairs and adding them, is related to geometrical projection:
-        - the answer comes from the concept of DUALITY
+    - How does the numerical process of matching coordinates, multiplying the pairs and adding them, is related to geometrical projection?
+    - The answer comes from the concept of DUALITY
 
     - Geometric operation:
         - Linear Transformations that go from 2D to 1D, are functions that take in a 2D vector and return a single number
@@ -518,22 +528,23 @@
         - in this case they land on a number each
         - so when we record them in a matrix it will be a 1x2 matrix: [2 1]
     
-    - Applying this transformation to a vector:
+    - Applying this transformation to a non-basis vector:
         - imagine a linear transformation that takes i-hat to 1 and j-hat to -2
-        - to follow an original vector of coordinates [4, 3], we can break it into 4i-hat + 3j-hat (since the basis vectors have a unit of 1)
-        - after the transformation, due to linearity the vector will be 4 * [where i-hat lands (1)], plus 3 * [where j-hat lands (-2)], so 4 * 1  +  3 * (-2), so 4 + (-6), resulting in -2
-        - just like where j-hat landed! (the original vector was longer and diagonal to j-hat)
+        - to follow an original vector of coordinates [4, 3], we can break it into 4i-hat + 3j-hat, since the basis vectors have a unit of 1
+        - due to linearity, after the transformation the vector will be 4 * where i-hat lands, plus 3 * where j-hat lands, so 4 * 1  +  3 * (-2), adding to 4 + (-6), and resulting in -2
+        - it lands in -2, just like where j-hat landed! (note: the original vector was longer and diagonal to j-hat)
        
     - Numerical operations:
         - when we do this calculation purely numerically, it's a matrix vector multiplication
         - we multiply a 1x2 matrix by a vector [1 -2] * [4, 3] = 4 * 1 + 3 * (-2)
-        - and it's just like taking the dot product of two vectors [1, -2] * [4, 3]
+        - this is like taking the dot product of two vectors [1, -2] · [4, 3]
         - so there is a nice association between 1x2 (2D -> 1D) matrices and 2D vectors
         - we can tilt the numerical representation of a vector on its side to get the associated matrix, or tip the matrix back up to get the associated vector
-        - so there is a connection between linear transformations that take vectors to numbers, and vectors THEMSELVES!
+        - which means that there is a connection between:
+            - linear transformations that take 2D vectors to 1D numbers (represented by 1x2 matrices) 
+            - and vectors THEMSELVES!
 
 - Another way to see the connection:
-
     - Define a linear transformation from 2D to 1D:
         - let's say we didn't know that a dot product relates to projection
         - place a numberline copy diagonally in space, with 0 at the origin
@@ -545,7 +556,7 @@
         - u-hat is a diagonal 2D vector of the input space that overlaps with the embedding of the number line
     
     - Find the associated Matrix:
-        - now let's try to find, WHERE did the basis vectors landed? 
+        - now let's try to find, WHERE the basis vectors landed 
         - if we find that, we will find the 1x2 matrix that describes this transformation
         - but the only information we have is where u-hat landed (1)
         - we know that i-hat and j-hat are both unit vectors, and the angle between them is the same regardless of which you project onto which
@@ -555,7 +566,7 @@
         - this reasoning is similar for the j-hat case
         - using symmetry in this way we find that [ux uy] is where i-hat and j-hat landed 
         - therefore, the 1x2 matrix describing the transformation are actually the coordinates of u-hat!
-        - so more generally, computing this projection transformation for any arbitrary vector in space, and multiplying the matrix by that vector [ux uy] * [x, y] = ux·x + uy·y, is computationally identical to taking a dot product of the vector and u-hat! [ux, uy] * [x, y] = ux·x + uy·y
+        - more generally, computing this projection transformation matrix for any arbitrary vector in space, and multiplying the matrix by that vector [ux uy] * [x, y] = ux * x + uy * y, is computationally identical to taking a dot product of the vector and u-hat! [ux, uy] * [x, y] = ux * x + uy * y
         - this is why taking the dot product of a vector and a unit vector, can be interpreted as PROJECTING a vector onto the SPAN of that unit vector and taking the projection length
 
     - Non-unit vectors:
@@ -564,7 +575,7 @@
         - following a similar reasoning as before, its coordinates will be [3ux, 3uy]
         - and its associated transformation matrix will be [3ux 3uy]
         - looking at the matrix, it takes i-hat and j-hat to 3 times the values where they landed before
-        - due to linearity, this new matrix can be interpreted as projeting ANY vector onto the numberline copy, and multiplying where it lands by 3
+        - due to linearity, this new matrix can be interpreted as projeting any vector onto the numberline copy, and multiplying where it lands by 3
         - this is why the dot product with a non-unit vector can be interpreted as first projecting onto that vector, and then scaling up the length of that projection by the length of the vector
         
     - Process summary:
@@ -576,16 +587,16 @@
         - in conclusion, any time we have one of these linear transformations where output space is the number line, no matter how it was defined, there will be some unique vector v corresponding to that transformation, in the sense that applying the transformation is the same thing as taking a dot product with that vector
 
     - Duality:
-        - the DUAL of a vector is the linear transformation it encodes
-        - the DUAL of a linear transformation from some space to 1D is a certain vector in that space
-        - Why does duality work? The fundamental reason is that the dual space (space of linear functionals) has the same dimension as the original space. In finite dimensions, this creates a natural isomorphism
+        - the DUAL of a vector is the linear transformation to 1D it encodes
+        - the DUAL of a linear transformation from some space to 1D, is a certain vector in that input space
+        - duality works because there are as many independent measurements (linear transformations to 1D) as there are dimensions. This equal count creates a one-to-one pairing: each measurement equals one unique vector
+        - the duality between linear transformations and dot products works when the output space is 1D (the number line), regardless of the input dimension
         
-
 - Summary of important concepts:
     - The dot product is a very useful geometrical tool for:
         - understanding projections
         - test whether or not vectors tend to point in the same direction
-    - In a deeper level, dotting two vectors together is a way to translate one of them into the world of transformations
+    - On a deeper level, dotting two vectors together is a way to translate one of them into the world of transformations
     - Vectors are not just arrows in space, but also the physical embodiment or conceptual shorthand, of a linear transformation
 
 
@@ -593,7 +604,7 @@
 
 -  When we compute v · w, we are using v as a measuring stick to see how much of w aligns with v's direction.
 - Every vector w can be broken into components: w = (component along v) + (component perpendicular to v)
-- The dot product v · w extracts only the first part and filters out everything perpendicular to v
+- The dot product v · w extracts only the first part, and filters out everything perpendicular to v
 - The duality reveals that every vector defines a way to "measure" other vectors
 - When we compute v · w, we are essentially asking: "How much does w contribute in the v-direction?"
 - This is why dot products appear everywhere; they're the natural way to decompose vectors into components
