@@ -9,6 +9,8 @@
 **Symbols and Formatting:**
 - Multiplication: *
 - Dot product: ·
+- Cross product: X
+- Direct sum: ⊕
 - Matrix dimensions: rows×columns (1×2, 2x3)
 - Vector: [1, 2] (comma indicates vertical stacking)
 - Matrix: [a b; c d] where a b and c d are rows
@@ -462,7 +464,7 @@
 **Additional note: 3x3 Matrix with rank 2 VS 2x3 Matrix with rank 2**
 
 - 3x3 Matrix with rank 2: "Dimensional constraint"
-  - 3×3 Matrix maps 3D space to 3D space (same dimensional space), but rank = 2:
+    - 3×3 Matrix maps 3D space to 3D space (same dimensional space), but rank = 2
     - The full 3D input is squished onto a 2D plane embedded in 3D
     - The output still lives in 3D, but is constrained to a 2D plane (like a sheet of paper floating in a room)
     - So output lives in lower-dimensional subspace of the same ambient space
@@ -556,11 +558,11 @@
     - Applying this transformation to a non-basis vector:
         - imagine a linear transformation that takes i-hat to 1 and j-hat to -2
         - to follow an original vector of coordinates [4, 3], we can break it into 4i-hat + 3j-hat, since the basis vectors have a unit of 1
-        - due to linearity, after the transformation the vector will be 4 * where i-hat lands, plus 3 * where j-hat lands, so 4 * 1  +  3 * (-2), adding to 4 + (-6), and resulting in -2
+        - due to linearity, after the transformation the vector will be 4 * where i-hat lands, plus 3 * where j-hat lands, so 4 * 1  +  3 * (-2) = 4 + (-6) = -2
         - it lands in -2, just like where j-hat landed! (note: the original vector was longer and diagonal to j-hat)
        
     - Numerical operations:
-        - when we do this calculation purely numerically, it's a matrix vector multiplication
+        - when we do this calculation purely numerically, it's a Matrix-vector multiplication
         - we multiply a 1x2 matrix by a vector [1 -2] * [4, 3] = 4 * 1 + 3 * (-2)
         - this is like taking the dot product of two vectors [1, -2] · [4, 3]
         - so there is a nice association between 1x2 (2D -> 1D) matrices and 2D vectors
@@ -574,8 +576,8 @@
         - let's say we didn't know that a dot product relates to projection
         - place a numberline copy diagonally in space, with 0 at the origin
         - think of the 2D unit vector whose tip sits at 1 on that line, let's call it u-hat
-        - if we project 2D vectors straight onto this diagonal line, we just defined a function that takes 2D vectors to numbers (2D to 1D)!
-        - and this function is actually linear, since it passes our visual test that any line of evenly spaced dots remains evenly spaced once it lands on the number line
+        - if we project 2D vectors straight onto this diagonal line, we just defined a function that takes 2D vectors to numbers (2D to 1D)
+        - and this function is actually linear, since it passes our visual test that any line of evenly spaced dots remains evenly spaced once it lands on the numberline
         - remember that the output of the function are numbers, not 2D vectors, as we are in 1D
         - the function takes 2 coordinates and outputs one
         - u-hat is a diagonal 2D vector of the input space that overlaps with the embedding of the number line
@@ -591,12 +593,11 @@
         - this reasoning is similar for the j-hat case
         - using symmetry in this way we find that [ux uy] is where i-hat and j-hat landed 
         - therefore, the 1x2 matrix describing the transformation are actually the coordinates of u-hat!
-        - more generally, computing this projection transformation matrix for any arbitrary vector in space, and multiplying the matrix by that vector [ux uy] * [x, y] = ux * x + uy * y, is computationally identical to taking a dot product of the vector and u-hat! [ux, uy] * [x, y] = ux * x + uy * y
+        - more generally, computing this projection-transformation matrix for any arbitrary vector in space, and multiplying the matrix by that vector [ux uy] * [x, y] = ux * x + uy * y, is computationally identical to taking a dot product of the vector and u-hat! [ux, uy] * [x, y] = ux * x + uy * y
         - this is why taking the dot product of a vector and a unit vector, can be interpreted as PROJECTING a vector onto the SPAN of that unit vector and taking the projection length
 
     - Non-unit vectors:
-        - now let's see scaled vectors
-        - let's say we have a vector 3u-hat
+        - now let's see scaled vectors; say we have a vector 3u-hat
         - following a similar reasoning as before, its coordinates will be [3ux, 3uy]
         - and its associated transformation matrix will be [3ux 3uy]
         - looking at the matrix, it takes i-hat and j-hat to 3 times the values where they landed before
@@ -604,16 +605,15 @@
         - this is why the dot product with a non-unit vector can be interpreted as first projecting onto that vector, and then scaling up the length of that projection by the length of the vector
         
     - Process summary:
-        - we had a linear transformation from 2D to 1D
-        - NOT defined in terms of numerical vectors or numerical dot products
-        - just defined by projecting space on to a diagonal copy of the numberline 
+        - we had a linear transformation from 2D to 1D, NOT defined in terms of numerical vectors or numerical dot products
+        - it was just defined by projecting space on to a diagonal copy of the numberline 
         - but because the transformation is linear, it was NECESSARILY described by some 1x2 Matrix
-        - since multiplying a 1x2 matrix by a 2D vector is the same as turning that matrix on its side and taking the dot product, this transformation was RELATED to some vector
+        - since multiplying a 1x2 matrix by a 2D vector is the same as turning that matrix on its side and taking the dot product, this transformation was related to some vector
         - in conclusion, any time we have one of these linear transformations where output space is the number line, no matter how it was defined, there will be some unique vector v corresponding to that transformation, in the sense that applying the transformation is the same thing as taking a dot product with that vector
 
     - Duality:
-        - the DUAL of a vector is the linear transformation to 1D it encodes
-        - the DUAL of a linear transformation from some space to 1D, is a certain vector in that input space
+        - the dual of a vector is the linear transformation to 1D it encodes
+        - the dual of a linear transformation from some space to 1D, is a certain vector in that input space
         - duality works because there are as many independent measurements (linear transformations to 1D) as there are dimensions. This equal count creates a one-to-one pairing: each measurement equals one unique vector
         - the duality between linear transformations and dot products works when the output space is 1D (the number line), regardless of the input dimension
         
@@ -622,12 +622,12 @@
         - understanding projections
         - test whether or not vectors tend to point in the same direction
     - On a deeper level, dotting two vectors together is a way to translate one of them into the world of transformations
-    - Vectors are not just arrows in space, but also the physical embodiment or conceptual shorthand, of a linear transformation
+    - Vectors are not just arrows in space, but also the physical embodiment or conceptual shorthand of a linear transformation
 
 
 **Additional notes:**
 
--  When we compute v · w, we are using v as a measuring stick to see how much of w aligns with v's direction.
+- When we compute v · w, we are using v as a measuring stick to see how much of w aligns with v's direction.
 - Every vector w can be broken into components: w = (component along v) + (component perpendicular to v)
 - The dot product v · w extracts only the first part, and filters out everything perpendicular to v
 - The duality reveals that every vector defines a way to "measure" other vectors
@@ -636,8 +636,89 @@
         
 ---
 
-### Video 10: [video]
+### Video 10: Cross Products
 
 **Key Concepts:**
 
-- If we have 
+- If we have two vectors, v and w, they span out a parallelogram:
+    - if we take a copy of v and move its tail to the tip of w
+    - and we also take a copy of w and move its tail to the tip of v
+    - the 4 vectors enclose a certain parallelogram
+- The cross product of v and w (v X w) is the area of this parallelogram
+- But we also need to consider orientation:
+    - if v is on the right of w, then v X w is positive
+    - if v is on the left of w, then v X w is negative
+    - so order matters: v X w is the reverse of w X v (v X w = - w X v)
+    - to help us remember, if we take the cross product of basis vectors in order, the result should be positive, because the order of the basis vectors is actually what defines orientation (i-hat X j-hat = +1; jhat X i-hat = - 1)
+
+- How to compute the cross product (2D):
+    - write a matrix with the first column being the coordinates of v vector, and the second column the coordinates of w vector
+    - then compute the determinant of this Matrix
+    - so cross product calculation: ***v X w = det([v w])***
+    - example: v X w = det([3 2; 1 -1]) where [3,1] is the v vector coordinates and [2,-1] is the w vector coordinates
+    - alternatively, we could list the coordinates as rows rather than columns
+    - the result would be the same because during the determinant calculation (ad-bc), bc = cb
+    - so in our example this would be v X w = det([3 1; 2 -1])
+
+- Why the determinant of the 2-vectors Matrix?
+    - a matrix is a linear transformation that moves i-hat and j-hat to v and w
+    - as we know, the determinant is the change of area after a transformation
+    - after the transformation, the unit square with area of 1, turns into a parallelogram
+    - so the determinant which measures the factor by which area changes, gives us the area of the parallelogram
+    - if v is now on the left of w, this means that orientation has been flipped during the transformation
+    - and this is what it means for the determinant to be negative
+    - so the cross product is the determinant of the parallelogram formed by 2 vectors
+    - note that if vectors are perpendicular to each other, their cross product is larger than if they were pointing in similar directions
+    - also, if we scale on of the vectors by an amount, the area of the parallelogram is also scaled by that amount: (3v) X w = 3(v X w)
+
+- The cross product has different interpretations in 2D vs 3D:
+    - In 2D: we compute a signed scalar (the area of the parallelogram)
+    - In 3D: we compute a vector (perpendicular to both input vectors, with magnitude equal to the parallelogram area)
+    - Connection: The 2D scalar result equals the z-component of the 3D cross product, when both vectors lie in the xy 2D plane embedded in 3D space
+
+- The cross product is actually a VECTOR (3D)
+    - in 2D we treat the cross product as a scalar, but the true cross product is a 3D operation producing a vector
+    - additionally to the calculation above, a true cross product is a vector, not a number: v X w = p
+    - this is because the the cross product is something that combines two 3D vectors to get a new 3D vector!
+    - how can the area of a shape be a vector?
+    - the area of the parallelogram will be the new vector's LENGTH
+    - and its DIRECTION will be perpendicular to the parallelogram
+    - which way? there are two possible vectors with this length that are perpendicular to a given plane
+    - for this we use the right hand rule: point forefinger in the direction of v and middle finger in the direction of w; thumb will show the direction of the cross product v X w
+
+- Example: say v is a vector with length 2 pointing up in the pure positive z direction, and w is a vector with length 2 pointing in the pure positive y direction
+    - they form a square because they are perpendicular to each other and have the same length
+    - the area of the square is 4
+    - so the cross product should be a vector with length 4
+    - and to find the orientation, we use the right hand rule:
+        - point the forefinger up (in the +z direction) for v
+        - point the middle finger in the +y direction for w
+        - naturally our thumb will extend towards us, which is the negative x direction
+        - the thumb naturally extends in the negative x direction (pointing toward us)
+        -so the cross product points purely in the negative x direction
+    - therefore, the cross product of these two vectors is -4
+    - or we could say that the cross product is -4 * i-hat (because i-hat is the basis vector of the x direction)
+    - and since this vector is purely in the x direction, the full coordinates of the v X w vector will be [-4, 0, 0]
+
+- Calculation trick:
+    - since we are in 3D, v and w vectors have 3 coordinates each
+    - so the cross product can be written as [v1, v2, v3] X [w1, w2, w3]
+    - the final vector would be: 
+        [v2 * w3 - w2 * v3
+         v3 * w1 - w3 * v1
+         v1 * w2 - w1 * v2]
+
+- But it's easier to remember a certain process involving the 3D determinant:
+    - we create a 3D matrix and place the two vectors as the second and third columns
+    - and as the first column, we write the basis vectors i-hat, j-hat, k-hat
+    - then we compute the determinant of this "matrix"
+    - alternatively, we could list the coordinates as rows rather than columns, with the same result
+    - so now, we use the regular 3D matrix determinant calculation: a·(ei - fh) - b·(di - fg) + c·(dh - eg) for rows, 
+    or a·(ei − fh) − d·(bi − ch) + g·(bf − ce) for columns
+    - but instead of a, b and c, we now use i-hat, j-hat and k-hat
+    - ***i-hat(v2w3 - v3w2) + j-hat(v3w1 - v1w3) + k-hat(v1w2 - v2w1)***
+    - note that the j-hat changed from -j-hat(v1w3 - v3w1) to + j-hat(v3w1 - v1w3), so the negative sign is already incorporated in the computation
+    - this finds the unique vector perpendicular to v and w, whose magnitude is the area of their parallelogram, and whose direction obeys the right hand rule
+    - so generally, to find the vector p = v X w:
+        - v × w = det([i-hat, j-hat, k-hat; v1, v2, v3; w1, w2, w3]) (row form)
+        - v × w = det([i-hat, v1, w1; j-hat, v2, w2; k-hat, v3, w3]) (column form)
