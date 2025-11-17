@@ -1,8 +1,8 @@
 # Linear Algebra
 
 ## Resources
-- 3Blue1Brown: Essence of Linear Algebra (Videos 1-16)
-- Khan Academy: Linear Algebra exercises
+- 3Blue1Brown: "Essence of Linear Algebra" series
+- Claude Sonnet 4.5: Supporting tool for further investigation and additional notes
 
 ## Notation
 
@@ -278,7 +278,7 @@
     - If left hand makes more sense: orientation has been flipped and the determinant is negative
 
 - How to compute the Determinant (2D):
-    - For 2D: In a 2x2 Matrix [a b; c d], where i-hat coordinates are a and c, and j-hat coordinates are b and d, the 2D determinant equals: ***ad - bc***
+    - For 2D: In a 2x2 Matrix [a b; c d], where i-hat coordinates are a c, and j-hat coordinates are b d, the 2D determinant equals: ***ad - bc***
     - Why this formula? Since c = (y-coordinate of i-hat) and b = (x-coordinate of j-hat):
         - If both c and b are 0: Basis vectors simply stretch along their axes by factors a and d, forming a rectangle of area ad
         - If only one of c or b is 0: One basis vector stays on its axis while the other tilts, creating a vertical or horizontal shear. The parallelogram leans but maintains the same base (a) and perpendicular height (d), so area remains ad
@@ -293,12 +293,19 @@
         - a · det([e f; h i]) - delete row 1 and column 1
         - b · det([d f; g i]) - delete row 1 and column 2
         - c · det([d e; g h]) - delete row 1 and column 3
-    - Calculate: value * (top left * bottom right) - (top right * bottom left)
+    - Calculate: value * (up left * down right) - (up right * down left)
         - a · det([e f; h i]) = a·(ei - fh)
         - b · det([d f; g i]) = b·(di - fg)
         - c · det([d e; g h]) = c·(dh - eg)
     - Combine the results of the three 2x2 determinants, with alternating signs (+, -, +) to get the final 3D determinant
     - The final 3D determinant equals: ***a·(ei - fh) - b·(di - fg) + c·(dh - eg)***
+
+- How to compute the Determinant (3D) alternatively:
+    - Instead of taking a value from each row, we can get a value from each column instead
+    - Calculate in a similar way, but now the values are a, d and g, and the 2x2 matrices are formed by the rest of the values
+    - The final 3D determinant equals: ***a·(ei − fh) − d·(bi − ch) + g·(bf − ce)***
+    - If we want to get rid of the - sign, we can invert the values inside the parenthesis, for example: − d·(bi − ch) = + d·(ch - bi)
+    - The resulting vector is the same as when calculating based on rows
 
 ---
 
@@ -314,7 +321,7 @@
     - Vertically line up similar variables, adding 0 coefficients if necessary
 
 - Linear systems as Matrices:
-    - Linear systems of equations look like vector Matrix multiplication
+    - Linear systems of equations look like Matrix-vector multiplication
     - We can package all equations together into a single vector equation (of the form Matrix * vector)
     - This "constant" Matrix will contain all the coefficients (we will call it Matrix A)
     - The vector will hold all the variables (we will call it vector x)
@@ -390,11 +397,14 @@
         - Therefore, 3x5 and 5x3 matrices both have a rank of 3
 
 - Full-rank definition:
+    - Remember that rows = landing coordinates, and columns = amount of basis vectors
     - A Matrix is "full rank" when rank is as high as possible for that matrix shape
-        - for tall/square matrices (rows ≥ columns): rank = number of columns
-        - for wide matrices (columns > rows): rank = number of rows
+        - A tall matrix (3×2) takes 2D inputs and produces 3D outputs. The rank gives us the dimension of the output space. In this case, rank = number of columns
+        - A square matrix (3x3) rank = number of columns too
+        - A wide matrix (2×3) takes 3D inputs and produces 2D outputs. The rank tells you the dimension of the output space. So in this case, rank = number of rows
+        - In short: rank ≤ min(rows, columns)
     - A matrix is not full rank, if and only if it has linear dependencies
-        - if rank < number of columns, that means you have fewer independent columns than total columns, which means at least one column can be written as a combination of others
+        - if rank is less than the number of columns, that means you have fewer independent columns than total columns, which means at least one column can be written as a combination of others
         - this connects to the rank-nullity theorem we are about to see below (rank + nullity = number of columns), as when nullity is > 0, it means linear dependencies exist among the columns
     - Example with a 3x4 matrix:
         - full rank (3) means we moved from 4D to 3D and now we have just 3 linearly independent columns (the 4th is now linearly dependent on the first 3)
@@ -402,7 +412,7 @@
 
 - Null space:
     - When we multiply a matrix by an input vector, the column space is the set of all possible outputs
-    - When we multiply the matrix by the zero vector input, we get the zero vector as output (A * 0 = 0). So the initial 0 vector is always included in the column space. 
+    - When we multiply the matrix by the zero vector input, we get the zero vector as output (A * 0 = 0). So the initial 0 vector is always included in the column space
     - The set of vectors that lands on the origin is called the "null space" or "kernel" of the Matrix
     - It is the space of all vectors that become null (land on the 0 vector)
     - For a full-rank transformation, the only vector that lands at the origin is the 0 vector itself
@@ -451,24 +461,39 @@
 
 **Additional note: 3x3 Matrix with rank 2 VS 2x3 Matrix with rank 2**
 
-- 3x3 Matrix with rank 2:
-  - 3×3 Matrix maps 3D space to 3D space (same dimensional space):
-    - When rank = 2, it squishes the full 3D input onto a 2D plane embedded in 3D
-    - Output lives in 3D but is constrained to a 2D plane (like a sheet of paper floating in a room)
-    - Analogy: Taking a 3D sculpture and squishing it against a wall in a 3D room. The flattened result is still "in the room" (3D), just stuck to a 2D surface
-    - Null space is a line through origin, WITHIN the 3D input/output space (shared by both) and perpendicular to the output plane
-    - So 3×3 matrix with rank 2:
+- 3x3 Matrix with rank 2: "Dimensional constraint"
+  - 3×3 Matrix maps 3D space to 3D space (same dimensional space), but rank = 2:
+    - The full 3D input is squished onto a 2D plane embedded in 3D
+    - The output still lives in 3D, but is constrained to a 2D plane (like a sheet of paper floating in a room)
+    - So output lives in lower-dimensional subspace of the same ambient space
+    - Analogy: Squishing a 3D sculpture into the flat 2D table surface. The flattened result is still in the 3D room, just stuck to a 2D surface within it. We can still describe the position of the flattened sculpture with (x, y, z) coordinates. One of the coordinates will now be constrained (z representing height will be constant along the entire flat surface of the table), but it's still a 3D description
+    - For linear transformations specifically, the output must be a subspace, which means it must pass through the origin. So a more helpful analogy would be to think of the 3D sculpture being squished on the floor, with the z-coordinate that represents height becoming 0
+    - Each point of the sculpture represents a possible output vector; the entire flattened sculpture shows the 2D subspace of all possible outputs
+    - The null space is a line through origin, within the 3D input and 3D output space, and perpendicular to the 2D output plane
+        - Row space (2D) = the directions in the input space that will produce non-zero output after the transformation (when 3D sculpture is standing on the floor, row space is the floor)
+        - Null space (1D) = "What will collapse to zero" (when 3D sculpture is standing on the floor, null space is a vertical pole through the sculpture)
+        - Row space ⊕ null space = entire 3D input
+        - Column space (2D) = All possible outputs where things can land" (after we flattened the sculpture on the floor, column space is where the sculpture landed)
+        - Left null space (1D) = "Directions never reached - empty space outside of plane" (after we flattened the sculpture on the floor, left null space is the space not touched)
+        - Column space ⊕ Left null space = the entire 3D output
+    - A 3×3 matrix with rank 2:
         - Input: vector [x, y, z] in 3D
-        - Output: vector [x+z, y, 0] in 3D (on the 2D xy-plane within 3D space)
-        - The output has 3 components, third is always 0: [1 0 1] [0 1 0] [0 0 0]
+        - Output: constrained to a 2D plane through the origin within 3D space
+        - Example: Output can be [x+z, y, 0] - still has 3 components, third is always 0
+        - The matrix for this example would be: [1 0 1] [0 1 0] [0 0 0]
 
-- 2x3 Matrix with rank 2:
-    - 2×3 Matrix maps 3D space to 2D space (different dimensional space):
-    - The output lives in flat 2D world, not a plane embedded in 3D
-    - Even at what is now considered a full rank (rank 2), you're going from 3D down to 2D
-    - 2×3 with rank 2: Output lives in 2D entirely (like actual flatland - no third dimension exists)
+- 2x3 Matrix with rank 2: "Dimensional reduction"
+    - 2×3 Matrix maps 3D space to 2D space, so output lives in a different, genuinely lower dimensional space
+    - The output lives in 2D entirely (an actual flatland, not a plane embedded in 3D). No third dimension exists
+    - Even at what is now considered a full rank (rank 2), we are going from 3D down to 2D
+    - Analogy: Taking a photo of the 3D sculpture. The sculpture in the photo is now genuinely 2D - no depth information exists anymore. We can only describe positions in the photo with (x, y) coordinates; there's no third coordinate at all. Information is lost, not just constrained. 
     - Null space is a line in the 3D input space, that collapses to zero in the 2D output space
-    - Analogy: Taking a 3D sculpture and projecting its shadow onto a piece of paper. The shadow exists in actual 2D space 2D, not as a plane in 3D
+        - Row space: 2D (the 2 independent rows span a 2D plane in 3D input)
+        - Null space: 1D (one direction will collapse to zero)
+        - Row space ⊕ Null space = 3D input
+        - Column space: 2D (full rank means it spans the entire 2D output)
+        - Left null space: 0D
+        - Column space ⊕ Left null space (0) = 2D output
     - 2x3 matrix with rank 2:
         - Input: vector [x, y, z] in 3D
         - Output: vector [x+z, y] in 2D (just 2 components, living in flat 2D)
@@ -615,4 +640,4 @@
 
 **Key Concepts:**
 
-- 
+- If we have 
