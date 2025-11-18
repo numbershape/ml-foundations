@@ -654,11 +654,13 @@
 - How to compute the cross product (2D):
     - write a matrix with the first column being the coordinates of v vector, and the second column the coordinates of w vector
     - then compute the determinant of this Matrix
-    - so cross product calculation: ***v X w = det([v w])***
+    - so cross product calculation: ***v X w = det([v-coordinates w-coordinates])***
     - example: v X w = det([3 2; 1 -1]) where [3,1] is the v vector coordinates and [2,-1] is the w vector coordinates
-    - alternatively, we could list the coordinates as rows rather than columns
-    - the result would be the same because during the determinant calculation (ad-bc), bc = cb
-    - so in our example this would be v X w = det([3 1; 2 -1])
+        - alternatively, we could list the coordinates as rows rather than columns
+        - the result would be the same because during the determinant calculation (ad-bc), bc = cb
+        - so in our example the calculation would be v X w = det([3 1; 2 -1])
+        - determinant = 3 * (-1) - 1 * 2 = -3 -2 = -5 
+        - v X w = -5 
 
 - Why the determinant of the 2-vectors Matrix?
     - a matrix is a linear transformation that moves i-hat and j-hat to v and w
