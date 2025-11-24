@@ -23,8 +23,8 @@ This repository serves three purposes:
 ```
 01-math-foundations/
 ├── linear-algebra/
-├── calculus/              (coming soon)
-└── probability-stats/     (coming soon)
+├── calculus/            
+└── probability-stats/     
 02-programming/             
 03-classical-ml/             
 04-deep-learning/          

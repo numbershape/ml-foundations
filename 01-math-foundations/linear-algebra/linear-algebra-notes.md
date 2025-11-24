@@ -724,3 +724,79 @@
     - so generally, to find the vector p = v X w:
         - v × w = det([i-hat, j-hat, k-hat; v1, v2, v3; w1, w2, w3]) (row form)
         - v × w = det([i-hat, v1, w1; j-hat, v2, w2; k-hat, v3, w3]) (column form)
+        
+---
+
+### Video 11: Cross Products in the light of Linear Transformations
+
+**Key Concepts:**
+
+- In the formula i-hat(v2w3 - v3w2) + j-hat(v3w1 - v1w3) + k-hat(v1w2 - v2w1), we have three different numbers that are interpreted as the coordinates of some resulting vector p
+- This vector p has a length equal to the parallelogram area defined by v and w, is perpendicular to both v and w, and obeys the right hand rule
+
+- Duality:
+    - every time we have a transformation from some space into the 1D numberline, it's associated with a unique vector in that space, in the sense that performing the linear transformation is the same as taking a dot product with that vector
+    - numerically, this is because one of those transformations is described by a matrix with just one row, where each column tells you the number that each basis vector lands on
+    - and multiplying this matrix by some vector v is computationally identical to taking the dot product between v and the vector you get by turning that matrix on its side
+
+- Steps to find this duality:
+    - define a 3D to 1D linear transformation in terms of v and w
+    - associate that transformation with its dual vector in 3D space
+    - that dual vector will be the cross product of v and w
+
+- Computing cross product in 2D:
+    - when we have two vectors v and w, we put the coordinates of v as the first column of a 2x2 matrix and the coordinates of w as the second. Then we just compute the determinant
+    - geometrically this gives us the area of a parallelogram spaned out by those two vectors (with the possibility of being negative depending on the orientation of the vectors)
+
+- Computing cross product in 3D:
+    - the 2D calculation could lead us into thinking that for 3D we can just take three vectors and make their coordinates the columns of a 3x3 matrix, compute the determinant and get the signed volume of the parallilepiped spanned out by those three vectors
+    - but this is not the real cross product, because the actual 3D cross product takes in two vectors and spits out a third vector (so the same amount of vectors as in the 2D case)
+    - if we do want to think about "taking three vectors" we could consider the first vector to be a variable (with variable entries x, y, z), while columns for v and w remain fixed
+    - so we are defining this function: f([x, y, z]) = det([x, y, z] | v | w)
+    - so now we have a function whose span is revolving around v and w (depending on the choice of variables), and includes mapping output from 3D to 1D
+    - we input some vector that represents the variables [x, y, z] and get a scalar number, by taking the determinant of a matrix whose other two columns are the coordinates of the constant vectors v and w
+    - geometrically for any input vector [x, y, z], we consider the parallilepiped defined by this vector, v and w; then we return its volume and sign for orientation
+    - this function is linear so the idea of duality is valid; since it's linear, there is a way to describe this function as a matrix multiplication
+    - and since we are going from 3D to 1D, that transformation will be a 1x3 matrix
+    - the special property about transformations to 1D is that we can turn that Matrix on its side to produce a vector and interpret the transformation as the dot product with that vector
+
+- What we are looking for:
+    - we are looking for a 3D vector p such that taking the dot product between p and any other vector [x, y, z] gives the same result as plugging in x, y, z as the first column of a 3x3 matrix, whose other two columns have the coordinates of v and w, and then computing the determinant
+
+- Computationally:
+    - taking the dot product between p and [x, y, z] will give us something * x + something * y + something * z, where those "somethings" are the coordinates of p
+    - alternatively, when we compute the determinant of the 3x3 matrix, we can organize it to look like: some constant * x + some constant * y + some constant * z, where those constants involve certain combinations of the components v and w
+    - so those constants will be the coordinates of the vector we are looking for
+    - this is the same as plugging i-hat, j-hat, k-hat to that first column (as a way of signaling that we should interpret those coefficients as the coordinates of a vector)
+
+- Computational Question:
+    - which vector p has the special property that when you take a dot product between p and some other vector [x, y, z] it gives the same result as plugging in [x, y, z] to the first column of a matrix whose other two columns have the coordinates of v and w and then computing the determinant?
+    
+- Geometric Question:
+    - which vector p has the special property that when you take a dot product between p and some other vector [x, y, z] it gives the same result as if you took the signed volume of a parallilepiped defined by this vector [x, y, z] along with v and w?
+
+- Dot product reminder:
+    - remember that taking the dot product between p and some other vector is to project that other vector onto p, and then to multiply the length of that projection by the length of p
+    - if we take the area of the parallelogram defined by v and w, and multiply it, NOT by the length of [x, y, z] but by the "shadow" component of [x, y, z] that's perpendicular to the parallelogram (perpendicular to both v and w), and multiply that projection by the area of the parallelogram spanned by v and w
+    - the "shadow" component of [x, y, z] perpendicular to both v and w, is actually the height of [x, y, z] above that plane
+    - so this product equals the volume of the parallilepiped
+    - this is the same as taking a dot product between [x, y, z] and a vector perpendicular to v and w, and with a length equal to the area of that parallelogram
+    - plus if you choose the appropriate direction for that vector, the cases where the dot product is negative will match the cases where the right hand rule for orientation of [x, y, z] is negative
+    - so our computational answer corresponds geometrically to this vector
+
+- Why perpendicular?
+    - the cross product is a perpendicular "measuring stick" whose length equals the base area, so that dotting it with any vector [x, y, z] automatically computes the volume
+    - say we want to find the volume of a parallelepiped formed by three vectors: [x, y, z], v, and w
+    - volume = base * height
+    - base area = the parallelogram formed by v and w (lying flat like a table)
+    - height = how far [x, y, z] sticks up above that table
+    - so volume = area of v-w parallelogram * height of [x, y, z]
+    - the dot product gives us  p · [x, y, z] = |p| * height
+    - for this to equal the volume: |p| * height = base area * height
+    - therefore |p| must equal the base area! (|p| is the magnitude of p, not the vector itself)
+    - the cross product p = v × w is that measuring stick:
+        - perpendicular to the v-w plane (points "straight up")
+        - length = area of the v-w parallelogram
+        - oriented by the right-hand rule
+    - if p wasn't perpendicular, the dot product p · [x, y, z] would give us the projection in the wrong direction - not the true height, but some slanted measurement. Only when p is perpendicular do we measure the actual height
+    - both properties (perpendicular + correct length) are forced by the requirement that p · [x, y, z] = det([x, y, z]|v|w) for ALL vectors [x, y, z]
