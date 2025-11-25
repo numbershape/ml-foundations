@@ -671,7 +671,7 @@
     - and this is what it means for the determinant to be negative
     - so the cross product is the determinant of the parallelogram formed by 2 vectors
     - note that if vectors are perpendicular to each other, their cross product is larger than if they were pointing in similar directions
-    - also, if we scale on of the vectors by an amount, the area of the parallelogram is also scaled by that amount: (3v) X w = 3(v X w)
+    - also, if we scale one of the vectors by an amount, the area of the parallelogram is also scaled by that amount: (3v) X w = 3(v X w)
 
 - The cross product has different interpretations in 2D vs 3D:
     - In 2D: we compute a signed scalar (the area of the parallelogram)
@@ -706,8 +706,8 @@
     - since we are in 3D, v and w vectors have 3 coordinates each
     - so the cross product can be written as [v1, v2, v3] X [w1, w2, w3]
     - the final vector would be: 
-        [v2 * w3 - w2 * v3
-         v3 * w1 - w3 * v1
+        [v2 * w3 - w2 * v3;
+         v3 * w1 - w3 * v1;
          v1 * w2 - w1 * v2]
 
 - But it's easier to remember a certain process involving the 3D determinant:
@@ -800,3 +800,100 @@
         - oriented by the right-hand rule
     - if p wasn't perpendicular, the dot product p · [x, y, z] would give us the projection in the wrong direction - not the true height, but some slanted measurement. Only when p is perpendicular do we measure the actual height
     - both properties (perpendicular + correct length) are forced by the requirement that p · [x, y, z] = det([x, y, z]|v|w) for ALL vectors [x, y, z]
+
+---
+
+### Video 12: Cramer's rule, explained geometrically
+
+**Key Concepts:**
+
+- Let's see the geometry behind a certain method for computing solutions to systems of linear equations known as the Cramer's rule
+- It's not the best way to compute solutions to systems of linear equations - Gaussian Elimination is faster
+- But it's a good way to understand the theory behind those systems and consolidate linear algebra concepts
+
+- The problem:
+    - say we have a linear system of two equations with two unknowns:
+        -  3x + 2y = -4
+        - -1x + 2y = - 2
+    - as we know, we can think of this system geometrically as a known matrix transforming un unknown vector [x, y], into a known output
+        - [3 2; -1 2] * [x, y] = [-4, -2]
+    - remember that each of the columns of the matrix is telling us where the basis vectors of the input space have landed
+    - so now we need to find which input vector will land on the output [-4, -2]
+
+- Where to start from:
+    - we know that the given output vector [-4, -2] is a linear combination of the columns of the matrix: (x * where i-hat lands) + (y * where j-hat lands)
+    - so we want to figure out this linear combination: x * [3, -1] + y * [2, 2] = [-4, -2]
+    - in the case the transformation has a 0 determinant, either none of the inputs land on a given output, or several imputs land on that output
+    - on this chapter we will limit our view in the case of a non-0 determinant, meaning the outputs of this transformation will still span the full in-dimensional space that it started in; every input lands on one and only one output, and every output has one and only one input
+
+- Wrong but helpful idea:
+    - the x-coordinate of the input vector we are looking for [x, y], is what we get by taking the dot product of [x, y] with the FIRST basis vector i-hat (1,0)
+    - the y-coordinate of the input vector we are looking for [x, y], is what we get by taking the dot product of [x, y] with the SECOND basis vector j-hat (0,1)
+    - so [x, y] · [1, 0] = x; [x, y] · [0, 1] = y
+    - it is wrong to think that after the transformation, the dot products of the TRANSFORMED version of the vector [x, y] and the TRANSFORMED version of the basis vectors, would also be the coordinates of x and y
+    - for most linear transformations, the dot product before and after the transformation is NOT the same:
+        - for example, two vectors pointing in the same direction with a positive dot product, could get pulled apart from each other during the transformation and end up having a negative dot product
+        - or if they started perpendicular to each other with a dot product of 0 (like basis vectors), they may not stay perpendicular or preserve their dot product after the transformation
+        - usually, since most vectors are getting stretched out, dot products tend to get bigger
+    - exception: transformations that do preserve dot products are called orthonormal transformations
+        - they leave the basis vectors perpendicular to each other, and still with unit lengths
+        - these are rotation matrices that correspond to rigid motion without stretching, squishing or morphing
+        - solving a linear system with an orthonormal matrix is easy: because dot products are preserved
+        -  taking the dot product between the known output vector and all the columns of the matrix (where the basis vectors land), will be the same as taking the dot product between the unknown input vector [x, y] and the basis vectors, finding the coordinates of the input vector
+        - first column (where i-hat landed) · output vector = x
+        - second column (where j-hat landed) · output vector = y
+
+- Expand on the right idea (2D):
+    - we need a coordinate-extraction method that survives transformation
+    - take the parallelogram defined by i-hat and the mystery input vector [x, y]
+    - the area of this parallelogram is the base(1) * the height perpendicular to that base
+    - which is the y-coordinate of that input vector
+    - because the base = 1, the signed area IS the y-coordinate of that input vector
+    - and symmetrically, if we now take the parallelogram defined by j-hat and the mystery input vector [x, y]
+    - its area will be the x-coordinate of that mystery input vector
+
+- In 3D:
+    - normally when we want to think about one of the coordinates of a vector (ie the z-coordinate), we take its dot product with the corresponding basis vector (k-hat), so z = [x, y, z] · [0, 0, 1]
+    - but an alternative geometric interpretation would be to consider the parallilepiped that the vector creates with the other two basis vectors (i-hat and j-hat)
+    - since volume = base * height
+    - if the square spanned by i-hat and j-hat as the base has area 1, then the volume of the parallilepiped equals just its height, which is the third coordinate of our vector
+    - similarly, to find the other coordinates of the vector, we would form other parallilepipeds using the vector and any basis vectors other than the one correspoding to the direction we are looking for
+    - signed volume: the order of listing the three vectors matters; that way, negative coordinates still make sense
+    - z = det([1 0 x; 0 1 y; 0 0 z]); so the z-coordinate equal the determinant of a matrix with vectors i-hat [1, 0, 0], j-hat [0, 1, 0] and [x, y, z]
+
+- How to continue (2D):
+    - using the example [2 -1; 0 1] * [x, y] = [4, 2]
+    - as we apply matrix transformations (for example [2 -1; 0 1]), the areas of these parallelograms may get scaled up or down, BUT all the areas get scaled by the same factor (the determinant of the transformation matrix)
+        - earlier we took a parallelogram with base 1 (i-hat) * height (y-coordinate of input vector) and found that the are EQUALS the y-coordinate
+        - assuming that all areas get scaled by the same factor (the determinant)
+        - this means that after the transformation, the new area will be the y-coordinate * the determinant of the transformation
+        - so ***signed area = det(A) * y***
+        - we can solve for y by dividing the area of the parallelogram in the output space, by the determinant of the full transformation
+        - ***y = area / det(A)***
+    - how to get the output area:
+        - we know the coordinates of where the vector lands
+        - we can create a new matrix whose first column is the same as our original matrix (where i-hat landed), but whose second column is the output vector, and take its determinant
+        - y = area / det(A) = det([2 4; 0 2]) / det([2 -1; 0 1]) = 2 * 2 - 4 * 0 / 2 * 1 - (-1) * 0 = 4 / 2 = 2
+        - so y-coordinate is 2
+        - reminder that [4, 2] is where vector has landed
+    - so just using data from the output of our transformation (the columns of the matrix / where the basis vectors landed, and the coordinates of the output vector), we can recover the y-coordinate of the mystery input vector
+    
+    - likewise, we can then get the x-coordinate in the same way:
+        - look at the parallelogram which encodes the x-coordinate of the mystery input vector (spanned by the vector and j-hat)
+        - base 1 (j-hat) * height (x-coordinate of input vector)
+        - the transformed version of it, is spanned by the output vector and the second column of the matrix, and its area will have been multiplied(scaled) by the determinant of that matrix 
+        - to solve for x, we can take the new area divided by the determinant of the full transformation x = area / det(A)
+        - and compute the area of that output parallelogram by creating a new matrix whose first column is the output vector, and second column is the same as the original matrix 
+        - x = area / det(A) = det([4 -1; 2 1]) / det([2 -1; 0 1]) = 4 * 1 - (-1) * 2 / 2 * 1 - (-1) * 0 = 6 / 2 = 3
+        - where det([4 -1; 2 1]) is det([output | where j-hat landed])
+        - so the x-coordinate is 3
+
+- Summary:
+    - just using data from the output space (the numbers we see in our original linear system) we can solve for x
+    - this formula for finding the solution to a linear system of equations is known as Cramer's rule
+    - general formula: for ax = b:
+        - xi = det(Ai)/det(A), where Ai is A with column i replaced by b
+    - original parallelogram: spanned by [basis vector] and [mystery input]
+    - after transformation: spanned by [transformed basis vector = column of A] and [output vector b]
+    - we replace the i-th column with b because we want the parallelogram that would have the i-th coordinate as its area
+    -  the transformation scales ALL areas by det(A), so to "undo" this scaling and recover the original coordinate (which was equal to the original area), we must divide the transformed area by det(A)
