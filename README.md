@@ -4,7 +4,7 @@ Building mathematical and technical foundations for advanced machine learning an
 
 ## Background
 
-With an MA in Applied Linguistics and experience as a Quality Assurance Analyst transitioning to Automation Development, I'm systematically building advanced machine learning and natural language processing capabilities to enhance automation and testing workflows.
+With an MA in Applied Linguistics and experience as a Quality Assurance analyst transitioning to automation development, I'm systematically building advanced machine learning and natural language processing capabilities to enhance automation and testing workflows.
 
 This repository serves three purposes:
 1. **Personal tracking** — Organizing my learning progress through structured notes and exercises
