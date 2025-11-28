@@ -897,3 +897,38 @@
     - after transformation: spanned by [transformed basis vector = column of A] and [output vector b]
     - we replace the i-th column with b because we want the parallelogram that would have the i-th coordinate as its area
     -  the transformation scales ALL areas by det(A), so to "undo" this scaling and recover the original coordinate (which was equal to the original area), we must divide the transformed area by det(A)
+
+---
+
+### Video 13: Change of basis
+
+**Key Concepts:**
+
+- In Linear Algebra we think of each coordinate number as a scalar (which scales i-hat and j-hat)
+- The tip-to-tail sum of these vectors is what the coordinates are meant to describe
+- These basis vectors are encapsulationg all the implicit assumptions of our coordinate system, like that the first number indicates rightward motion, the second indicates upward motion, or how far a unit of distance is
+- Any way to translate between vectors and sets of numbers is called a coordinate system; i-hat & j-hat are the basis vectors of our standard coordinate system
+- But we could be using a different set of basis vectors, for example:
+    - b1 for a vector pointing up and to the right
+    - b2 for a vector pointing up and to the left
+- In this system, we could describe our standard [3, 2] as [(5/3) / (1/3)], because we need to scale b1 by 5/3 and b2 by 1/3 and add them, to get to this vector
+- So the first coordinate scales b1, the second scales b2 and we add the results
+- In our coordinate system, we would describe b1 as [2, 1] and b2 as [-1, 1]
+- But from the perspective of the alternative system, the coordinates are [1, 0] and [0, 1] respectively
+- And they are the basis vectors, so what defines the meaning of the coordinates [1, 0] and [0, 1] 
+- It's like speaking different languages to describe the same vectors
+- [0, 0] is common between different coordinate systems; it's what we get when we scale any vector by 0
+- But the direction of the axis and the spacing of the grid line may be different, depending on our choice of basis vectors
+
+- How to translate between coordinate systems:
+    - in the coordinate system with b1 and b2, how would a vector [-1, 2] translate into our standard coordinate system?
+    - the vector is (-1 * b1) + (2 * b2)
+    - if from our perspective, b1 has coordinates of [2, 1] and b2 is [-1, 1]
+    - we can compute -1 * [2, 1] + 2 * [-1 1] = [-4 1]
+    - which means that [-1, 2] in that system is [-4 1] in our system
+    - so we are performing Matrix-vector multiplication (scaling the basis vectors with the corresponding coordinates of some vector, then adding them together)
+    - the Matrix columns represent the basis vectors of some coordinate system but in our perspecive
+    - that Matrix can be thought of as a transformation that moves our basis vectors to the basis vectors of the other system (ie what is [1, 0], [0, 1] in the standard coordinate system, to what is [1, 0], [0, 1] in the new coordinate system)
+    - before the transformation we are thinking of vector [-1, 2] as a linear transformation of our basis vectors (-1 * i-hat + 2 * j-hat)
+    - and the key feature of a linear transformation is that the resulting vector will be that same linear combination, but of the new basis vectors: -1 * where i-hat lands (b1) + 2 * where j-hat lands (b2)
+    - [in progress - 634]
