@@ -13,7 +13,7 @@ This repository serves three purposes:
 
 ## Value Proposition
 
-Combining linguistic expertise with machine learning enables more sophisticated approaches to automation challenges, particularly for text processing, automated content validation, localization testing, automated accessibility testing, A/B test analysis, search result quality assessment, and SEO content analysis.
+Combining linguistic expertise with machine learning enables more sophisticated approaches to automation challenges, particularly for systems involving text processing, automated content validation, localization testing, accessibility testing, A/B test analysis, search result quality assessment, and SEO content analysis.
 
 ## Current Progress
 
