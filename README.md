@@ -1,6 +1,6 @@
 # ML & NLP Learning Journey
 
-Building mathematical and technical foundations for advanced machine learning and NLP capabilities, one concept at a time.
+Building mathematical and technical foundations for advanced machine learning and natural language processing capabilities, one concept at a time.
 
 ## Background
 
