@@ -38,7 +38,7 @@ Combining linguistic expertise with machine learning enables more sophisticated 
 
 ## Learning Plan Overview
 
-This is a **10-12 month structured learning plan** that prioritizes:
+This is a **12-15 month structured learning plan** that prioritizes:
 - Foundational understanding over surface-level knowledge
 - "Why" before "how" - understanding concepts before applying them
 - Building from first principles - implementing algorithms before using libraries
