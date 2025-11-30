@@ -953,7 +953,8 @@
     - then multiply the result by the 90 degree transformation matrix (remember to multiply on the left); this tells us where that vector lands, but still in our C language
     - and then multiply the result by the inverse change-of-basis matrix (again on the left as usual), to get the transformed vector translated back into J language
     - since we can do this with any given vector in J language (first applying the change-of-basis, then the transformation, then the inverse change-of-basis), that composition of three matrices gives us the transformation matrix in J language; it takes in a vector in J language and spits out a transformed vector in J language (coordinate system)
-    - so in general, whenever we see an expression like A⁻¹MA, it suggests a translation into another coordinate system
+    - so in general, whenever we see an expression like A⁻¹MA (called the "similarity transformation"), it suggests a translation into another coordinate system
+    - note that change-of-basis matrices are always invertible (basis vectors must be linearly independent)
 
 ---
 
@@ -961,4 +962,70 @@
 
 **Key Concepts:**
 
-- I
+- Consider some linear transformation in 2D that moves i-hat to [3, 0] and j-hat to [1, 2]; it is represented by a matrix with columns [3 1; 0 2]
+- Lets focus on how it transforms one particular vector and think about the span of that vector (the line passing through its origin and its tip)
+- Most vectors will get knocked off their span during the transformation
+- But some special vectors do remnain on their own span, meaning the effect that the matrix has on such a vector is just to stretch it or squish it, like a scalar
+- For our specific example [3 1; 0 2], the basis vector i-hat is one such special vector
+- The span of i-hat is the x-axis, and from the first column of the matrix [3, 0], we can see that i-hat moves over to 3 times itself, still on that x-axis
+- And because of the way linear transformations work, any other vector on the x-axis is also just stretched by a factor of 3, and hence remains on its own span
+- Another, more hidden vector that remains on its span during this transformation [3 1; 0 2] is [-1, 1]; it ends up getting stretched by a factor of 2 (upwards and to the left diagonally)
+- And again, linearity implies that any other vector on the diagonal line spanned by this vector, is also going to get stretched out by a factor of 2
+- For this transformation [3 1; 0 2], those are all the vectors with the special property of staying on their span (those on the x-axis getting stretched out by a factor of 3, and those on the diagonal line, getting stretched by a factor of 2); any other vector will get rotated during the transformation and get knocked off the line that it span
+- These special vectors are called the Eigenvectors of the transformation
+- And each Eigenvector has associated with an Eigenvalue, which is the factor by which it's stretched or squished during the transformation
+- It is possible to have negative Eigenvalues; for example -1/2 means that the vector gets flipped and squished by a factor of 1/2; the important thing is that it stays on the line it spans out without getting rotated off of it
+
+- Usefulness of Eigenvectors:
+    - Consider a 3D rotation; if we can find an Eigenvector for that rotation, then we have essentially found the axis of rotation!
+    - And it's easier to think about a 3D rotation in terms of an axis of rotation and an angle by which it's rotating ("rotate 30° around [2, 3, 1]"), rather than thinking about the full 3x3 matrix associated with the transformation
+    - In this case the corresponding Eigenvalue would be 1, since rotations about an axis never stretch or squish anything, so the length of the vector would remain the same
+    - As we know, with any linear transformation described by a matrix, we can understand what it's doing by interpreting the columns of this matrix as the landing spots for basis vectors
+    - But often a better way to get to what the linear transformation actually does, a way less dependent on our particular coordinate system, is to find the Eigenvectors and Eigenvalues
+
+- Computational ideas important for conceptual understanding:
+    - A is the Matrix; v is the Eigenvector; and λ is the Eigenvalue in ***Av = λv***
+    - The Matrix-vector product (Av) gives the same result as scaling the Eigenvector v by some value λ
+    - So finding the Eigenvectors and the Eigenvalues of a matrix A, means finding the values of v and λ that make this expression True
+    - But Av is Matrix-vector multiplication, while λv is scalar multiplication
+    - Let's translate the scalar into a matrix, by representing the scalar λ as a matrix that has the effect of scaling any vector by a factor of λ
+    - The columns of this matrix will represent what happens to each basis vector, so each basis vector is simply multiplied by λ: [λ 0 0; 0 λ 0; 0 0 λ] 
+    - So this matrix will have the number λ down the diagonal with 0 everywhere else
+    - The common way to write it is to factor the λ out and write it as λ * [1 0 0; 0 1 0; 0 0 1], with the final expression being ***Av = (λI)v***, where "I" is the identity (unit) matrix with 1s down the diagonal
+    - This achieves that both sides of the equation Av = λv now look like Matrix-vector multiplication
+    - We can change Av = (λI)v into Av - (λI)v = 0
+    - And then factor out the v: ***(A - λI)v = 0***
+    - So now we have a new matrix "A = λI" (looking something like: [3-λ 1 4; 1 5-λ 9; 2 6 5-λ]), and we are looking for a vector v such that this new matrix * v gives the 0 vector
+    - This is always True if v itself is the 0 vector, but we want a nonzero solution for v, a non-zero Eigenvector
+    - We know that the only way possible for the product of a Matrix with a non-zero vector to become zero, is if the transformation associated with that matrix squishes space into a lower dimension
+    - And that squishing corresponds to a 0 determinant for the matrix! So we say that ***det(A - λI) = 0***
+    
+- Concrete example:
+    - Let's say our matrix A [2 2; 1 3] has columns [2, 1] and [2, 3]
+    - For A - λI, we subtract off a variable amount (λ) from each diagonal entry: [2-λ 2; 1 3-λ]
+    - We can tweak λ, changing its value; as that value of λ changes, the matrix itself changes, so the determinant of the matrix changes
+    - The goal is to find a value of λ that will make the determinant zero, meaning the tweaked transformation squishes space into a lower dimension; in this case it happens when λ = 1:
+        - det(A - λI) = 0
+        - det([2-λ 2; 1 3-λ]) = 0
+        - det([2-0.00 2; 1 3-0.00]) = 4.00
+        - det([2-1.14 2; 1 3-1.14]) = 1.07
+        - det([2-2.33 2; 1 3-2.33]) = -2.16
+        - det([2-1.00 2; 1 3-1.00]) = 0
+    - When λ = 1, the matrix A - λI squishes 2D space onto a 1D line
+    - That means there is a non-zero vector v such that (A - λI)v = 0
+    - And the reason we care is that Av = λv, meaning that the vector v is an Eigenvector of A, staying on its own span during the transformation A
+    - In this example the corresponding Eigenvalue is 1, so v would actually just stay fixed in place
+    - Summary of operations:
+        - Av = λv (matrix-vector = scaled vector λ)
+        - Av = (λI)v (transform scalar into matrix)
+        - Av - (λI)v = 0 (algebraic manipulation)
+        - (A - λI)v = 0 (non-0 vector that lands on 0 vector)
+        - det(A - λI) = 0 (this happens only if det = 0)
+        - det([2-λ 2; 1 3-λ]) = 0 (find an λ that makes the det = 0)
+        - ad - cb (determinant caculation)
+        - (2-λ)(3-λ) - 2·1 = λ² - 5λ + 4 = 0 
+        - this factors to (λ-1)(λ-4) = 0, giving eigenvalues λ = 1 and λ = 4
+        - to find the actual Eigenvector, after finding λ = 1, you'd substitute back: (A - I)v = 0
+        - [1 2; 1 2]v = 0 → eigenvector is in the direction [-2; 1] (or any scalar multiple)
+        [in progress]
+
