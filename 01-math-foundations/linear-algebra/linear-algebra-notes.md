@@ -912,27 +912,45 @@
     - b1 for a vector pointing up and to the right
     - b2 for a vector pointing up and to the left
     - in our coordinate system ("C"), we would describe b1 as [2, 1] and b2 as [-1, 1]
-    - but from the perspective of the alternative system ("J"), the coordinates are [1, 0] and [0, 1], by basis vector definition
+    - but from the perspective of the alternative system ("J"), the coordinates are [1, 0] and [0, 1] (by basis vector definition)
     - it's like speaking different languages to describe the same vectors
     - the direction of the axis and the spacing of the grid line may be different, depending on our choice of basis vectors
-    - [0, 0] is common between different coordinate systems; it's what we get when we scale any vector by 0
-    - [3, 2] in C system would translate to [(5/3) / (1/3)] in J system, because we need to scale b1 by 5/3 and b2 by 1/3 and add them, to get to this same vector that we call in C [3, 2]
+    - [0, 0] is common between different coordinate systems; it's what we get when we scale any vector by 0. So all coordinate systems share the same origin
+    - [3, 2] in C system would translate to [(5/3), (1/3)] in J system, because we need to scale b1 by 5/3 and b2 by 1/3 and add them, to get to this same vector that we call in C [3, 2]
 
 - How to translate between coordinate systems:
     - in the J system, how would a vector [-1, 2] translate into our standard C system?
-    - say that from our C system perspective, b1 has coordinates of [2, 1] and b2 is [-1, 1]
+    - say that from our C system perspective, b1 has coordinates of [2, 1] and b2 has coordinates of [-1, 1]
     - the vector is (-1 * b1) + (2 * b2)
-    - so we can compute -1 * [2, 1] + 2 * [-1 1] = [-4 1]
-    - which means that [-1, 2] in J system, is [-4 1] in our C system
+    - we can compute -1 * [2, 1] + 2 * [-1, 1] = [-4, 1]
+    - which means that [-1, 2] in J system, is [-4, 1] in our C system
     - so we are performing Matrix-vector multiplication (scaling the basis vectors with the coordinates of some vector, then adding them together)
     - the Matrix columns represent the basis vectors of some coordinate system but from our C system perspecive
-    - that Matrix can be thought of as a transformation, that moves our C basis vectors to the basis vectors of the other system (ie what is [1, 0], [0, 1] in the standard coordinate system, to what [1, 0], [0, 1] means in the new coordinate system)
-    - another way to think about it: before the transformation, we can think of the J system vector [-1, 2] as a linear transformation of our basis vectors (-1 * i-hat + 2 * j-hat), and as a feature of linear transformations, the resulting vector will be that same linear combination but with the new basis vectors: -1 * where i-hat "landed" (b1) + 2 * where j-hat "landed" (b2)
-    - so this Matrix transforms (translates) our "misconception" of how we call a vector "[-1, 2]" into what [-1, 2] actually means in the new J coordinate system
-    - geometrically, this Matrix transforms our C grid into the other J grid
+    - that Matrix can be thought of as a transformation, that moves our C basis vectors to the basis vectors of the other system (from what [1, 0], [0, 1] means in the standard coordinate system, to what [1, 0], [0, 1] means in the new coordinate system)
+    - another way to think about it: before the transformation, we can think of the J system vector [-1, 2] as a linear transformation of our basis vectors (-1 * i-hat + 2 * j-hat); and as a feature of linear transformations, the resulting vector will be that same linear combination but with the new basis vectors: -1 * where i-hat "landed" (b1) + 2 * where j-hat "landed" (b2)
+    - so this Matrix translates our "misconception" of how we call a vector "[-1, 2]" into what "[-1, 2]" actually means in the new J coordinate system
+    - geometrically, this Matrix "transforms" our C grid into the other J grid
     - but numerically, it's translating a vector from the J language to ours
-    - it takes our misconception of what the coordinates mean in our system, and transforms it into the vector that actually represents these numbers in the other system
+    - it takes our misconception of what the vector coordinates mean in our system, and transforms it into the vector that actually represents these numbers in the other system
 
 - What about going the other way around?
-    - we start with the change of basis matrix that translates J's language into ours
-    [chapter in progress]
+    - we start with the change-of-basis matrix that translates J's language into ours
+    - then we take its inverse (so that will translate from our C system back to J)
+    - so for example to see what a vector [3, 2] on our C system looks like in J system, we multiply it by the inverse change-of-basis Matrix. The result is the same vector in J language
+    - the Matrix whose columns represent J basis vectors but written in our C coordinates, translates vectors from that language into ours
+    - and the inverse does the opposite
+
+- Vectors aren't the only thing using coordinates
+    - consider a 90 degree counterclockwise rotation
+    - on C coordinate system, we follow where i-hat and j-hat go ([0, 1] and [-1, 0])
+    - so those coordinates become the columns of our matrix
+    - how would the same rotation be decribed in the J system?
+    - the matrix should represent where J basis vectors land, not C basis vectors, and needs to describe those landing spots in J language
+
+- The process:
+    - start with any vector in J language [-1, 2]
+    - translate it into C language by multiplying it with the change-of-basis matrix [2 -1; 1 1] (matrix columns represent J basis vectors but in our C language); this gives us the same initial vector in C language
+    - then multiply the result by the 90 degree transformation matrix (remember to multiply on the left); this tells us where that vector lands, but still in our C language
+    - and then multiply the result by the inverse change-of-basis matrix (again on the left as usual), to get the transformed vector translated back into J language
+    - since we can do this with any given vector in J language (first applying the change-of-basis, then the transformation, then the inverse change-of-basis), that composition of three matrices gives us the transformation matrix in J language; it takes in a vector in J language and spits out a transformed vector in J language (coordinate system)
+    - so in general, whenever we see an expression like A⁻¹MA, it suggests a translation into another coordinate system
