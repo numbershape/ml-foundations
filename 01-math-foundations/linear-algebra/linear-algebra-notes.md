@@ -954,3 +954,11 @@
     - and then multiply the result by the inverse change-of-basis matrix (again on the left as usual), to get the transformed vector translated back into J language
     - since we can do this with any given vector in J language (first applying the change-of-basis, then the transformation, then the inverse change-of-basis), that composition of three matrices gives us the transformation matrix in J language; it takes in a vector in J language and spits out a transformed vector in J language (coordinate system)
     - so in general, whenever we see an expression like A⁻¹MA, it suggests a translation into another coordinate system
+
+---
+
+### Video 14: Eigenvectors and Eigenvalues
+
+**Key Concepts:**
+
+- I
