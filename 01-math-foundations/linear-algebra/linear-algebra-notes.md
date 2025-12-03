@@ -962,10 +962,10 @@
 
 **Key Concepts:**
 
-- Consider some linear transformation in 2D that moves i-hat to [3, 0] and j-hat to [1, 2]; it is represented by a matrix with columns [3 1; 0 2]
+- Consider some linear transformation in 2D that moves i-hat to [3, 0] and j-hat to [1, 2]; it is represented by a matrix [3 1; 0 2]
 - Lets focus on how it transforms one particular vector and think about the span of that vector (the line passing through its origin and its tip)
 - Most vectors will get knocked off their span during the transformation
-- But some special vectors do remnain on their own span, meaning the effect that the matrix has on such a vector is just to stretch it or squish it, like a scalar
+- But some special vectors do remain on their own span, meaning the effect that the matrix has on such a vector is just to stretch it or squish it, like a scalar
 - For our specific example [3 1; 0 2], the basis vector i-hat is one such special vector
 - The span of i-hat is the x-axis, and from the first column of the matrix [3, 0], we can see that i-hat moves over to 3 times itself, still on that x-axis
 - And because of the way linear transformations work, any other vector on the x-axis is also just stretched by a factor of 3, and hence remains on its own span
@@ -987,18 +987,24 @@
     - A is the Matrix; v is the Eigenvector; and λ is the Eigenvalue in ***Av = λv***
     - The Matrix-vector product (Av) gives the same result as scaling the Eigenvector v by some value λ
     - So finding the Eigenvectors and the Eigenvalues of a matrix A, means finding the values of v and λ that make this expression True
-    - But Av is Matrix-vector multiplication, while λv is scalar multiplication
-    - Let's translate the scalar into a matrix, by representing the scalar λ as a matrix that has the effect of scaling any vector by a factor of λ
-    - The columns of this matrix will represent what happens to each basis vector, so each basis vector is simply multiplied by λ: [λ 0 0; 0 λ 0; 0 0 λ] 
-    - So this matrix will have the number λ down the diagonal with 0 everywhere else
-    - The common way to write it is to factor the λ out and write it as λ * [1 0 0; 0 1 0; 0 0 1], with the final expression being ***Av = (λI)v***, where "I" is the identity (unit) matrix with 1s down the diagonal
-    - This achieves that both sides of the equation Av = λv now look like Matrix-vector multiplication
+    - This is always True if v itself is the 0 vector, but we want a nonzero solution for v, a non-zero Eigenvector
+    - Change scalar into a matrix first:
+        - Av is Matrix-vector multiplication, while λv is Scalar-vector multiplication
+        - Let's first translate the scalar into a matrix, by representing the scalar λ as a matrix that has the effect of scaling any vector by a factor of λ
+        - The columns of this matrix will represent what happens to each basis vector, so each basis vector is simply multiplied by λ: [λ 0 0; 0 λ 0; 0 0 λ] 
+        - So this matrix will have the number λ down the diagonal with 0 everywhere else
+        - The common way to write it is to factor the λ out and write it as λ * [1 0 0; 0 1 0; 0 0 1], with the final expression being ***Av = (λI)v***, where "I" is the identity (unit) matrix with 1s down the diagonal
+        - This achieves that both sides of the equation Av = λv now look like Matrix-vector multiplication
     - We can change Av = (λI)v into Av - (λI)v = 0
     - And then factor out the v: ***(A - λI)v = 0***
-    - So now we have a new matrix "A = λI" (looking something like: [3-λ 1 4; 1 5-λ 9; 2 6 5-λ]), and we are looking for a vector v such that this new matrix * v gives the 0 vector
-    - This is always True if v itself is the 0 vector, but we want a nonzero solution for v, a non-zero Eigenvector
-    - We know that the only way possible for the product of a Matrix with a non-zero vector to become zero, is if the transformation associated with that matrix squishes space into a lower dimension
-    - And that squishing corresponds to a 0 determinant for the matrix! So we say that ***det(A - λI) = 0***
+    - So now we have a new matrix "A - λI" (looking something like: [3-λ 1 4; 1 5-λ 9; 2 6 5-λ]), and we are looking for a vector v such that this new matrix * v gives the 0 vector 
+    - Another way to say it is that we are looking for a non-zero vector (Eigenvector) v, that gets sent to the zero vector by the matrix [A - λI]
+    - But there are infinitely many possible values of λ, and each value creates a completely different matrix [A - λI]
+    - So we need to find the special λ values where (A - λI) actually squishes space into a lower dimension (has 0 determinant), because only then can a non-zero vector land on zero!
+    - That squishing corresponds to a 0 determinant for the matrix; so we say that ***det(A - λI) = 0***
+    - Once we know those special λ values, we can plug each one back in the matrix and ask: "Which non-zero vectors does this particular version of (A - λI) send to zero?"
+    - Those vectors in the null space of (A - λI) are the Eigenvectors with Eigenvalue λ
+    - Analogy: It's like finding a lock's combination before trying to open it. The eigenvalue is the combination that "unlocks" the null space containing the eigenvectors
     
 - Concrete example:
     - Let's say our matrix A [2 2; 1 3] has columns [2, 1] and [2, 3]
@@ -1027,5 +1033,77 @@
         - this factors to (λ-1)(λ-4) = 0, giving eigenvalues λ = 1 and λ = 4
         - to find the actual Eigenvector, after finding λ = 1, you'd substitute back: (A - I)v = 0
         - [1 2; 1 2]v = 0 → eigenvector is in the direction [-2; 1] (or any scalar multiple)
-        [in progress]
+
+- One more example:
+    - Let's revisit our first matrix [3 1; 0 2] with columns [3, 0] and [1, 2]
+    - To find if a value λ is an Eigenvalue, subtract it from the diagonals of this matrix and compute the determinant (ad - bc):
+        - det([3-λ 1; 0 2-λ]) = (3-λ) (2-λ) -1 * 0
+        - doing this, we get a certain quadratic polynomial in λ: (3-λ) (2-λ)
+    - Since λ can only be an Eigenvalue of this determinant happens to be zero, we can conclude that the only possible Eigenvalues are λ=2 and λ=3
+    - To figure out what the Eigenvectors are that actually have one of these Eigenvalues, plug in that value of say λ = 2 to the matrix and then find which vectors [x, y] this diagonally altered matrix sends to zero:
+        - [3-2 1; 0 2-2] * [x, y] = [0, 0]
+        - the solutions are all the vectors on the diagonal line spanned by [-1, 1]
+        - this corresponds to the fact that the unaltered matrix [3 1; 0 2] with vectors [3, 0] and [1, 2], has the effect of stretching all those vectors by a factor of 2
+    - Summary of example with [3 1; 0 2]:
+        - First find λ: det([3-λ 1; 0 2-λ]) = 0 gives λ=2 and λ=3
+        - Then for λ=2: solve [1 1; 0 0]v = 0 → eigenvector is [-1, 1]
+        - And for λ=3: solve [0 1; 0 -1]v = 0 → eigenvector is [1, 0]
+
+- A 2D transformation doesn't necessarily have Eigenvectors
+    - A 90 degree rotation, since it rotates every vector off of its own span:
+        - If we actually tried to compute the Eigenvalues of this rotation, its matrix has columns [0 -1; 1 0]. If we subtract λ from the diagonal elements and look for when the determinant is zero, we get det([-λ -1; 1 -λ])=(-λ) * (-λ) - (-1) * 1 = λ^2 + 1 = 0
+        - The only roots of this polynomial λ^2 + 1 = 0 are the imaginary numbers i and -i
+        - The fact that there are no real number solutions indicates that there are no Eigenvectors
+        - In the complex plane, multiplication by i looks like a 90 degree rotation, and this is related to the fact that i is an Eigenvalue of this transformation of 2D real vectors!
+        - In 2D space, complex eigenvalues always come in conjugate pairs, indicating rotational behavior without real eigenvectors
+    - A shear fixes i-hat in place and moves j-hat one over, so its matrix has columns [1, 0] and [1, 1]
+        - All of the vectors on the x-axis are Eigenvectors with Eigenvalue 1, since they remain fixed in place; in fact, these are the only Eigenvectors
+        - When we subtract λ from the diagonals and compute the determinant, we get det([1-λ 1; 0 1-λ]) = (1-λ) * (1-λ) - 1* 0
+        - The only root of this expression is λ = 1, and this lines up with what we see geometrically
+        - When we compute the determinant, we get a polynomial whose roots are the Eigenvalues. If a root appears multiple times, it has higher algebraic multiplicity
+        - In this case, λ=1 has algebraic multiplicity = 2 (appears twice as a root)
+        - On the other hand, geometric multiplicity shows how many linearly independent Eigenvectors exist for a given Eigenvalue
+        - In this case, all Eigenvectors are multiples of [1, 0] (just the x-axis) 
+        - So even though λ=1 appeared twice algebraically, there's only one independent direction of eigenvectors, and geometric multiplicity = 1
+    - A single Eigenvalue can have more than a line full of Eigenvectors:
+        - For example, a matrix that scales everything by 2
+        - The only Eigenvalue is 2, but every vector in the plane gets to be an Eigenvector with that Eigenvalue
+
+- Eigenbasis:
+    - A set of basis vectors which are also Eigenvectors is called an Eigenbasis
+    - If i-hat is scaled by -1 and j-hat by 2, their new coordinates will be [-1, 0] and [0, 2]
+    - Writing them as a matrix [-1 0; 0 2], the scalar multiples -1 and 2 (which are the Eigenvalues of i-hat and j-hat) sit on the diagonal of our matrix and every other entry is a 0
+    - Any time a matrix has zeros everywhere other than the diagonal, it's called a diagonal matrix, which means that all the basis vectors are Eigenvectors, with the diagonal entries of this matrix being their Eigenvalues
+    - It is easier to compute what will happen if you multiply this matrix by itself a few times. Since all it does is scale each basis vector by some Eigenvalue, applying that matrix say 100 times, will scale each basis vector by the 100th power of the corresponding Eigenvalue. For example [3^100 0; 0 2^100]
+    - So no need to do 100 matrix multiplications; we can just raise the eigenvalues to the 100th power
+
+- Change of basis for Eigenbasis:
+    - It is rare for the Eigenvectors to happen to be our basis vectors
+    - However, if our transformation has a lot of Eigenvectors, enough so that we can choose a set that spans the full space, then we could change our coordinate system so that Eigenvectors ARE our basis vectors! 
+    - As a reminder on how to translate between coordinate systems, take the coordinates of the vectors that you want to use as a new basis (in this case our two Eigenvectors) and make those coordinates the columns of a matrix, known as the change-of-basis matrix
+    - "Sandwich" the original transformation putting the change-of-basis matrix to its right and the inverse of the change-of-basis to its left
+    - In formula: ***P⁻¹AP = D*** where  P = the change-of-basis matrix (with eigenvectors as basis vectors), A = the original matrix, P⁻¹ = the inverse of the change-of-basis matrix, and D = the diagonal matrix (what A looks like in Eigenbasis, with Eigenvalues on the diagonal)
+        - P converts places Eigenbasis coordinates as standard coordinates
+        - A applies the standard transformation to those vectors (not "knowing" they are special combinations)
+        - P⁻¹ translates from standard coordinates back to eigenbasis coordinates
+        - The result D shows what A does when both input and output are expressed in Eigenbasis - just scaling!
+    - To calculate:
+        - Start with P⁻¹AP = D
+        - Multiply both sides on the left by P: P * (P⁻¹AP) = P * D
+        - Simplify: AP = PD (because P * P⁻¹ = I)
+        - Multiply both sides on the right by P⁻¹: A * P * P⁻¹ = P * D * P⁻¹
+        - Simplify: A = P * D * P⁻¹ (because P·P⁻¹ = I)
+        - For computing powers: If A = PDP⁻¹, then A¹⁰⁰ = (PDP⁻¹)¹⁰⁰ = PD¹⁰⁰P⁻¹
+        - A¹⁰⁰ = PD¹⁰⁰P⁻¹ or "change into Eigenbase coordinates, raise Eigenvalue to 100th power and change back to standard coordinates"
+    - The result will be a matrix representing that same transformation, but from the perspective of the new basis vectors coordinate system
+    - This new matrix is guaranteed to be diagonal with its corresponding Eigenvalues down that diagonal; it represents working in a coordinate system where what happens to the basis vectors is that they get scaled during the transformation
+    - It is much easier to compute the 100th power of a matrix by changing to an Eigenbasis, compute the 100th power in that system, and then convert back to our standard system
+    - We can't do this with all transformations as not all matrices can become diagonal. A shear for example, doesn't have enough Eigenvectors to span the full space:
+        - A matrix can only be diagonalized if, for every Eigenvalue, algebraic multiplicity = geometric multiplicity
+        - As we know, algebraic multiplicity is how many times an Eigenvalue appears as a root of the characteristic polynomial; while geometric multiplicity is the dimension of the Eigenspace (number of linearly independent eigenvectors for that Eigenvalue)
+        - In the shear example, λ=1 has algebraic multiplicity 2 but geometric multiplicity 1
+        - We only have 1 independent eigenvector, but we need 2 to form a basis for 2D space
+        - Therefore, the shear cannot be diagonalized - we can't find an eigenbasis.
+
+
 
