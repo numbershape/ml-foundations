@@ -18,9 +18,10 @@ Combining linguistic expertise with machine learning enables more sophisticated 
 ## Current Progress
 
 **Phase 1: Mathematical Foundations** (in progress)
-- Linear Algebra ⏳
+- Linear Algebra ✅
+- Calculus ⏳
 
-**Coming next:** Calculus, Probability & Statistics, Python for ML, Classical Machine Learning, Deep Learning, Natural Language Processing
+**Coming next:** Probability & Statistics, Python for ML, Classical Machine Learning, Deep Learning, Natural Language Processing
 
 ## Repository Structure
 
