@@ -2,7 +2,7 @@
 
 ## Resources
 - 3Blue1Brown: "Essence of Linear Algebra" series
-- Claude Sonnet 4.5: Supporting tool for further investigation and additional notes
+- Claude Sonnet & Opus 4.5: Supporting tools for investigation, additional notes and final summary
 
 ## Notation
 
@@ -1241,6 +1241,109 @@
     - Determinants: This is fundamentally a finite-dimensional concept
 - Determinants are indifferent to coordinate systems because they measure an intrinsic geometric property - but only in finite dimensions where such geometric intuition exists. In infinite-dimensional function spaces, we lose this geometric picture but retain the algebraic structure (addition, scaling, linear transformations).
 - Moving to abstract vector spaces gives us tremendous generality (functions, polynomials, solutions to differential equations are all "vectors"), but we sacrifice some geometric intuition. Not all finite-dimensional concepts (like determinants, cross products, or volume) transfer cleanly to infinite dimensions.
+
+---
+
+## Final Summary
+
+**1. Vectors & Operations**
+
+- Vectors are arrows from origin to a point, defined by coordinates. Each coordinate scales a basis vector (i-hat, j-hat, k-hat)
+- Two fundamental operations:
+    - Addition: Place vectors tip-to-tail; result goes from first tail to final tip
+    - Scalar multiplication: Stretches/squishes/flips the vector
+
+**2. Linear Combinations, Span & Basis**
+
+- Linear combination: Scaling vectors and adding them together
+- Span: All possible vectors reachable via linear combinations
+- Linearly independent: Each vector adds a new dimension to the span
+- Linearly dependent: A vector is redundant (already in the span of others)
+- Basis: A set of linearly independent vectors that span the full space
+
+**3. Linear Transformations & Matrices**
+
+- A linear transformation moves space while keeping grid lines parallel, evenly spaced, and the origin fixed
+- Key insight: A transformation is fully described by where the basis vectors land. These landing spots become the columns of a matrix
+- Matrix-vector multiplication computes where a vector lands:
+[a b; c d] * [x, y] = x*[a,c] + y*[b,d] = [ax+by, cx+dy]
+- Matrix-matrix multiplication composes transformations (read right-to-left)
+
+**4. The Determinant**
+
+- Measures how much a transformation scales area (2D) or volume (3D)
+    - det > 0: Orientation preserved
+    - det < 0: Orientation flipped
+    - det = 0: Space squished to lower dimension (not invertible)
+- 2D formula: det([a b; c d]) = ad − bc
+
+**5. Inverse Matrices & Solving Systems**
+
+- For Ax = v, we seek the input x that lands on output v
+    - If det(A) ≠ 0: Unique solution exists → x = A⁻¹v
+    - If det(A) = 0: No inverse; solutions may not exist or may be infinite
+- Column space: All possible outputs (span of matrix columns)
+- Null space: All inputs that map to zero
+- Rank: Dimension of column space
+- Rank-nullity theorem: columns = rank + null space dimension
+
+**6. Dot Product**
+
+- Numerically: Pair coordinates, multiply, sum → [a,b]·[c,d] = ac + bd
+- Geometrically: Project one vector onto another, multiply lengths
+    - Same direction → positive
+    - Perpendicular → zero
+    - Opposite direction → negative
+- Duality: Every vector defines a linear transformation to 1D (and vice versa). Dotting with a vector = applying that transformation
+
+**7. Cross Product (3D)**
+
+- Produces a vector perpendicular to both inputs, with magnitude = parallelogram area
+- Direction: Right-hand rule (forefinger = v, middle = w, thumb = v × w)
+- Calculation: Use the 3×3 determinant with [i-hat, j-hat, k-hat] as first column
+
+**8. Change of Basis**
+
+- Different coordinate systems describe the same vectors with different numbers
+- Translation formula: A⁻¹MA transforms matrix M into a new basis (where A's columns are the new basis vectors in standard coordinates)
+
+**9. Eigenvectors & Eigenvalues**
+
+- An eigenvector stays on its span during transformation (only stretched/squished).
+The eigenvalue is the scaling factor
+- Finding them: Solve det(A − λI) = 0 for eigenvalues λ, then solve (A − λI)v = 0 for eigenvectors
+- Why useful:
+    - Reveal the "natural directions" of a transformation
+    - In 3D rotation, the eigenvector with λ=1 is the rotation axis
+    - Diagonal matrices (eigenbasis): Easy to compute powers → A¹⁰⁰ = PD¹⁰⁰P⁻¹
+- Quick trick (2×2): λ = m ± √(m² − p), where m = trace/2 and p = determinant
+
+**10. Abstract Vector Spaces**
+
+- Vectors aren't just arrows—anything with consistent addition and scaling qualifies (functions, polynomials, etc)
+- 8 axioms define a vector space. If satisfied, all linear algebra tools apply
+- Example: Polynomials form a vector space with basis {1, x, x², ...}. The derivative is a linear transformation representable as an infinite matrix
+
+**11. Key Geometric Intuitions**
+
+- Matrix columns: Where basis vectors land
+- Determinant: Area/volume scaling factor
+- Rank: Dimension of output space
+- Null space: What collapses to zero
+- Eigenvectors: Directions that don't rotate
+- Dot product: "How aligned are these vectors?"
+- Cross product: Perpendicular vector with area magnitude
+
+**12. What matters the most**
+
+- The central unifying idea: Matrices are transformations, and understanding what they do geometrically (where basis vectors land, how space stretches/rotates/squishes) makes the algebra intuitive
+- The three most powerful insights:
+    - Column perspective: A matrix's columns tell you where basis vectors go. Everything else follows from this; matrix multiplication is just "where does the composition send basis vectors?"
+    - Determinant as area scaling: This single number tells you whether a transformation is invertible (non-zero) and whether orientation flips (negative)
+    - Duality: Vectors and linear transformations to 1D are two sides of the same coin. This explains why dot products appear everywhere - they are the natural way to "measure" vectors.
+- For problem-solving: The eigenvector/eigenvalue machinery is probably the most practically useful. Finding the "natural axes" of a transformation simplifies everything - especially computing matrix powers.
+
+
 
 
 
