@@ -1105,5 +1105,54 @@
         - We only have 1 independent eigenvector, but we need 2 to form a basis for 2D space
         - Therefore, the shear cannot be diagonalized - we can't find an eigenbasis.
 
+---
+
+### Video 15: A quick trick for computing Eigenvalues
+
+**Key Concepts:**
+
+- A quick way to compute 2X2 matrices, instead of the standard way: ***det([a-λ b; c d-λ]) = 0***
+- Review of regular method (find roots of characteristic polynomials):
+    - If the effect of a linear transformation on a vector is to scale it by some constant, we call it an Eigenvector of the transformation, and we call the relevant scaling factor the corresponding Eigenvalue (λ)
+    - From Av = λv we get Av - λIv = 0 and (A - λI)v = 0, and we see that if the number λ is an Eigenvalue of matrix A, then (A - λI) must send some non-zero vector, namely the corresponding Eigenvector, to the zero vector, which in turn means that the determinant of this modified matrix must be zero, det(A - λI) = 0
+    - The usual way is to subtract λ off the diagonals and then solve for when the determinant is equal to zero. doing this always involves a few extra steps to expand out and simplify to get a clean quadratic polynomial, known as the characteristic polynomial of the matrix
+    - Example matrix [3 1; 4 1]:
+        - det([3-λ 1; 4 1-λ]) = (3-λ) * (1-λ) - (1) * (4) = (3 - 4λ + λ^2) - 4 = λ^2 - 4λ -1
+        - λ^2 - 4λ -1 is the characteristic polynomial of the matrix [3 1; 4 1]
+        - the Eigenvalues λ1 and λ2 are the roots of this polynomial
+        - to find them, we have to apply the quadratic formula (-b ± √(b² - 4ac)) / 2a, which itself typically requires one or two more steps of simplification λ1, λ2 = (4 ± √(4² - 4(1)(-1))) / 2 = 4 ± √20 / 2 = 2 ± √5
+
+- A more direct way to get at the answer for 2x2 matrices is the mean-product formula. To discover it, we need three relevant facts:
+    - The trace of a matrix (the sum of the two diagonals) is equal to the sum of its Eigenvalues tr([a b; c d])= a + d = λ1 + λ2, or another way to phrase it is that the mean of the two Eigenvalues is the same as the mean of these two diagonal entries: mean (a,d) = mean (λ1,λ2), or 1/2tr([a b; c d])= (a + d)/2 = (λ1 + λ2)/2 = m (mean)
+        - for example matrix [8 4; 2 6]: m = (8 + 6) / 2 = 7
+        - so we know that the mean of the two Eigenvalues will be 7
+    - The determinant of a matrix (ad - bc) is equal to the product of the two Eigenvalues det[(a b; c d)] = ab - cd = λ1 * λ2 = p (product) since Eigenvalues describe how much an operator stretches space in a particular direction, and the determinant describes how much an operator scales areas or volumes as a whole
+        - for example matrix [8 4; 2 6]: (6 * 8) - (2 * 4) = 48 - 8 = 40
+        - so we know that the product of the two Eigenvalues will be 40
+    - How to quickly recover two numbers, when we know their mean and their product:
+        - when their mean is 7, we know that the two values are evenly spaced around the number 7, so they look like 7 plus or minus something (let's call it "d" for distance)
+        - since the product of these two values is 40, we can say that 40 = (7 + d) * (7 - d), which works out like a difference of squares  a² - b² = (a+b)(a-b): 40 = 7² - d² = (7 + d) * (7 - d)
+        - from there, we can directly find d: d² = 7² - 40 = 49 - 40 = 9
+        - this means that d itself is: d² = 9 so d = 3
+        - so the two values are 7 + 3 = 10, and 7 - 3 = 4
+        - general formula: for any mean m and product p, the distance squared will always be m square minus p:
+            - p = m² - d² = (m + d) * (m - d)
+            - d² = m² - p
+        - so when two numbers have a mean m and a product p, we can write those numbers as m plus or minus the square root of m squared minus p: ***λ1,λ2 = m ± √ (m² - p)***
+    - Example with matrix [3 1; 4 1]:
+        - λ1,λ2 = m ± √ (m² - p)
+        - λ1,λ2 = 2 ± √ (2² - (-1))
+        - λ1,λ2 = 2 ± √5
+        - so this mean-product formula simplifies it a lot, as opposed to going by finding roots of the characteristic polynomials
+    - The mean-product formula is a nice way of solving quadratics in general: for example, on x² - 10x + 9, λ1 and λ2 represent the two instances where x = 0
+        - when trying to find the roots of a quadratic given the coefficients, we know the sum of two values and we also know their product, and we are trying to recover the original two values
+        - x² - 10x + 9
+        - x² - (λ1 + λ2)x + λ1*λ2
+        - (x - λ1) (x - λ2)
+        - specifically if the polynomial is normalized, so that the leading coefficient is 1, then the mean of the roots will be -1/2 times this linear coefficient: (-10 / -1/2) = 5; and the product is just the constant term:  9
+        - if we apply λ1,λ2 = m ± √ (m² - p), that will give us the roots
+     - Like a lighter version of the traditional quadratic formula, but in our case we can read out the mean and product directly from looking at the matrix, so we don't need the intermediate step of setting up the characteristic polynomial
+     - m ± √(m² - p) is equivalent to the standard quadratic formula results, just rearranged. For x² + bx + c = 0, the roots are traditionally written as (-b ± √(b² - 4ac)) / (2a), which simplifies to -b/2 ± √((b/2)² - c) when a=1
+
 
 
