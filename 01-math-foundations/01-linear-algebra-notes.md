@@ -1266,7 +1266,7 @@
 - A linear transformation moves space while keeping grid lines parallel, evenly spaced, and the origin fixed
 - Key insight: A transformation is fully described by where the basis vectors land. These landing spots become the columns of a matrix
 - Matrix-vector multiplication computes where a vector lands:
-[a b; c d] * [x, y] = x*[a,c] + y*[b,d] = [ax+by, cx+dy]
+[a b; c d] * [x, y] = x*[a, c] + y*[b, d] = [ax + by, cx + dy]
 - Matrix-matrix multiplication composes transformations (read right-to-left)
 
 **4. The Determinant**
@@ -1289,7 +1289,7 @@
 
 **6. Dot Product**
 
-- Numerically: Pair coordinates, multiply, sum → [a,b]·[c,d] = ac + bd
+- Numerically: Pair coordinates, multiply, sum → [a, b]·[c, d] = ac + bd
 - Geometrically: Project one vector onto another, multiply lengths
     - Same direction → positive
     - Perpendicular → zero
