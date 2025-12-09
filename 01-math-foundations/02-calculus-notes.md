@@ -2,7 +2,7 @@
 
 ## Resources
 - 3Blue1Brown: "Essence of Calculus" series
-- Claude Sonnet & Opus 4.5: Supporting tools for investigation, additional notes and final summary
+- Claude Sonnet 4.5 & Opus 4.5: Supporting tools for investigation, additional notes and final summary
 
 ## Notation
 
