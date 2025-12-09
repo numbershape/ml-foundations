@@ -1154,5 +1154,93 @@
      - Like a lighter version of the traditional quadratic formula, but in our case we can read out the mean and product directly from looking at the matrix, so we don't need the intermediate step of setting up the characteristic polynomial
      - m ± √(m² - p) is equivalent to the standard quadratic formula results, just rearranged. For x² + bx + c = 0, the roots are traditionally written as (-b ± √(b² - 4ac)) / (2a), which simplifies to -b/2 ± √((b/2)² - c) when a=1
 
+---
+
+### Video 16: Abstract vector spaces
+
+**Key Concepts:**
+
+- Revisiting what is a vector:
+    - an arrow on a flat plane that we can describe with coordinates for convenience?
+    - or that pair of real numbers which is just visualized as an arrow on a flat plane?
+
+- Describing vectors as a list of numbers is clear-cut and unambiguous; it makes things like 4D vectors sound like real, concrete ideas we can actually work with, when otherwise an idea like four dimensions is just a vague geometric notion that's difficult to describe
+- We are dealing with a space that exists independently from the coordinates that we give it, and that coordinates are actually somewhat arbitrary, depending on what we happen to choose as basis vectors (meaning that the same abstract vector space can have infinitely many coordinate representations)
+- Determinants and Eigenvectors seem indifferent to our choice of coordinate systems. The determinant tells us how much a transformation scales areas, and Eigenvectors are the vectors that stay on their own span during a transformation. But both of these properties are inherently spatial, so we can freely change our coordinate system without changing their underlying values
+- But if vectors are not lists of real numbers and their essense is more spatial, then what is space?
+- Functions are in a sense another type of vector
+    - We can add two functions to get a third function, just like vectors
+    - The output of the new function at any given input (like -4) is the sum of the outputs of the two functions when you evaluate them each at that same input -4
+    - Or more generally, the value of the sum function at any given input x, is the sum of the values f(x) plus g(x):  (f + g)(x) = f(x) + g(x)
+    - This is similar to adding vectors coordinate by coordinate, only with infinitely many coordinates 
+    - Similarly, there is a notion of scaling a function by a real number, by just scaling all of the outputs by that number (2f)(x) = 2 f(x)
+    - This is also analogous to scaling a vector coordinate by coordinate, only with infinitely many coordinates 
+    - Given that the only thing vectors can do is get added together or get scaled, we should be able to apply the linear algebra concepts to functions as well
+    
+- Linear Transformations for functions: something that takes in one function and turns it into another. In this context, they are called Linear Operators. One familiar example comes from calculus: the derivative! It transforms one function into another
+- What does it mean for a transformation of functions to be linear?
+    - A transformation is linear if it satisfies two properties: additivity and scaling
+    - Additivity means that if you add two vectors v and w, then apply a transformation to their sum, you get the same result as if you added the transformed versions of v and w L(v + w) = L(v) + L(w)
+    - Scaling means that if you scale a vector v by some number, then apply the transformation, you get the same resulting vector as if you scaled the transformed version of v by that amount L(cv) = cL(v)
+    - So linear transformations preserve the operations of vector addition and scalar multiplication
+    - The idea of gridlines remaining parallel and evenly spaced is just an illustration of what these two properties mean in the specific case of points in 2D space
+    - One of the most important consequences of these properties, which makes matrix-vector multiplication possible, is that a linear transformation is completely described by where it takes the basis vectors
+    - Since any vector can be expressed by scaling and adding the basis vectors in some way, finding the transformed version of a vector comes down to scaling and adding the transformed versions of the basis vectors in that same way
+    - This is as true for functions as it is for arrows. For example in calculus we use the fact that the derivative is additive and has the scaling property (the derivative of the sum equals the sum of the derivatives; the scaled derivative of a function equals the derivative of the scaled function)
+
+- Let's describe the derivative with a matrix
+    - keep in mind that function spaces are infinite-dimensional
+    - lets set our space to be All Polynomials (like x² + 3x + 5, 3x - 7 and so on)
+    - each of the polynomials in our space will only have finitely many terms, but the full space will include polynomials with arbitrarily large degree
+    - this space contains all finite polynomials but not infinite series. The space is infinite - dimensional, but each vector has finite support
+    - firstly, let's give coordinates to this space, which requires choosing a basis
+    - since polynomials are already written down as the sum of scaled powers of the variable x (so already written as a linear combination) it's natural to choose pure powers of x as the basis function (1, x, x², etc)
+        - our first basis function will be the constant function b0(x) = 1
+        - the second basis function will be b1(x) = x
+        - the third basis function will be b2(x) = x²
+        - and so on
+        - their role will be similar to i-hat, j-hat, k-hat in the world of vectors as arrows
+    - since our polynomials can have arbitrarily large degree, this set of basis functions is infinite!
+    - so if we treat our polynomials as vectors, they will have infinitely many coordinates
+    - for example, the polynomial x² + 3x + 5 (implicitly x² + 3x + 5(1)) would be described with the coordinates 5, 3, 1, then infinitely many zeros: [5, 3, 1, 0, 0, ...]
+    - 5 times the first basis function, plus 3 times the second basis function, plus 1 times the third basis function, and then none of the other basis functions should be added from that point on
+    - since every individual polynomial has only finitely many terms, its coordinates will be some finite string of numbers with an infinite tail of zeros
+    - in this coordinate system, the derivative is described with an infinite matrix that is mostly full of zeros, but which has the positive integers counting down on this offset diagonal [0 1 0 0 ...; 0 0 2 0 ...; 0 0 0 3...; 0 0 0 0...; ...]
+        - let's try with the derivative of 1x³ + 5x² + 4x + 5: d/dx (1x³ + 5x² + 4x + 5)
+        - take the coordinates representing the polynomial and put those cordinates on the right of the matrix [5, 4, 5, 1]
+        - we skip 5 because it's a constant; the only term that contributes to the first coordinate of the result is 1 * 4, which means the constant term of the result will be 4. This corresponds to the fact that the derivative of 4x is the constant 4
+        - the only term contributing to the second coordinate of the matrix vector product is 2 * 5, which means the coefficient in front of x in the derivative is 10 (10x), corresponding to the derivative of 5x²
+        - the third coordinate in the matrix-vector product comes by taking 3 * 1; this corresponds to the derivative of x³ being 3x²
+        - and after that, it will be nothing but zeros
+        - so the derivative of 1x³ + 5x² + 4x + 5 is 3x² + 10x + 4!
+        - what makes this possible is that the derivative is linear
+
+- Back to the question "what are vectors":
+    - anywhere with a notion of scaling and adding (a set of arrows in space, lists of numbers, functions, etc)
+    - all of the tools in Linear Algebra should be able to apply (linear transformations, null space, Eigenvectors, dot products...)
+    - all these sets of vector-ish things are called Vector spaces
+    - to avoid thinking about all possible vector spaces, we define a list of rules for vectors addition and scaling, that all vectors have to abide by
+    - these rules are called axioms, and in the modern theory of Linear Algebra there are 8 axioms that any vector space must satisfy, if all the theory and constructs are going to apply. These axioms are not rules of nature but a checklist, an interface for people who want to apply those results to new sorts of vector spaces. The 8 axioms are:
+        - Addition: closure, commutativity, associativity, identity element, inverse elements
+        - Scalar multiplication: closure, identity, distributivity (2 versions), compatibility with field multiplication
+    - we just have to prove our results in terms of these axioms, so anyone whose definitions satisfy those axioms can apply our results
+    - to answer the question "what are vectors", the form of vectors doesn't really matter, so long as there is some notion of adding and scaling vectors that follows these rules
+    - just like the number 3 is an abstraction for all possible triplets of things, vectors have many embodiments but get abstracted into the notion of a vector space
+
+**Additional Notes: Finite vs Infinite Dimensions**
+
+- Dimension counts the number of basis vectors needed to reach any point in the space through scaling and addition. In Rank 3, we need exactly 3 basis vectors (like i-hat, j-hat, k-hat). Any vector can be expressed as a linear combination of these three
+- We can think of dimension as "degrees of freedom". To specify a location in physical space, we need 3 numbers (x, y, z coordinates). To specify a color in RGB space, we also need 3 numbers (red, green, blue values). Both are 3-dimensional vector spaces, even though one describes position and the other describes color
+- The polynomial space is infinite-dimensional because we need infinitely many basis functions [1, x, x², x³, ...] to span the entire space. Even though any individual polynomial only uses finitely many basis functions, we can't throw away any basis function from the set, as there will always be some polynomial that needs it. We can construct polynomials of arbitrarily high degree, so no finite basis suffices
+- The concept of determinants only applies to finite dimensions. The determinant measures how a linear transformation scales oriented area (2D), volume (3D), or hypervolume (nD). This requires:
+    - a finite number of basis vectors spanning the space
+    - and a notion of "volume element" constructed from those basis vectors
+    - so in infinite dimensions, there's no coherent notion of "volume" that the determinant could measure. The infinite matrix representing the derivative operator doesn't have a determinant in the traditional sense
+- Properties like "eigenvectors stay on their spans" and "determinant scales areas" fit differently to infinite dimensions:
+    - Eigenvectors: This concept generalizes perfectly to infinite dimensions! The derivative operator has Eigenvectors - the exponential functions e^(λx) are Eigenfunctions with Eigenvalue λ
+    - Determinants: This is fundamentally a finite-dimensional concept
+- Determinants are indifferent to coordinate systems because they measure an intrinsic geometric property - but only in finite dimensions where such geometric intuition exists. In infinite-dimensional function spaces, we lose this geometric picture but retain the algebraic structure (addition, scaling, linear transformations).
+- Moving to abstract vector spaces gives us tremendous generality (functions, polynomials, solutions to differential equations are all "vectors"), but we sacrifice some geometric intuition. Not all finite-dimensional concepts (like determinants, cross products, or volume) transfer cleanly to infinite dimensions.
+
 
 
