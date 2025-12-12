@@ -154,27 +154,29 @@
     - A lot of real world phenomena like oscilations, or population growth, are modeled using:      
         - polynomials f(x) = 2x² - x³
         - trigonometric functions f(x) = sin(x)
-        - exponentials f(x) = e^x
+        - exponentials f(x) = eˣ
         - other pure functions
 
-- How to think derivative rules geometrically
+- How to think of derivative rules geometrically
 - What is the derivative of f(x) = x²?
-- If we take a value x, like x = 2, and compare it to a value just slightly bigger (dx bigger) what is the corresponding change in the value of the function (df)? And what is df/dx, the rate at which this function is changing per unit change in x?
-    - We know we can think of df/dx as the slope of a tangent line to the graph x², and from that we can see that the slope generally increases as x increases (at 0, the tangent line is flat and the slope is zero; at x = 1 it is steeper, at x = 2 it is even steeper)
+- If we take a value x, like x = 2, and compare it to a value just slightly bigger (dx bigger) what is the corresponding change in the value of the function (df)?
+- And what is df/dx, the rate at which this function is changing per unit change in x?
+    - We can think of df/dx as the slope of a tangent line to the graph x²
+    - We can see that the slope generally increases as x increases (at 0, the tangent line is flat and the slope is zero; at x = 1 it is steeper, at x = 2 it is even steeper)
     - Let's picture a square with side x and area x²
     - If we increase x by a little dx, the resulting change in the area of that square is what df means
     - There are 3 new pieces of area added: two thin rectangles and a small square between them
     - The two thin rectangles each have side lengths of x and dx, so their area is x dx, and both of them are 2x dx
-        - for example if x = 3 and dx = 0.01, the two rectangles would be 2 * 3 * 0.01 = 0.06, about 6 times the size of dx
+        - For example if x = 3 and dx = 0.01, the two rectangles would be 2 * 3 * 0.01 = 0.06, about 6 times the size of dx
     - And the small square has area of dx²
-        - for example if dx = 0.01, then dx² = 0.0001
-            - note: area and length have different units
+        - For example if dx = 0.01, then dx² = 0.0001
+            - Note: area and length have different units
                 - side length = 1 cm = 0.01 m
                 - area = 1 cm² = 0.0001 m²
         - In derivatives, dx represents an infinitesimally small length, so dx² represents an even more infinitesimally small area. The fact that 0.0001 < 0.01 reflects that small areas shrink faster than small lengths as things approach zero 
-        - So it's safe to ignore anything including a dx raised to a power greater than 1
-    - So we are left with df = 2x dx (df is just some multiple of dx)
-    - Rearranging, 2x = df/dx, so 2x is the derivative of x²
+        - So it's safe to ignore anything that includes a dx raised to a power greater than 1
+    - We are left with df = 2x dx (df is just some multiple of dx)
+    - Rearranging, df / dx = 2x, so 2x is the derivative of x²
     - More examples for x²: 
         - if we started at x = 3, the rate of change in area per unit change in length added, or change in area/change in x, or d(x²)/dx, would be 2 * 3 = 6
         - if we started at x = 5, then the rate of change would be 10 units of area per unit change in x 
@@ -187,7 +189,7 @@
         - Each of those three squares has a volume of x²dx (the area of the side times that little thickness dx)
         - So in total we get 3x²dx of volume change
         - The rest of the components can be ignored because they are multiples of dx
-        - This is ultimately because they will be divided by dx, and if there is still any dx remaining, then those terms aren't going to survive the process of letting dx approach 0
+        - This is ultimately because they will be divided by dx, and if there is still any dx remaining, then those terms will not survive the process of letting dx approach 0
         - So the derivative of x³, the rate at which x³ changes per unit change of x, is 3x²
         - Graphically, this means that the slope of the graph of x³ at every single point x is exactly 3x²
 
@@ -196,7 +198,7 @@
     - For example d(x⁵)/dx = 5x⁵⁻¹ = 5x⁴
     - Why does this work?
         - For xⁿ, when we increase x to x + dx, working out the exact value of the output would involve multiplying x + dx together n times
-        - While expanding, the first time would be xⁿ (analogous to the area of the original square or the volume of the original cube)
+        - While expanding, the first term would be xⁿ (analogous to the area of the original square or the volume of the original cube)
         - For the next terms of the expansion we have mostly x's with a single dx:
             - dx x x ... x
             - x dx x ... x
@@ -207,15 +209,43 @@
         - There are more terms on this expansion but all of them are multiples of dx², so we can ignore them
         - All but a negligible portion of the increase in the output comes from n copies of nxⁿ⁻¹dx
 
-- Think of the function f(x) = 1/x
-    - 1/x = x⁻¹
+- Consider the function f(x) = 1/x:
+    - We know that 1/x can be rewritten as x⁻¹
     - So we could apply the power rule and add -1 in the front while subtracting one from the top: -1x⁻²
-    - Let's reason about it geometrically
+    - Let's reason about it geometrically:
         - 1/x means "what number * x equals 1?"
         - Imagine a 2D square with area 1
         - Let's say that the width is x, so the height is 1/x, since the total area is 1
         - So if x = 2, then the height is 1/2
-        - And if x = 3, then the height is 1/3 [11:06]
+        - And if x = 3, then the height is 1/3
+        - If we increase width by dx, how much should we decrease height so that the area remains 1?
+        - This creates the graph of 1/x for every possible value
+        - d(1/x) is a negative amount because it is decreasing the height of the rectangle
+
+- Let's try the function f(θ) = sin(θ):
+    - Reminder: The unit circle has radius 1 and is centered at the origin
+    - An angle θ = 0.8 represents a distance of 0.8 arc length from the rightmost point (0.8 is 80% of the length from the origin to 1 on the x-axis, but traversed in an arc counterclockwise)
+    - This is the same thing as saying that the angle is exactly θ radians, since the circle has a radius of 1 (the angle θ being defined by the length of the arc opposite it)
+    - Then sin(θ) is the height of the point above the x-axis that reaches the top of the arc
+    - As our θ value increases and we move around the circle, that height goes up and down between -1 and 1
+    - So when we graph f(θ) = sin(θ) we get a wave pattern, the "quintessential wave pattern"
+    - d(sin(θ)) / d(θ) = slope of this graph
+    - Let's find its derivative:
+        - The slope at 0 is positive, since sin(θ) starts from 0 and is starting to increase
+        - As we move to the right and sin(θ) increases and approaches its positive peak, the slope decreases until reaching zero at the peak
+        - Then the slope turns negative for a little as sin(θ) is decreasing
+        - As sin(θ) approaches the negative peak, the slope becomes less negative until it reaches 0 at the negative peak
+        - The slope graph is the cos(θ) graph, meaning that the derivative of sin(θ) is cos(θ)
+
+    - A more precise line of reasoning looking at the unit circle itself:
+        - Having traversed an arc with length θ and thinking about sin(θ) as the height of that point
+        - If we zoom into that point on the circle (reached by the height) and consider a slight addition of dθ along the circumference, like a tiny step in the walk around the unit circle
+        - How much does that tiny step change the sin(θ)? Meaning, how much does this increase of arc length, increase the height above the x-axis?
+        - If we zoom in on dθ on the circle enough, it looks like a straight line, so we can think of a little right triangle of which the hypotenuse represents dθ along the circumference, and the vertical left side represents the change in height d(sin(θ))
+        - This tiny triangle is similar to the large triangle with the defining angle θ, whose hypotenuse is the radius of the circle with length 1, just turned once to the left
+        - So the little angle on the small triangle that sits where the new height reaches, is equal to θ radians
+        - The derivative of sin(θ) is the ratio between the tiny change to the height d(sin(θ)) divided by the tiny change to the input of the function dθ
+        - And that is the ratio between adjacent to angle θ / hypotenuse, and adj / hyp = cos(θ)!
 
     
 
