@@ -141,6 +141,81 @@
     - At time t = 0, is the car moving?
     - 0 m/s around that point is the best constant approximation
 
+---
+
+### Video 3: Derivative Formulas Through Geometry
+
+**Key Concepts:**
+
+- Let's learn to compute derivatives and rates of change
+- If we get a function with an explicit formula, we want to be able to find its derivative formula
+    - "Given f(x) = sin(x)x², compute df/dx(x)"
+- Why is it important for abstract functions, rather than concrete rate of change problems:
+    - A lot of real world phenomena like oscilations, or population growth, are modeled using:      
+        - polynomials f(x) = 2x² - x³
+        - trigonometric functions f(x) = sin(x)
+        - exponentials f(x) = e^x
+        - other pure functions
+
+- How to think derivative rules geometrically
+- What is the derivative of f(x) = x²?
+- If we take a value x, like x = 2, and compare it to a value just slightly bigger (dx bigger) what is the corresponding change in the value of the function (df)? And what is df/dx, the rate at which this function is changing per unit change in x?
+    - We know we can think of df/dx as the slope of a tangent line to the graph x², and from that we can see that the slope generally increases as x increases (at 0, the tangent line is flat and the slope is zero; at x = 1 it is steeper, at x = 2 it is even steeper)
+    - Let's picture a square with side x and area x²
+    - If we increase x by a little dx, the resulting change in the area of that square is what df means
+    - There are 3 new pieces of area added: two thin rectangles and a small square between them
+    - The two thin rectangles each have side lengths of x and dx, so their area is x dx, and both of them are 2x dx
+        - for example if x = 3 and dx = 0.01, the two rectangles would be 2 * 3 * 0.01 = 0.06, about 6 times the size of dx
+    - And the small square has area of dx²
+        - for example if dx = 0.01, then dx² = 0.0001
+            - note: area and length have different units
+                - side length = 1 cm = 0.01 m
+                - area = 1 cm² = 0.0001 m²
+        - In derivatives, dx represents an infinitesimally small length, so dx² represents an even more infinitesimally small area. The fact that 0.0001 < 0.01 reflects that small areas shrink faster than small lengths as things approach zero 
+        - So it's safe to ignore anything including a dx raised to a power greater than 1
+    - So we are left with df = 2x dx (df is just some multiple of dx)
+    - Rearranging, 2x = df/dx, so 2x is the derivative of x²
+    - More examples for x²: 
+        - if we started at x = 3, the rate of change in area per unit change in length added, or change in area/change in x, or d(x²)/dx, would be 2 * 3 = 6
+        - if we started at x = 5, then the rate of change would be 10 units of area per unit change in x 
+
+- Let's try f(x) = x³ geometrically:
+    - We can think of x³ as the volume of an actual cube whose side lengths are x
+    - When we increase x by a tiny dx, the resulting added volume is comprised of several pieces from three sides
+        - Three of the components are the three large squares
+        - As dx approaches 0, those three squares comprise a portion closer and closer to 100% of the new volume
+        - Each of those three squares has a volume of x²dx (the area of the side times that little thickness dx)
+        - So in total we get 3x²dx of volume change
+        - The rest of the components can be ignored because they are multiples of dx
+        - This is ultimately because they will be divided by dx, and if there is still any dx remaining, then those terms aren't going to survive the process of letting dx approach 0
+        - So the derivative of x³, the rate at which x³ changes per unit change of x, is 3x²
+        - Graphically, this means that the slope of the graph of x³ at every single point x is exactly 3x²
+
+- So there is a pattern for polynomial terms:
+    - The "power rule": ***d(xⁿ)/dx = nxⁿ⁻¹***
+    - For example d(x⁵)/dx = 5x⁵⁻¹ = 5x⁴
+    - Why does this work?
+        - For xⁿ, when we increase x to x + dx, working out the exact value of the output would involve multiplying x + dx together n times
+        - While expanding, the first time would be xⁿ (analogous to the area of the original square or the volume of the original cube)
+        - For the next terms of the expansion we have mostly x's with a single dx:
+            - dx x x ... x
+            - x dx x ... x
+            - x x dx ... x
+            - x x x ... dx
+        - Since there are n different parentheticals, we have n separate terms that include n-1 x's * dx, giving a value of xⁿ⁻¹dx
+        - This is analogous to how the majority of the new area in the square came from the two bars, each with area x dx; or how the bulk of the new volume of the cube came from the three thin squares, each with area x²dx
+        - There are more terms on this expansion but all of them are multiples of dx², so we can ignore them
+        - All but a negligible portion of the increase in the output comes from n copies of nxⁿ⁻¹dx
+
+- Think of the function f(x) = 1/x
+    - 1/x = x⁻¹
+    - So we could apply the power rule and add -1 in the front while subtracting one from the top: -1x⁻²
+    - Let's reason about it geometrically
+        - 1/x means "what number * x equals 1?"
+        - Imagine a 2D square with area 1
+        - Let's say that the width is x, so the height is 1/x, since the total area is 1
+        - So if x = 2, then the height is 1/2
+        - And if x = 3, then the height is 1/3 [11:06]
 
     
 
