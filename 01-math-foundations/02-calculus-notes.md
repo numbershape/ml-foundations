@@ -61,7 +61,7 @@
     - There are many ways to visualize a derivative
     - Derivatives are the key to solving integral questions: problems that require finding the area under a curve
     - Once we get the derivative, we can reverse-engineer the integral
-    - The derivative of a function for the area under a graph gives us the function defining the graph itself. This is called the Fundamental Theorem of Calculus, which shows that derivatives and integrals are inverses of each other
+    - The derivative of a function for the area under a graph gives us the function defining the graph itself. This is called the Fundamental Theorem of Calculus, which shows that derivatives and integrals are inverses of each other.
 
 ---
 
@@ -149,16 +149,14 @@
 
 - Let's learn to compute derivatives and rates of change
 - If we get a function with an explicit formula, we want to be able to find its derivative formula
-    - "Given f(x) = sin(x)x², compute df/dx(x)"
-- Why is it important for abstract functions, rather than concrete rate of change problems:
-    - A lot of real world phenomena like oscilations, or population growth, are modeled using:      
-        - polynomials f(x) = 2x² - x³
-        - trigonometric functions f(x) = sin(x)
-        - exponentials f(x) = eˣ
-        - other pure functions
+- "Given f(x) = sin(x)x², compute df/dx(x)"
+- A lot of real world phenomena like oscilations, or population growth, are modeled using:      
+    - polynomials f(x) = 2x² - x³
+    - trigonometric functions f(x) = sin(x)
+    - exponentials f(x) = eˣ
+    - other pure functions
 
-- How to think of derivative rules geometrically
-- What is the derivative of f(x) = x²?
+- The derivative of f(x) = x² geometrically
 - If we take a value x, like x = 2, and compare it to a value just slightly bigger (dx bigger) what is the corresponding change in the value of the function (df)?
 - And what is df/dx, the rate at which this function is changing per unit change in x?
     - We can think of df/dx as the slope of a tangent line to the graph x²
@@ -246,6 +244,114 @@
         - So the little angle on the small triangle that sits where the new height reaches, is equal to θ radians
         - The derivative of sin(θ) is the ratio between the tiny change to the height d(sin(θ)) divided by the tiny change to the input of the function dθ
         - And that is the ratio between adjacent to angle θ / hypotenuse, and adj / hyp = cos(θ)!
+
+---
+
+### Video 4: Visualizing the chain rule and product rule
+
+**Key Concepts:**
+
+- How to take derivatives of combined functions
+- Functions can be added, multiplied, or composed (one inside the other)
+- If you know the derivative of two functions, what is the derivative of their sum, their product, and the function composition between them?
+
+- The sum rule: 
+    - The derivative of the sum of two functions is the sum of their derivatives: ***d/dx (g(x) + h(x)) = dg/dx + dh/dx***
+    - Example d/dx (sin(x) + x²) = cos(x) + 2x
+    - Let's think about the function f(x) = sin(x) + x²
+    - On the graph, we add together the values of sin(x) + x² at each input
+    - For example, at x = 0.5, their sum is the length we get by stacking 
+    sin(0.5) + (0.5)² together
+    - To find the derivative, we have to think what happens if we nudge the input slightly, increasing it to 0.5 + dx:
+        - sin (0.5 + dx) + (0.5 + dx)²
+        - The difference between "before" and "after" is the df
+        - df = d(sin(x)) + d(x²)
+        - We know that the derivative of sin(x) is cos(x)
+        - This means that the little change d(sin(x)) = cos(0.5)dx
+        - Likewise, because the derivative of x² is 2x, the change in the height of the x squared graph is 2x times whatever dx was: 2(0.5)dx
+        - Rearranging: df/dx = cos(x) + 2x (the sum of the derivatives of its parts)
+            - d/dx (sin(x)) + (x²) = cos(x) + 2x
+            - d/dx (g(x) + h(x)) = dg/dx + dh/dx
+
+- The product rule:
+    - Think of a box with sides sin(x) and x²
+    - Focusing on the sin(x) side, we can see it increase as x increases until reaching 1, then decreasing as x still increases (due to the wavelike nature of the sin(x) graph)
+    - In the same way, the height is always changing as x²
+    - So f(x), defined as the product of these two functions, is the area of this box: f(x) = sin(x)x² = area
+    - For the derivative, let's think about how a tiny change dx in x, influences that area: what is the resulting change in area (df)?
+    - The dx nudge caused the width to change by some small d(sin(x)), and the height to change by some small d(x²)
+    - This gives us three little snippets of new area:
+        - A thin rectangle on the bottom whose area is its width sin(x) * its thin height d(x²)
+        - A thin rectangle on the right whose area is its height x² * its thin width d(sin(x))
+        - And a little d(x²) * d(sin(x)) piece we can ignore, as its area will be proportional to (dx)² since both changes are proportional to dx. And that becomes negligible as dx approaches zero
+    - Applying what we know about the derivatives of x² and sin(x), the tiny change d(x²) will be about 2x dx, and d(sin(x)) will be cos(x)dx
+        - df = sin(x)2x dx + x²cos(x)dx
+        - df/dx = sin(x)2x + x²cos(x)
+    - More generally:
+        - df = g(x)dh + h(x)dg
+        - ***df/dx = g(x) dh/dx + h(x) dg/dx***
+    - "Left d(Right) + Right d(Left)"
+        - d/dx (sin(x)x²)
+        - Left: sin(x)
+        - Right: x²
+        - Left (Right derivative): sin(x)2x
+        - Right (Left derivative): x²cos(x)
+    - Note: If we multiply by a constant, things get a lot simpler. The derivative is the constant multiplied by the derivative of the function:
+    d/dx(2sin(x)) = 2cos(x)
+
+- The chain rule for function composition:
+    - If g(x) = sin(x) and h(x) = x², function composition is g(h(x))
+    - g(h(x)) = sin(x²)
+    - Imagine three number lines:
+        - The first one holds the value of x
+        - The second one holds the value of x²
+        - The third one holds the value of sin(x²)
+    - So the function (...)² gets us from line 1 to line 2
+    - And the function sin() gets us from line 2 to line 3
+    - If I move x to 3, x² will move up to 9
+    - And the bottom value being sin(9) goes to approximately 0.412
+    - For the derivative, let's nudge x by a little dx
+        - Imagine the starting x was 1.5
+        - The resulting nudge to the second value, the change in x² caused by such a dx, is d(x²), expanding to 2x dx, which for our specific input would be 2(1.5)dx
+        - But for now, we can just simplify x² to h, and d(x²) to dh for this nudge
+        - This makes it easier to think about the third value, which is now sin(h)
+        - Its change is d(sin(h)), the tiny change caused by the nudge dh
+            - Note: The fact that d(sin(h)) is moving to the left, while dh is going to the right, it means that d(sin(h)) will be negative. The sign depends on whether cos(h) is positive or negative at that particular point
+        - We know that d(sin(h)) = cos(h)dh
+        - If we replace h with x² again, d(sin(x²)) = cos(x²)d(x²)
+        - So we know that the bottom nudge on the third line will be a size of cos(x²)d(x²)
+        - Unfolding even further, the intermediate nudge d(x²) = 2x dx
+        - So the final bottom nudge on the third line will be cos(x²) 2x dx
+        - For example cos(1.5²) * 2(1.5)dx
+            - We started at x = 1.5
+            - And the size of the nudge on that third line will be about 
+            cos(1.5²) * 2(1.5)dx
+            - It's proportional to the size of dx, and this derivative is giving us that proportionality constant
+    - d/dx sin(x²) = cos(x²)2x
+    - We have the derivative of the outer function, taking in the unaltered inside function, and then we are multiplying it by the derivative of the inside function
+    - The derivative of Outer(Inner) = d(Outer(Inner)) * d(Inner)
+    - d/dx g(h(x)) = dg/dh(h(x)) * dh/dx(x)
+    - dg/dh: The derivative of g evaluated on h, multiplied by the derivative of h
+        - In our 3 line setup, when we took the derivative of the d(sin(h)), we expanded the size of that nudge as cos(h)dh
+        - We didn't immediately know how the size of that bottom nudge depended on x
+        - But we could take the derivative with respect to that intermediate variable h
+        - Figure out how to express the size of the nudge of that third line as some multiple of dh, the size of the nudge on the second line
+        - And it was only after that that we unfolded further by figuring out what dh was
+    - ***d/dx g(h(x)) = dg/dh * dh/dx = dg/dx***
+        - In this chain rule expression, we are looking at the ratio between a tiny change in g (dg) - the final output, to a tiny change in h that caused it (dh) h being the value that we plug into g
+        - Then multiply that by the tiny change in h (dh) divided by the tiny change in x that caused it (dx)
+        - Those dh cancel out and they give us a ratio between the change in that final output and the change to the input that cause it through a chain of events.
+
+---
+
+### Video 5: 
+
+**Key Concepts:**
+
+- 
+
+
+
 
     
 
