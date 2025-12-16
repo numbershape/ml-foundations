@@ -349,9 +349,9 @@
 **Key Concepts:**
 
 - Let's focus on the derivatives of exponential functions, and especially eˣ
-- To get an intuition, let's focus on the function 2ˣ: f(x) = 2ˣ
+- To get an intuition, focus on the function 2ˣ: f(x) = 2ˣ
     - Let's think of the input as a time t (in days) and the output 2ᵗ, as a population mass
-    - t = Time (in days)
+    - t = time (in days)
     - P(t) = 2ᵗ (meaning that it doubles every day)
     - At day t = 0, the total population mass is 2⁰ = 1, for the mass of 1 creature
     - At day t = 1, it's 2¹ = 2 
@@ -361,36 +361,109 @@
 - For the derivative, we want dM/dt, the rate at which this population mass is growing, thought of as a tiny change in the mass, divided by a tiny change in time
     - Let's start by thinking of the rate of change over a full day, say between day 3 and day 4
     - In this case, it grows from 8 to 16, so that's 8 new creatures added over the course of one day
-    - Note: that rate of growth equals the population size at the start of the day
+    - That rate of growth equals the population size at the start of the day
     - Between day 4 and day 5, it grows from 16 to 32, so that's a rate of 16 creatures/1 day
     - Which again equals the population size at the start of the day
     - In general the rate of growth over a full day equals the population size at the start of that day
     - So it may be tempting to say that this means the derivative of 2ᵗ equals itself: d(2ᵗ)/dt = 2ᵗ, that the rate of change of this function at a given time t, is equal to the value of that function
-    - But this is not quite correct, as we are making comparisons over a full day, considering the difference between 2ᵗ+1 and 2ᵗ
-    - Rate of change over one full day: (2ᵗ+1 - 2ᵗ) / 1 = 2ᵗ
+    - But this is not quite correct, as we are making comparisons over a full day, considering the difference between 2ᵗ⁺¹ and 2ᵗ
+    - Rate of change over one full day: (2ᵗ⁺¹ - 2ᵗ) / 1 = 2ᵗ
 - But for the derivative, we need to ask what happens for smaller and smaller changes: what is the growth over the course of a 10th of a day, a 100th of a day, a billionth of a day? 
     - This is why we think of the function as representing a population "mass", since it makes sense to ask about a tiny change in mass over a tiny fraction of a day, but it doesn't make as much sense to ask about a tiny change in a discrete population size per second
-    - More abstractly, for a tiny change in time (dt), we want to understand the difference between 2ᵗ⁺ᵈᵗ and 2ᵗ, all divided by dt. The change in the function per unit time, but now looking very narrowly
+    - More abstractly, for a tiny change in time (dt), we want to understand the difference between 2ᵗ⁺ᵈᵗ and 2ᵗ, all divided by dt, so the change in the function per unit time, but now looking very narrowly.
 - Let's examine (2ᵗ⁺ᵈᵗ - 2ᵗ)/dt numerically:
     - A core property of exponentials is that we can break 2ᵗ⁺ᵈᵗ to 2ᵗ2ᵈᵗ
     - This lets us convert additive ideas (like steps in time) to multiplicative ideas (like rates and ratios)
     - After that move we have (2ᵗ2ᵈᵗ - 2ᵗ)/dt
     - Which means we can factor 2ᵗ out: 2ᵗ((2ᵈᵗ - 1)/dt)
-    - This manipulation is useful because it separates the 2ᵗ term from the dt terms - so the dt part doesn't depend on the actual time we started
+    - This manipulation is useful because it separates the 2ᵗ term from the dt terms - so the dt part doesn't depend on the actual time we started, it's just the nudge of the difference in time
     - And remember that the derivative of 2ᵗ is whatever the whole expression approaches as dt approaches zero dt -> 0
     - We can plug in very small values for dt, for example: 
         - (2⁰·⁰⁰¹ - 1) / 0.001 = 0.6933875...
         - (2⁰·⁰⁰⁰⁰¹ - 1) / 0.00001 = 0.6931496...
         - (2⁰·⁰⁰⁰⁰⁰⁰⁰¹ - 1) / 0.00000001 = 0.6931472...
     - For smaller and smaller choices of dt, the value approaches a very specific number, around 0.6931
-    - This is some kind of constant
+    - This is some kind of constant to be multiplied by 2ᵗ
     - Unlike derivatives of other functions, everything that depends on dt, is separate from the value of t itself
     - So the derivative of 2ᵗ is just itself, but multiplied by some constant
-    - d(2ᵗ)/dt (t) = 2ᵗ(0.6931472...)
+    - d(2ᵗ)/dt = 2ᵗ(0.6931472...)
     - And that makes sense because earlier it looked like the derivative for 2ᵗ was itself, but that was over the course of a full day
     - The rate of change over much smaller timescales, is not quite equal to itself but it's proportional to itself, with this very peculiar proportionality constant 0.6931
     - For example the slope at 2³ is 2³(0.6931472...)
-    - And generally the slope at 2ᵗ is 2ᵗ(0.6931472...)[6:34]
+    - And generally the slope at 2ᵗ is 2ᵗ(0.6931472...)
+
+- If instead we dealt with the function 3ᵗ, the exponential property would also have led us to the conclusion that the derivative of 3ᵗ is proportional to itself, but this time it would have had a proportionality constant of 1.0986: dM/dt(3ᵗ) = 3ᵗ (3ᵈᵗ-1 / dt), dt -> 0
+    - 3⁰·⁰⁰⁰⁰⁰⁰⁰¹ - 1 / 0.00000001 = 1.0986123
+- Similarly, for 8ᵗ, the constant is 2.0794..., which is 3 times more than the constant for 2ᵗ 0.6931...
+- There is a base for which that propotionality constant for an aᵗ, is 1
+    - For this base, the derivative of aᵗ is not just proportional to itself, but actually equal to itself
+    - This is the special constant e = 2.71828...
+        - e⁰·⁰⁰⁰⁰⁰⁰⁰¹ - 1 / 0.00000001 = 1.0000000
+        - this is what defines the number "e"
+
+- All exponential functions are proportional to their own derivative
+- But e is the special number for which the proportionality constant is 1, meaning that eᵗ actually equals its own derivative
+- The graph eᵗ has the peculiar property that the slope of a tangent line to any point on this graph, equals the height of that point above the horizontal axis (e¹ at 1, e² at 2, and so on)
+
+- A different way to think about functions that are proportional to their own derivative, is by using the chain rule:
+    - What is the derivative of e³ᵗ? d(e³ᵗ)/dt
+    - To solve, we take the derivative of the outermost function e³ᵗ, which due to the special nature of e, is just itself, and then we multiply by the derivative of that inner function 3t, (3t¹) which is the constant 3
+    - So d(e³ᵗ)/dt = 3e³ᵗ
+    - Or in the visual example with the three numberlines, the first one would be t, the second one 3t, and the third one e³ᵗ, and we would think of how a slight nudge to t changes the value of 3t, and how that intermediate change nudges the final value of e³ᵗ
+    - The derivative of e to the power of some constant times t, is equal to that same constant times itself:
+        - ***d(eᶜᵗ)/dt = ceᶜᵗ***
+
+- Exponential functions with bases other than e have an extra constant when you take their derivative
+- For example, when we differentiate 2ᵗ, we get ln(2)2ᵗ. That ln(2) factor appears because 2 isn't the "natural" base e
+- The number 2 can also be written as e to the natural log of 2: 2 = eˡⁿ⁽²⁾
+    - natural log = "e to the what equals 2?"
+    - ln is called "natural" precisely because e is the natural base for calculus - it makes derivatives the cleanest
+    - so the function 2ᵗ = (eˡⁿ⁽²⁾)^ᵗ = eˡⁿ⁽²⁾ᵗ
+- Now our function is in terms of e, which we know how to differentiate
+- Apply the chain rule:
+    - we have eˡⁿ⁽²⁾ᵗ, not just eᵗ
+    - ln(2) is just a number (approximately 0.693)
+    - the exponent is ln(2)t, which is a constant times t
+    - When we differentiate a constant times t:
+        - d/dt[constant * t] = constant
+        - d/dt[5 t] = 5
+        - d/dt[ln(2) t] = ln(2)
+        - Why? When differentiating ln(2)t:
+            - ln(2) stays (it's a constant)
+            - d/dt(t) = 1 (it changes at the same rate as itself, 1:1 ratio)
+            - ln(2) × 1 = ln(2)
+            - so we are left with just the constant ln(2)
+    - so to differentiate eˡⁿ⁽²⁾ᵗ, we multiply by the derivative of the exponent
+    - the derivative of the exponent ln(2)·t is ln(2)
+- Combinining the fact that eᵗ is its own derivative with the chain rule, the derivative of this function is proportional to itself, with a proportionality constant equal to the natural log of 2. Derivative of 2ᵗ = eˡⁿ⁽²⁾ᵗ:
+    - ln(2)2ᵗ = ln(2)eˡⁿ⁽²⁾ᵗ
+- Since eˡⁿ⁽²⁾ᵗ = 2ᵗ, we get: d/dt(2ᵗ) = ln(2) · 2ᵗ
+- The derivative of 2ᵗ is proportional to itself, with proportionality constant ln(2)
+- The key pattern: The number we raise e to in order to GET our base, is the SAME number we multiply by in the derivative
+    - For 2ᵗ: eˡⁿ⁽²⁾ = e⁰·⁶⁹³ = 2, derivative = 0.693 * 2ᵗ
+    - For 3ᵗ: eˡⁿ⁽³⁾ = e¹·⁰⁹⁹ = 3, derivative = 1.099 * 3ᵗ
+    - For aᵗ: eˡⁿ⁽ᵃ⁾ = a, derivative = ln(a) * aᵗ
+
+- The same goes for all the other bases. The mystery proportionality constant that pops up when taking derivatives, is just the natural log of the base. The answer to the question "e to the what?" equals that base
+- In calculus we rarely see exponentials written as some base a to the power of t (aᵗ)
+- Instead, we almost always write the exponential as e to the power of some constant times t (eᶜᵗ)
+- It's all equivalent 3ᵗ = e⁽¹·⁰⁹⁸⁶···⁾ᵗ
+
+- Actually, there are many ways to write any particular exponential function: 2ᵗ = e⁽⁰·⁶⁹³⁾ᵗ = π⁽⁰·⁶⁰⁵⁾ᵗ = ...
+- What is special about writing exponentials in terms of e, is that it gives the constant in the exponent a nice readable meaning
+- All sorts of natural phenomena involve some rate of change that's proportional to the thing that is changing
+- For example the rate of growth of a population actually does tend to be proportional to the size of the population itself
+- Or if we put a cup of hot water in a cool room, the rate at which the water cools is proportional to the difference in temperature between the room and the water, meaning that the rate at which that difference changes, is proportional to itself
+- If we invest our money, the rate at which it grows is proportional to the amount of money there is at any time
+- In all of these cases, where some variable's rate of change is proportional to itself, the function describing that variable over time is going to look like some kind of exponential
+- The constant c in eᶜᵗ directly represents the growth/decay rate - positive c for growth, negative for decay
+- And even though there are lots of ways to write any exponential function, it's very natural to choose to express these functions as e to the power of some constant times t, since that constant carries a very natural meaning: it's the same as the proportionality constant between the size of the changing variable and the rate of change
+
+- Summary of important concepts:
+    - All exponentials are self-similar under differentiation (proportional to themselves)
+    - e is special because its proportionality constant is 1
+    - For any base a: aᵗ = eˡⁿ⁽ᵃ⁾ᵗ, which explains why ln(a) appears in derivatives
+    - Writing exponentials as eᶜᵗ makes c directly interpretable as the rate constant in natural phenomena
 
 
 
