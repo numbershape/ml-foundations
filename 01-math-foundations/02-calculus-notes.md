@@ -406,7 +406,7 @@
 - If instead we dealt with the function 3ᵗ, the exponential property would also have led us to the conclusion that the derivative of 3ᵗ is proportional to itself, but this time it would have had a proportionality constant of 1.0986: 
     - dM/dt(3ᵗ) = 3ᵗ((3ᵈᵗ - 1) /dt), dt -> 0
     - 3⁰·⁰⁰⁰⁰⁰⁰⁰¹ - 1 / 0.00000001 = 1.0986123
-- Similarly, for 8ᵗ, the constant is 2.0794... (which interestingly, is 3 times more than the constant for 2ᵗ 0.6931...)
+    - Similarly, for 8ᵗ, the constant is 2.0794... (which interestingly, is 3 times more than the constant for 2ᵗ 0.6931...)
 
 - There is a base for which that propotionality constant for an aᵗ, is 1
     - For this base, the derivative of aᵗ is not just proportional to itself, but actually equal to itself
@@ -426,7 +426,7 @@
         - ***d(eᶜᵗ)/dt = ceᶜᵗ***
 
 - Exponential functions with bases other than e have an extra constant when you take their derivative
-- For example, when we differentiate 2ᵗ, we get ln(2)2ᵗ. That ln(2) factor appears because 2 isn't the "natural" base e, meaning that the proportionality constant of 2ᵗ isn't 1, which in turn means that the derivative of 2ᵗ is not 2ᵗ * 1, but 2ᵗ * some other proportionality constant. The constant in this case is ln(2)
+    - For example, when we differentiate 2ᵗ, we get ln(2)2ᵗ. That ln(2) factor appears because 2 isn't the "natural" base e, meaning that the proportionality constant of 2ᵗ isn't 1, which in turn means that the derivative of 2ᵗ is not 2ᵗ * 1, but 2ᵗ * some other proportionality constant. The constant in this case is ln(2)
 
 - To explain further how we get ln(2) as being the constant, let's first review why eˡⁿ⁽ᵃ⁾= a:
     - The natural logarithm and exponential function are inverse functions that undo each other
@@ -454,7 +454,7 @@
         - Being inverses means composing them (applying one then the other) returns the original value
 
 - So now the function 2ᵗ = (eˡⁿ⁽²⁾)^ᵗ = eˡⁿ⁽²⁾ᵗ
-- Now our function is in terms of e, which we know how to differentiate
+- Now our function is in terms of e, which we know how to differentiate:
     - Let's apply the chain rule:
         - instead of 2ᵗ, we now have eˡⁿ⁽²⁾ᵗ
         - ln(2) is just a number (approximately 0.693), as e⁰·⁶⁹³ = 2
@@ -501,6 +501,14 @@
     - e is special because its proportionality constant is 1
     - For any base a: aᵗ = eˡⁿ⁽ᵃ⁾ᵗ, which explains why ln(a) appears in derivatives
     - Writing exponentials as eᶜᵗ makes c directly interpretable as the "rate constant" in natural phenomena
+
+---
+
+### Video 6: Implicit differentiation, what's going on here?
+
+**Key Concepts:**
+
+- H
 
 
 
