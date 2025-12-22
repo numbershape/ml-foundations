@@ -328,7 +328,7 @@
             cos(1.5²) * 2(1.5)dx
             - It's proportional to the size of dx, and this derivative is giving us that proportionality constant
     - d/dx sin(x²) = cos(x²)2x
-    - We have the derivative of the outer function, taking in the unaltered inside function, and then we are multiplying it by the derivative of the inside function
+    - We have the derivative of the outer function taking in the unaltered inner function, multiplied by the derivative of the inner function
     - The derivative of Outer(Inner) = d(Outer(Inner)) * d(Inner)
     - d/dx g(h(x)) = dg/dh(h(x)) * dh/dx(x)
     - dg/dh: The derivative of g evaluated on h, multiplied by the derivative of h
@@ -508,7 +508,110 @@
 
 **Key Concepts:**
 
-- H
+- Say that you have a circle with radius 5 centered at the origin of the xy plane, defined by the equation x² + y² = 5²
+    - All the points of this circle are distance 5 from the origin, as encapsulated by the pythagorean theorem, where the sum of the squares of the two legs of the triangle (x=3)² + (y=4)² equals the hypotenuse 5²
+    - Suppose we want to find the slope of a tangent line to the circle at the point x,y = 3,4
+    - By geometry we already know that this tangent line is perpendicular to the radius touching it at that point, forming a right corner
+    - But if we didn't already know that, or if we want a technique that generalizes to curves other than just circles, we need a different approach
+    
+- As with other problems about the slopes of tangent lines to curves, the key is to zoom in close enough that the curve basically looks just like its own tangent line, and then ask about a tiny step along that curve:
+    - The y component of that little step is dy, and for the x component is dx
+    - So the slope we want is rise over run, dy/dx
+    - But unlike other tangent slope problems in calculus, this curve is not the graph of a function (as x² + y² = 5² is not a function)
+    - So we can't just take a simple derivative asking about the size of some tiny nudge to the output of a function, caused by some tiny nudge to the input: x is not an input, and y is not an output; they are both just interdependent values related by some equation
+
+- Reminder: Why a circle is not a function
+    - A function needs a single output for each input
+    - With a circle like x² + y² = 5², if x = 3, then:
+        - 3² + y² = 25
+        - y² = 16
+        - y = ±4
+    - So we get two outputs, y = 4 and y = -4
+    - Usually in calculus we write y = f(x), meaning "y is determined by x". Then dy/dx measures how much y changes when we nudge x
+    - But in a circle, x and y are both constrained by the equation x² + y² = 25, and they both change together!
+    - An implicit curve is just the set of all points x, y that satisfy some property written in terms of both the two variables x and y
+    - For this reason we use "implicit differentiation": we treat both x and y as changing together, constrained by their relationship, rather than y being a simple output of x
+
+- The procedure for how we find dy and dx for implicit curves like the circle:
+    - We start by taking the derivative of both sides (x² + y² = 5²)
+        - For x² we write 2x dx
+        - For y² we write 2y dy
+        - And the derivative of the constant 5² is 0 
+        - The equation becomes 2x dx + 2y dy = 0
+        - So we have  2x * (small change in x) + 2y * (small change in y) = 0
+    - We continue by rearranging 2x dx + 2y dy = 0, to get dy/dx = -x/y:
+        - 2x dx + 2y dy = 0
+        - 2y dy = - 2x dx
+        - 2y (dy/dx) = - 2x 
+            - Note that 2y is a coefficient and when dividing an entire product by something, only the differential part (dy or dx) participates in the division operation. The coefficient 2y stays as a multiplier
+        - dy/dx = -2x/(2y)
+        - dy/dx = -x/y
+    - The equation 2x dx + 2y dy = 0 is a differential equation, and dividing by dx converts it to the derivative notation dy/dx
+    - If we have 2x * (small change in x) + 2y * (small change in y) = 0, we can rearrange to find the RATIO of these small changes: (change in y)/(change in x) = -x/y
+    - So at the point with coordinates x,y = 3,4, that slope would be -3/4
+    - This process is called implicit differentiation
+
+- This is connected to a different type of calculus problem - the related rates problem:
+    - Imagine a 5 meter long ladder held up against a wall
+    - The top of the ladder starts 4 meters above the ground 
+    - By the pythagorean theorem, the bottom is 3 meters away from the wall
+    - The ladder is slipping down in such a way that its top is dropping at a rate of 1 meter per second (1m/s)
+    - In that initial moment, what is the rate at which the botton of the ladder is moving away from the wall?
+    - That distance from the bottom of the ladder to the wall, is 100% determined by the distance from the top of the ladder to the floor
+        
+    - How do the rates of change for each of those values depend on each other?
+        - Label the distance from the top of the ladder to the ground y(t), written as a function of time because it's changing
+        - Label the distance from the bottom of the ladder and the wall x(t)
+        - The key equation that relates these terms is the pythagorean theorem  x(t)² + y(t)² = 5²
+        - This is true at all points in time
+
+    - Solution 1:
+        - One way to solve this x(t)² + y(t)² = 5² would be to isolate x(t) and then figure out y(t) based on that 1m/s drop rate:
+            - x(t) = (5² - y(t)²)¹⁄²
+        - And then we would take the derivative of the resulting function dx/dt, the rate at which x is changing with respect to time (it involves a couple of layers of using the chain rule)
+    
+    - Solution 2:
+        - The left hand side of x(t)² + y(t)² = 5² is a function of time
+        - It just so happens to equal a constant (the length of the ladder which doesn't change as time passes)
+        - But it's still written as an expression dependent on time, so we can manipulate it like any other function with t as an input
+
+        - First, let's take the derivative of x(t)² + y(t)²:
+            - d(x(t)² + y(t)²) / dt
+            - This means "if I let a little time dt pass, which causes y to slightly decrease and x to slightly increase, how much does x(t)² + y(t)² change?
+            - We also know that that the derivative should be equal to 0, since the expression is a constant, and nudges in time do not affect constants:
+                - d(x(t)² + y(t)²) / dt = 0
+
+        - Next, let's compute this derivative:
+            - The function x(t)² is composite, so by the chain rule we need the derivative of the Outer(Inner) * the derivative of the Inner
+            - So we need the derivative of x(t)² * the derivative of x(t)
+                - The derivative of x(t)² is 2x(t) 
+                - The derivative of x(t) is dx/dt
+                - 2x(t) * dx/dt
+                - 2x(t) dx represents the size of a change to x² caused by some change to x, and then we are dividing out by dt
+            - Likewise, the rate at which y(t)² is changing is 2y(t) * the derivative of y with respect to time:
+                - 2y(t) * dy/dt
+            - Let's not forget to set the whole expression equal to 0, as x(t)² + y(t)² must not change while the ladder moves (the ladder size does not change):
+                - 2x(t) dx/dt + 2y(t) dy/dt = 0
+
+        - Next, let's plug in the known values:
+            - At the very start with time t=0, the height y(t) is 4m and the distance of x(t) is 3m:
+                - 2(3) dx/dt + 2(4) dy/dt = 0
+            - Since the top of the ladder is dropping at a rate of 1m/s, the derivative dy/dt is -1m/s:
+                - 2(3) dx/dt + 2(4) (-1) = 0 
+            - This gives us enough information to isolate the derivative dx dt
+
+        - Finally, let's work it out algebraically:
+            - 2(3) dx/dt + 2(4) (-1) = 0
+            - 6 dx/dt + 8(-1) = 0
+            - 6 dx/dt - 8 = 0
+            - 6 dx/dt = 8
+            - dx/dt = 8/6
+            - dx/dt = 4/3
+        
+        - So dx/dt comes out to be 4/3 meters per second
+        - And this answers our question "In that initial moment, what is the rate at which the botton of the ladder is moving away from the wall?"
+
+- How does this compare to finding the slope of a tangent line to the circle
 
 
 
