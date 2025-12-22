@@ -508,7 +508,7 @@
 
 **Key Concepts:**
 
-- Say that you have a circle with radius 5 centered at the origin of the xy plane, defined by the equation x² + y² = 5²
+- Say that you have a circle with radius 5 centered at the origin of the xy plane, defined by the equation x² + y² = 5²:
     - All the points of this circle are distance 5 from the origin, as encapsulated by the pythagorean theorem, where the sum of the squares of the two legs of the triangle (x=3)² + (y=4)² equals the hypotenuse 5²
     - Suppose we want to find the slope of a tangent line to the circle at the point x,y = 3,4
     - By geometry we already know that this tangent line is perpendicular to the radius touching it at that point, forming a right corner
@@ -520,7 +520,7 @@
     - But unlike other tangent slope problems in calculus, this curve is not the graph of a function (as x² + y² = 5² is not a function)
     - So we can't just take a simple derivative asking about the size of some tiny nudge to the output of a function, caused by some tiny nudge to the input: x is not an input, and y is not an output; they are both just interdependent values related by some equation
 
-- Reminder: Why a circle is not a function
+- Reminder: Why a circle is not a function:
     - A function needs a single output for each input
     - With a circle like x² + y² = 5², if x = 3, then:
         - 3² + y² = 25
@@ -552,25 +552,94 @@
     - This process is called implicit differentiation
 
 - This is connected to a different type of calculus problem - the related rates problem:
-    - Imagine a 5 meter long ladder held up against a wall
-    - The top of the ladder starts 4 meters above the ground 
-    - By the pythagorean theorem, the bottom is 3 meters away from the wall
-    - The ladder is slipping down in such a way that its top is dropping at a rate of 1 meter per second (1m/s)
-    - In that initial moment, what is the rate at which the botton of the ladder is moving away from the wall?
-    - That distance from the bottom of the ladder to the wall, is 100% determined by the distance from the top of the ladder to the floor
-        
+    - Imagine a 5 meter long ladder held up against a wall:
+        - The top of the ladder starts 4 meters above the ground 
+        - By the pythagorean theorem, the bottom is 3 meters away from the wall
+        - The ladder is slipping down in such a way that its top is dropping at a rate of 1 meter per second (1m/s)
+    - Our problem question is: In that initial moment, what is the rate at which the botton of the ladder is moving away from the wall?
+        - That distance from the bottom of the ladder to the wall, is 100% determined by the distance from the top of the ladder to the floor
     - How do the rates of change for each of those values depend on each other?
-        - Label the distance from the top of the ladder to the ground y(t), written as a function of time because it's changing
-        - Label the distance from the bottom of the ladder and the wall x(t)
+        - Let's label the distance from the top of the ladder to the ground y(t), written as a function of time because it's changing
+        - Let's label the distance from the bottom of the ladder and the wall x(t), also written as a function of time because it's changing
         - The key equation that relates these terms is the pythagorean theorem  x(t)² + y(t)² = 5²
         - This is true at all points in time
 
-    - Solution 1:
-        - One way to solve this x(t)² + y(t)² = 5² would be to isolate x(t) and then figure out y(t) based on that 1m/s drop rate:
-            - x(t) = (5² - y(t)²)¹⁄²
-        - And then we would take the derivative of the resulting function dx/dt, the rate at which x is changing with respect to time (it involves a couple of layers of using the chain rule)
+- There are two methods in which we could solve this problem. Both methods solve the same problem but take fundamentally different approaches to applying calculus:
+    - Solution 1 - Explicit Function approach
+        - Isolate x(t) first, then differentiate:
+            - Express x explicitly as a function of y: x(t) = √(25 - y(t)²)
+            - Then take the derivative of this explicit formula
+        - Process:
+            - Solve the constraint equation for one variable
+            - Apply the chain rule to the resulting nested function
+            - Substitute known values at the end
+        - Characteristics:
+            - More algebraically intensive: it requires nested chain rule application
+            - Single-variable thinking: we treat x as depending on y, which depends on t
+            - Formula-first: we get a general expression for dx/dt before plugging in numbers
+        - Analogy:
+            - Like finding a direct route on a map: "To get from A to B, first go north, then east. Now calculate the exact distance"
+
+    - Solution 2 - Implicit Differentiation approach
+        - Differentiate the relationship directly without isolating variables:
+            - Work with both x(t) and y(t) simultaneously in the equation
+            - Treat the constraint x² + y² = 25 as an implicit relationship
+        - Process:
+            - Differentiate both sides of the constraint equation with respect to time
+            - Use chain rule on each term separately (2x dx/dt and 2y dy/dt)
+            - Solve the resulting algebraic equation for the unknown rate
+        - Characteristics:
+            - Conceptually elegant: no need to isolate variables, and it works even when we can't easily isolate a variable (like if the constraint was something like x³ + y³ + xy = 25)
+            - Cleaner algebra: the chain rule is applied to each term in parallel, so we avoid the messy nested chain rule usage
+            - Multi-variable thinking: both variables stay in play throughout
+            - We directly see how the rates of change must balance each other: 2x(dx/dt) = -2y(dy/dt)
+            - The equation 2x(dx/dt) + 2y(dy/dt) = 0 has a clear interpretation: "The changes in x² and y² must cancel out because their sum is constant"
+            - Direct to the answer: immediately gives you a solvable equation
+            - Symmetric treatment: both x and y are handled the same way
+        - Analogy:
+            - Like using a compass bearing: "Whatever direction you move, the constraint tells you how all variables must change together"
+
+    - Comparison:
+        - Solution 1 treats the problem as: "x is a function of y, which is a function of t"
+        - Solution 2 treats the problem as: "x and y are both functions of t, constrained by a relationship"
+        - Solution 2 leverages implicit differentiation, a powerful technique that says: "I don't need to solve for one variable explicitly; I can just differentiate the relationship itself and solve for the rate I care about"
+
+    - Solution 1 Analytically:
+        - One way to solve x(t)² + y(t)² = 5² would be to isolate x(t) and then figure out y(t) based on that 1m/s drop rate: x(t) = (5² - y(t)²)¹⁄²
+        - Then we would take the derivative of the resulting function dx/dt, the rate at which x is changing with respect to time
+        - This method involves a couple of layers of using the chain rule:
+            - Step 1 is to isolate x(t):
+                - x(t)² + y(t)² = 5²
+                - x(t)² = 25 - y(t)²
+                - x(t) = √(25 - y(t)²)
+            - Step 2 is to take the derivative with respect to time:
+                - dx/dt = d/dt √(25 - y(t)²)
+            - Step 3 is to apply the chain rule to the outer function:
+                - The outer function is the square root
+                - The derivative of √u is (1/2)u⁻¹⁄²
+                - dx/dt = (1/2)(25 - y(t)²)⁻¹⁄² * d/dt 25 - y(t)² 
+                    - Recall that: a⁻ⁿ = 1/aⁿ
+                    - Recall that: a¹⁄² = √a
+                - dx/dt = 1 / (2√(25 - y(t)²)) * d/dt 25 - y(t)² 
+            - Step 4 is to apply the chain rule to the inner function:
+                - d/dt 25 = 0
+                - d/dt y(t)² = 2y(t) * dy/dt (chain rule again!)
+                - d/dt 25 - y(t)² = -2y(t) * dy/dt
+            - Step 5 is to combine the results:
+                - Substitute back:
+                    - dx/dt = 1/(2√(25 - y(t)²)) * (-2y(t) * dy/dt)
+                - Simplify:
+                    - dx/dt = -y(t) * dy/dt / √(25 - y(t)²)
+            - Step 6 is to plug in the known values at the initial moment:
+                - y(t) = 4 meters
+                - dy/dt = -1 m/s (negative because falling)
+                - √(25 - y(t)²) = √(25 - 16) = √9 = 3 meters (this is x(t)!)
+                - Therefore: dx/dt = -4 * (-1) / 3 = 4/3 m/s
+            - Answer: 
+                - The bottom of the ladder is moving away from the wall at 4/3 meters per second (approximately 1.33 m/s)
+                - The final formula dx/dt = -y * (dy/dt)/x makes physical sense, as the rate depends on the ratio of the heights and the rate of vertical change
     
-    - Solution 2:
+    - Solution 2 Analytically:
         - The left hand side of x(t)² + y(t)² = 5² is a function of time
         - It just so happens to equal a constant (the length of the ladder which doesn't change as time passes)
         - But it's still written as an expression dependent on time, so we can manipulate it like any other function with t as an input
@@ -578,12 +647,14 @@
         - First, let's take the derivative of x(t)² + y(t)²:
             - d(x(t)² + y(t)²) / dt
             - This means "if I let a little time dt pass, which causes y to slightly decrease and x to slightly increase, how much does x(t)² + y(t)² change?
-            - We also know that that the derivative should be equal to 0, since the expression is a constant, and nudges in time do not affect constants:
+            - We also know that that the derivative should equal 0, since the expression is a constant, and nudges in time do not affect constants:
                 - d(x(t)² + y(t)²) / dt = 0
 
         - Next, let's compute this derivative:
-            - The function x(t)² is composite, so by the chain rule we need the derivative of the Outer(Inner) * the derivative of the Inner
-            - So we need the derivative of x(t)² * the derivative of x(t)
+            - x(t) is a function (it takes time as input and outputs a distance)
+            - The expression x(t)² is composite, formed by composing two functions (the squaring function and the position function)
+            - So by the chain rule we need the derivative of the Outer(Inner) * the derivative of the Inner
+            - We need the derivative of x(t)² * the derivative of x(t)
                 - The derivative of x(t)² is 2x(t) 
                 - The derivative of x(t) is dx/dt
                 - 2x(t) * dx/dt
@@ -611,7 +682,7 @@
         - So dx/dt comes out to be 4/3 meters per second
         - And this answers our question "In that initial moment, what is the rate at which the botton of the ladder is moving away from the wall?"
 
-- How does this compare to finding the slope of a tangent line to the circle
+- How does this compare to finding the slope of a tangent line to the circle:
 
 
 
