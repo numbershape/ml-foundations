@@ -529,9 +529,9 @@
         - dy/dx measures how y changes when we nudge x
     - But some relationships can't be (or aren't) solved for y explicitly
         - Example: A circle x² + y² = 25 constrains x and y together, as they both change together
-        - We can't write y = f(x) for the whole circle (we'd need two pieces: y = ±√(25-x²))  
+        - We can't write y = f(x) for the whole circle (we would need two pieces: y = ±√(25-x²))  
     - Implicit Curves:
-        - An "implicit curve" is just the set of all points x,y that satisfy some property that involves both variables x and y (written as F(x,y) = 0)
+        - An "implicit curve" is just the set of all points x,y that satisfy some property that involves both variables x and y (F(x,y) = 0)
         - This describes the relationship between x and y without isolating either variable
         - Examples:
             - Circle: x² + y² - 25 = 0
@@ -540,7 +540,7 @@
     - Why Implicit Differentiation?
         - Implicit differentiation is essential when solving for y explicitly is difficult or impossible (like x³ + y³ = 6xy) or when we want to avoid messy algebra
         - When we have F(x,y) = 0, both x and y change together along the curve
-        - We can't just "plug in x and get y" - they are interdependent
+        - When we can't just "plug in x and get y" - they are interdependent
         - Implicit differentiation lets us find dy/dx directly from F(x,y) = 0 without solving for y first
         - We treat both x and y as changing together, constrained by their relationship, rather than y being a simple output of x
 
@@ -602,8 +602,7 @@
                 - The unit cancellation makes the notation intuitive even though the dx's play different roles
                 
 
-- The procedure for how we find dy and dx for implicit curves like the circle:
-    - The procedure is implicit differentiation
+- The implicit differentiation procedure to find dy and dx for implicit curves like the circle:
     - We start by taking the derivative of both sides (x² + y² = 5²)
         - For x² we write 2x dx
         - For y² we write 2y dy
@@ -614,7 +613,7 @@
         - 2x dx + 2y dy = 0
         - 2y dy = - 2x dx
         - 2y (dy/dx) = - 2x 
-            - Note that 2y is a coefficient and when dividing an entire product by something, only the differential part (dy or dx) participates in the division operation. The coefficient 2y stays as a multiplier
+            - Note that 2y is a coefficient and when dividing an entire product with a differential, only the differential part (dy or dx) participates in the division operation. The coefficient 2y stays as a multiplier
         - dy/dx = -2x/(2y)
         - dy/dx = -x/y
     - The equation 2x dx + 2y dy = 0 is a differential equation, and dividing by dx converts it to the derivative notation dy/dx
@@ -626,8 +625,8 @@
         - The top of the ladder starts 4 meters above the ground 
         - By the pythagorean theorem, the bottom is 3 meters away from the wall
         - The ladder is slipping down in such a way that its top is dropping at a rate of 1 meter per second (1m/s)
-    - Our problem question is: In that initial moment, what is the rate at which the botton of the ladder is moving away from the wall?
-        - That distance from the bottom of the ladder to the wall, is 100% determined by the distance from the top of the ladder to the floor
+    - Our question is: In that initial moment, what is the rate at which the botton of the ladder is moving away from the wall?
+        - That distance from the bottom of the ladder to the wall is 100% determined by the distance from the top of the ladder to the floor
     - How do the rates of change for each of those values depend on each other?
         - Let's label the distance from the top of the ladder to the ground y(t), written as a function of time because it's changing
         - Let's label the distance from the bottom of the ladder and the wall x(t), also written as a function of time because it's changing
@@ -712,8 +711,8 @@
     
     - Solution 2 Analytically:
         - The left hand side of x(t)² + y(t)² = 5² is a function of time
-        - It just so happens to equal a constant (the length of the ladder which doesn't change as time passes)
-        - But it's still written as an expression dependent on time, so we can manipulate it like any other function with t as an input
+            - It just so happens to equal a constant (the length of the ladder which doesn't change as time passes)
+            - But it's still written as an expression dependent on time, so we can manipulate it like any other function with t as an input
 
         - First, let's take the derivative of x(t)² + y(t)²:
             - d(x(t)² + y(t)²) / dt
@@ -755,24 +754,24 @@
 
 - How does this compare to finding the slope of a tangent line to the circle:
     - In both cases, we had the equation x² + y² = 5²
-    - And in both cases, we ended up taking the derivative of each side of this expression: 2xdx + 2ydy = 0
+    - And in both cases, we ended up taking the derivative of each side of this expression: 2x dx + 2y dy = 0
     - But for the ladder question, these expressions were functions of time, so taking the derivative of x(t)² + y(t)² = 5² has a clear meaning:
         - 2x(t) dx/dt + 2y(t) dy/dt = 0
         - It's the rate at which the expression changes as time changes
     - But for the circle question, rather than saying that a small amount of time dt has passed, which causes x and y to change, the derivative just has these tiny nudges dx and dy just floating free (without dt), not tied to some other common variable, like time: 
-        - 2xdx + 2ydy = 0 (no dt)
+        - 2x dx + 2y dy = 0 (no dt)
     - Derivative vs differential notation:
         - 2x(t) dx/dt + 2y(t) dy/dt = 0 is the Leibniz/derivative notation
-        - 2xdx + 2ydy = 0 is the differential notation
+        - 2x dx + 2y dy = 0 is the differential notation
 
 - Another intuitive way to think about implicit differentiation:
     - Let's give the expression x² + y² the name "S"
     - S is a function of two variables, x and y
-    - It takes every point x, y on the plane, and associates it with a number
-    - For points on the circle, that number happens to be 5² so 25
-    - If we stepped off the circle away from the center, that value would be bigger
-    - For other points x, y closer to the origin, that value would be smaller
-    - What it means to take a derivative of this expression s, is to consider a tiny change to BOTH of these variables, some tiny change dx to x, and some tiny change dy to y, and not necessarily one that keeps us on the circle; just any tiny step in any direction of the xy plane
+        - It takes every point x, y on the plane, and associates it with a number
+        - For points on the circle, that number happens to be 5² so 25
+        - If we stepped off the circle away from the center, that value would be bigger
+        - For other points x, y closer to the origin, that value would be smaller
+    - What it means to take a derivative of this expression S, is to consider a tiny change to BOTH of these variables, some tiny change dx to x, and some tiny change dy to y (not necessarily one that keeps us on the circle; just any tiny step in any direction of the xy plane)
         - dS = 2x dx + 2y dy
     - And from there we ask "how much does the value of S change?"
     - That difference in the value of S before and after the nudge, is dS
@@ -780,14 +779,15 @@
     - Then the decrease in s, the amount that x² + y² changes over that step, would be: 
         - dS = 2(3)(-0.02) + 2(4)(-0.01)
     - This is what the derivative expression dS = 2x dx + 2y dy actually means
-    - It's a recipe that tells us how much the value x² + y² changes as determined by the point xy where we start and the tiny step dx dy that we take
+    - It's a recipe that tells us how much the value x² + y² changes as determined by the point x,y where we start and the tiny step dx dy that we take
     - This is only an approximation that gets truer and truer for smaller and smaller choices of dx and dy
-    - The key point is that when we restrict ourselves to steps along the circle, we want to ensure that this value of S does not change: we're currently at a point (say x=3, y=4) where S equals 25, and we want to keep it at that value of 25. That is, dS should be 0
-    - So setting the expression 2x dx + 2y dy equal to 0 is the condition under which one of these tiny steps actually stays on the circle we are currently on (note: this same condition dS = 0 applies to staying on *any* circle - what makes it specific to the radius 5 circle is that we started at a point where x² + y² = 25)
+    - The key point is that when we restrict ourselves to steps along the circle, we want to ensure that this value of S does not change
+    - Ww are currently at a point (say x=3, y=4) where S equals 25, and we want to keep it at that value of 25. That is, dS should be 0
+    - So setting the expression 2x dx + 2y dy equal to 0 is the condition under which one of these tiny steps actually stays on the circle we are currently on (this same condition dS = 0 applies to staying on ANY circle, and what makes it specific to the radius 5 circle is that we started at a point where x² + y² = 25)
     - Or more precisely, that condition is what keeps us on the tangent line of the circle, not the circle itself (but for tiny enough steps, those are essentially the same thing)
 
 - One more example: sin(x)y² = x
-    - This expression corresponds to several u-shaped curves on the plane (multiple curves exist because sin(x) is periodic - different x values can give the same sin(x)y² value)
+    - This expression corresponds to several u-shaped curves on the plane (multiple curves exist because sin(x) is periodic, so different x values can give the same sin(x)y² value)
     - Those curves represent all of the points x,y where the value of sin(x)y² equals the value of x
     - Imagine taking some tiny step with components dx and dy, and not necessarily one that keeps us on the curve
     - Taking the derivative of each side of this equation will tell us how much the value of that side changes during the tiny step
@@ -804,26 +804,39 @@
                 - d/dx (x) = 1
             - Combine:
                 - sin(x)(2y dy/dx) + y² cos(x) = 1
-        - In differential form (multiplying through by dx):
+        - In differential form:
             - sin(x) d(y²) + y² d(sin(x))
             - sin(x)(2y dy) + y²(cos(x) dx) = dx
     - The right side is simply x, so the size of a change to that value is exactly dx
-    - Setting these two sides equal to each other is a way of saying, whatever our tiny step with coordinates dx and dy is, if it's going to keep us on the curve, the values of both the left-hand side and the right-hand side must change by the same amount
+    - Setting these two sides equal to each other constrains which steps (dx, dy) are allowed. Only steps where the left and right sides change by the same amount will keep us on the curve
     - From there, depending on what problem we are trying to solve, we have something to work with algebraically, most commonly trying to figure out what dy/dx is
 
 - How we can use the technique of implicit differentiation to find new derivative formulas:
     - As we know the derivative of eˣ is itself; but what is the derivative of its inverse function, the natural log of x (d(ln(x))/dx)?
-    - The graph of y = ln(x) can be thought of as an implicit curve: it's all the points x,y on the plan where y happens to equal ln(x)
-    - The x's and the y's on this curve aren't as intermingled as in the previous examples
+        - The expression of y = ln(x) is explicit (y is isolated and explicitly defined as a function of x)
+        - But its graph can be thought of as an implicit curve: it's all the points x,y on the plane where y happens to equal ln(x)
+        - The x's and the y's on this curve aren't as intermingled as in the previous examples
     - The slope of the graph dy/dx is the derivative of ln(x)
-    - To find it, let's rearrange this equation y=ln(x) to be eʸ=x since we know the derivative of eʸ
-    - We can take the derivative of both sides, effectively asking how a tiny step with components dx, dy changes the value of each one of these sides: eʸdy = dx
-    - To ensure that a step stays on the curve, the change to the left side of the equation must equal the change to the right side eʸdy = dx
-    - Rearranging, that means dy/dx = 1/eʸ
-    - And when we are on the curve, eʸ is by definition (eʸ=x) the same thing as x
-    - So the slope is dy/dx = 1/x
-    - And an expression for the slope of a graph of a function written in terms of x like this is the derivative of that function
-    - So the derivative of ln(x) is 1/x (visually it looks like the same curve reversed on the x-axis)
+        - Rather than differentiating ln(x) directly, we can rearrange y = ln(x) in the implicit form as eʸ = x, so that we can then use the known derivative of eʸ (which is itself)
+    - Now both variables are intermingled in the equation, and we can use implicit differentiation
+    - We can take the derivative of both sides, effectively asking how a tiny step with components dx, dy changes the value of each one of these sides:  
+        - eʸ = x
+        - eʸdy = dx
+    - For a step to stay on the curve (remain tangent to it), the changes to both sides must be equal: eʸdy = dx. This constrains the relationship between dx and dy
+    - Rearrange to find the derivative:
+        - eʸdy = dx
+        - dy = dx/eʸ
+        - dy = dx * 1/eʸ
+        - dy/dx = 1/eʸ
+    - When we are on the curve, eʸ is by definition the same thing as x (eʸ=x):
+        - So we can simplify the slope as dy/dx = 1/x
+    - An expression for the slope of a function graph written in terms of x like this, is the derivative of that function
+    - So the derivative of ln(x) is 1/x (which is a decreasing hyperbola)
+        - The graphs of y = eˣ and y = ln(x) are reflections across y = x (inverse functions)
+        - Interestingly, while the derivative of eˣ is identical to the function, the derivative of ln(x) is 1/x, a completely  different-looking curve. This reflects the inverse relationship: exponential growth versus logarithmic growth
+            - eˣ is self-similar: Its rate of change maintains the same character as the function itself (exponential)
+            - ln(x) is self-inverting: Its rate of change (1/x) has the opposite character - where ln(x) grows without bound, 1/x shrinks toward zero
+    - This technique demonstrates the power of implicit differentiation: by cleverly rewriting an explicit function in implicit form, we can derive formulas for derivatives we don't yet know using derivatives we already know
 
 - All of the above is a peek into multivariable calculus, where we consider functions with multiple inputs and how they change as we tweek those multiple inputs, such as f(x,y) = sin(x)y²
 
