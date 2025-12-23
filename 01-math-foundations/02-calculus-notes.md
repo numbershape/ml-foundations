@@ -4,11 +4,6 @@
 - 3Blue1Brown: "Essence of Calculus" series
 - Claude Sonnet 4.5 & Opus 4.5: Supporting tools for investigation, additional notes and final summary
 
-## Notation
-
-**Symbols and Formatting:**
-- [XXX]
-
 ---
 
 ## Notes
@@ -527,12 +522,88 @@
         - y² = 16
         - y = ±4
     - So we get two outputs, y = 4 and y = -4
-    - Usually in calculus we write y = f(x), meaning "y is determined by x". Then dy/dx measures how much y changes when we nudge x
-    - But in a circle, x and y are both constrained by the equation x² + y² = 25, and they both change together!
-    - An implicit curve is just the set of all points x, y that satisfy some property written in terms of both the two variables x and y
-    - For this reason we use "implicit differentiation": we treat both x and y as changing together, constrained by their relationship, rather than y being a simple output of x
+
+- Explicit vs Implicit Relationships:
+    - Usually in calculus we write y = f(x), meaning "y is determined by x"
+        - This is an explicit function: y is isolated on one side
+        - dy/dx measures how y changes when we nudge x
+    - But some relationships can't be (or aren't) solved for y explicitly
+        - Example: A circle x² + y² = 25 constrains x and y together, as they both change together
+        - We can't write y = f(x) for the whole circle (we'd need two pieces: y = ±√(25-x²))  
+    - Implicit Curves:
+        - An "implicit curve" is just the set of all points x,y that satisfy some property that involves both variables x and y (written as F(x,y) = 0)
+        - This describes the relationship between x and y without isolating either variable
+        - Examples:
+            - Circle: x² + y² - 25 = 0
+            - Even explicit y = ln(x) can be rewritten implicitly as: y - ln(x) = 0
+        - Explicit functions are just special cases of implicit curves - the ones we can solve for y
+    - Why Implicit Differentiation?
+        - Implicit differentiation is essential when solving for y explicitly is difficult or impossible (like x³ + y³ = 6xy) or when we want to avoid messy algebra
+        - When we have F(x,y) = 0, both x and y change together along the curve
+        - We can't just "plug in x and get y" - they are interdependent
+        - Implicit differentiation lets us find dy/dx directly from F(x,y) = 0 without solving for y first
+        - We treat both x and y as changing together, constrained by their relationship, rather than y being a simple output of x
+
+- For implicit differentiation, we can use two notations:
+    - The Leibniz/derivative notation:
+        - A derivative is a rate of change; a single number or function that tells you how fast one quantity changes relative to another
+        - Everything is explicitly "with respect to x"
+        - dy/dx is treated as a single symbol (the derivative)
+        - It's a ratio: derivative = (change in y) / (change in x)
+        - y is secretly a function of x even though we can't write it explicitly, so whenever we differentiate something containing y, we need to account for that hidden dependence using the chain rule
+        - When differentiating implicitly in derivative notation:
+            - For terms containing only x: Apply derivative rules directly (for x² we write 2x)
+            - For terms containing only y: Apply derivative rules, then multiply result by dy/dx (for y² we write 2y dy/dx)
+                - Note: This applies the chain rule to y²(x): the outer function is u² with derivative 2u (evaluated at u=y and giving 2y), then multiplied by the inner derivative dy/dx"
+            - For terms containing both x and y: Apply derivative rules, treating y as a function of x, so any derivative of y gets multiplied by dy/dx
+            - For constants: Derivative is 0
+
+    - The differential notation (more elegant):
+        - A differential is an infinitesimal change in a variable; a tiny increment
+        - dy and dx are treated as separate infinitesimal quantities (a tiny change in y and a tiny change in x)
+        - They're separate objects and can be manipulated independently in equations
+        - Uses no fraction bars, just products
+        - When differentiating implicitly in differential notation:
+            - For terms containing only x: Apply derivative rules, then multiply by dx (for x² we write 2x dx)
+            - For terms containing only y: Apply derivative rules, then multiply by dy (for y² we write 2y dy)
+            - For terms containing both x and y: Apply derivative rules, then multiply the x-derivative parts by dx, and the y-derivative parts by dy
+            - For constants: Derivative is 0, no differential needed
+
+    - We can move between derivative and differential notations algebraically:
+        - Differential form: 2y dy = -2x dx
+        - Divide both sides by dx: (2y dy)/dx = (-2x dx)/dx
+        - Separate coefficient from differentials: 2y (dy/dx) = -2x (dx/dx)
+        - Simplify: 2y (dy/dx) = -2x * 1
+        - Derivative form: 2y (dy/dx) = -2x
+        - The other way around: multiply derivative form by dx to get differential form
+
+    - The relationship between derivatives and differentials:
+        - The derivative is like Speed:
+            - Speed = distance/time (rate of change, a ratio)
+            - dy/dx (slope): change in distance/change in time
+            - "I'm going 60 km/h" 
+        - The differential is like Distance:
+            - Distance = speed * time (actual small change, a product)
+            - dy = (dy/dx)dx: distance = 60 * dt hours = 60 km/h * 2 h = 120 km
+            - "In dt hours, I travel 60 * dt km"  
+         - A notational subtlety:
+            - In dy = (dy/dx) dx, the two "dx"s are actually different things:
+                - The dx in dy/dx is part of the derivative symbol (it means "with respect to x")
+                - The dx being multiplied is the actual infinitesimal change in x
+            - Like in distance = 60 km/h * 2h:
+                - The "h" in km/h is part of the rate unit
+                - The "2h" is the actual time interval
+                - They look the same but serve different roles
+                - The units cancel algebraically: km/h * h = km
+            - Leibniz designed the notation so it looks like dx "cancels":
+                - While this manipulation is algebraically valid in differential calculus, dy/dx is actually defined as a limit (lim Δx→0 Δy/Δx), not literally a fraction. The notation's genius is that it behaves like one
+                - Visually: dy/dx * dx = dy (the dx appears to cancel out)
+                - What's really happening: rate * input change = resulting change
+                - The unit cancellation makes the notation intuitive even though the dx's play different roles
+                
 
 - The procedure for how we find dy and dx for implicit curves like the circle:
+    - The procedure is implicit differentiation
     - We start by taking the derivative of both sides (x² + y² = 5²)
         - For x² we write 2x dx
         - For y² we write 2y dy
@@ -549,7 +620,6 @@
     - The equation 2x dx + 2y dy = 0 is a differential equation, and dividing by dx converts it to the derivative notation dy/dx
     - If we have 2x * (small change in x) + 2y * (small change in y) = 0, we can rearrange to find the RATIO of these small changes: (change in y)/(change in x) = -x/y
     - So at the point with coordinates x,y = 3,4, that slope would be -3/4
-    - This process is called implicit differentiation
 
 - This is connected to a different type of calculus problem - the related rates problem:
     - Imagine a 5 meter long ladder held up against a wall:
@@ -603,6 +673,7 @@
         - Solution 1 treats the problem as: "x is a function of y, which is a function of t"
         - Solution 2 treats the problem as: "x and y are both functions of t, constrained by a relationship"
         - Solution 2 leverages implicit differentiation, a powerful technique that says: "I don't need to solve for one variable explicitly; I can just differentiate the relationship itself and solve for the rate I care about"
+        - Implicit differentiation essentially automates the chain rule for nested functions - it's computationally equivalent but conceptually cleaner
 
     - Solution 1 Analytically:
         - One way to solve x(t)² + y(t)² = 5² would be to isolate x(t) and then figure out y(t) based on that 1m/s drop rate: x(t) = (5² - y(t)²)¹⁄²
@@ -658,7 +729,7 @@
                 - The derivative of x(t)² is 2x(t) 
                 - The derivative of x(t) is dx/dt
                 - 2x(t) * dx/dt
-                - 2x(t) dx represents the size of a change to x² caused by some change to x, and then we are dividing out by dt
+                - 2x dx represents the size of a change to x² caused by some change to x, and then we are dividing out by dt
             - Likewise, the rate at which y(t)² is changing is 2y(t) * the derivative of y with respect to time:
                 - 2y(t) * dy/dt
             - Let's not forget to set the whole expression equal to 0, as x(t)² + y(t)² must not change while the ladder moves (the ladder size does not change):
@@ -683,6 +754,80 @@
         - And this answers our question "In that initial moment, what is the rate at which the botton of the ladder is moving away from the wall?"
 
 - How does this compare to finding the slope of a tangent line to the circle:
+    - In both cases, we had the equation x² + y² = 5²
+    - And in both cases, we ended up taking the derivative of each side of this expression: 2xdx + 2ydy = 0
+    - But for the ladder question, these expressions were functions of time, so taking the derivative of x(t)² + y(t)² = 5² has a clear meaning:
+        - 2x(t) dx/dt + 2y(t) dy/dt = 0
+        - It's the rate at which the expression changes as time changes
+    - But for the circle question, rather than saying that a small amount of time dt has passed, which causes x and y to change, the derivative just has these tiny nudges dx and dy just floating free (without dt), not tied to some other common variable, like time: 
+        - 2xdx + 2ydy = 0 (no dt)
+    - Derivative vs differential notation:
+        - 2x(t) dx/dt + 2y(t) dy/dt = 0 is the Leibniz/derivative notation
+        - 2xdx + 2ydy = 0 is the differential notation
+
+- Another intuitive way to think about implicit differentiation:
+    - Let's give the expression x² + y² the name "S"
+    - S is a function of two variables, x and y
+    - It takes every point x, y on the plane, and associates it with a number
+    - For points on the circle, that number happens to be 5² so 25
+    - If we stepped off the circle away from the center, that value would be bigger
+    - For other points x, y closer to the origin, that value would be smaller
+    - What it means to take a derivative of this expression s, is to consider a tiny change to BOTH of these variables, some tiny change dx to x, and some tiny change dy to y, and not necessarily one that keeps us on the circle; just any tiny step in any direction of the xy plane
+        - dS = 2x dx + 2y dy
+    - And from there we ask "how much does the value of S change?"
+    - That difference in the value of S before and after the nudge, is dS
+    - For example, if we start off at point where x = 3 and y = 4, and if dx is -0.02 and dy is -0.01
+    - Then the decrease in s, the amount that x² + y² changes over that step, would be: 
+        - dS = 2(3)(-0.02) + 2(4)(-0.01)
+    - This is what the derivative expression dS = 2x dx + 2y dy actually means
+    - It's a recipe that tells us how much the value x² + y² changes as determined by the point xy where we start and the tiny step dx dy that we take
+    - This is only an approximation that gets truer and truer for smaller and smaller choices of dx and dy
+    - The key point is that when we restrict ourselves to steps along the circle, we want to ensure that this value of S does not change: we're currently at a point (say x=3, y=4) where S equals 25, and we want to keep it at that value of 25. That is, dS should be 0
+    - So setting the expression 2x dx + 2y dy equal to 0 is the condition under which one of these tiny steps actually stays on the circle we are currently on (note: this same condition dS = 0 applies to staying on *any* circle - what makes it specific to the radius 5 circle is that we started at a point where x² + y² = 25)
+    - Or more precisely, that condition is what keeps us on the tangent line of the circle, not the circle itself (but for tiny enough steps, those are essentially the same thing)
+
+- One more example: sin(x)y² = x
+    - This expression corresponds to several u-shaped curves on the plane (multiple curves exist because sin(x) is periodic - different x values can give the same sin(x)y² value)
+    - Those curves represent all of the points x,y where the value of sin(x)y² equals the value of x
+    - Imagine taking some tiny step with components dx and dy, and not necessarily one that keeps us on the curve
+    - Taking the derivative of each side of this equation will tell us how much the value of that side changes during the tiny step
+    - On the left side, by the product rule we get "Left d-Right + Right d-Left":
+        - The left side is a product of two functions of x:
+            - sin(x)
+            - y² (remember that y is implicitly a function of x)
+        - In derivative form:
+            - sin(x) * (d(y²)/dx) + y² * (d(sin(x))/dx)
+            - By the chain rule, the derivative of y² is 2y * dy/dx
+            - And the derivative of sin(x) is cos(x)
+            - sin(x)(2y dy/dx) + y² cos(x)
+            - Differentiate the right side:
+                - d/dx (x) = 1
+            - Combine:
+                - sin(x)(2y dy/dx) + y² cos(x) = 1
+        - In differential form (multiplying through by dx):
+            - sin(x) d(y²) + y² d(sin(x))
+            - sin(x)(2y dy) + y²(cos(x) dx) = dx
+    - The right side is simply x, so the size of a change to that value is exactly dx
+    - Setting these two sides equal to each other is a way of saying, whatever our tiny step with coordinates dx and dy is, if it's going to keep us on the curve, the values of both the left-hand side and the right-hand side must change by the same amount
+    - From there, depending on what problem we are trying to solve, we have something to work with algebraically, most commonly trying to figure out what dy/dx is
+
+- How we can use the technique of implicit differentiation to find new derivative formulas:
+    - As we know the derivative of eˣ is itself; but what is the derivative of its inverse function, the natural log of x (d(ln(x))/dx)?
+    - The graph of y = ln(x) can be thought of as an implicit curve: it's all the points x,y on the plan where y happens to equal ln(x)
+    - The x's and the y's on this curve aren't as intermingled as in the previous examples
+    - The slope of the graph dy/dx is the derivative of ln(x)
+    - To find it, let's rearrange this equation y=ln(x) to be eʸ=x since we know the derivative of eʸ
+    - We can take the derivative of both sides, effectively asking how a tiny step with components dx, dy changes the value of each one of these sides: eʸdy = dx
+    - To ensure that a step stays on the curve, the change to the left side of the equation must equal the change to the right side eʸdy = dx
+    - Rearranging, that means dy/dx = 1/eʸ
+    - And when we are on the curve, eʸ is by definition (eʸ=x) the same thing as x
+    - So the slope is dy/dx = 1/x
+    - And an expression for the slope of a graph of a function written in terms of x like this is the derivative of that function
+    - So the derivative of ln(x) is 1/x (visually it looks like the same curve reversed on the x-axis)
+
+- All of the above is a peek into multivariable calculus, where we consider functions with multiple inputs and how they change as we tweek those multiple inputs, such as f(x,y) = sin(x)y²
+
+    
 
 
 
