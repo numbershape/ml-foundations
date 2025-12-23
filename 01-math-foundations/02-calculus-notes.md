@@ -902,9 +902,88 @@
         - There is no limiting output where everything is within a distance ε of that output
     - Limits are used to formally define the derivative, ε and δ define the limit itself
 
-- How to compute limits:
+- How to compute limits with L'Hôpital's rule:
+    - Say we have the function sin(πx) / x²-1
+    - This could be modelling a dampened oscilation
+    - The function looks continuous, but there is a problematic value at x=1
+    - When we plug x=1 in, sin(πx) is 0
+        - Reminder: The sine function gives us the y-coordinate of a point on a unit circle
+        - The angle π radians is 180°
+        - At 180° we are at the point (-1,0) on the unit circle
+        - The y-coordinate is 0, so sin(π) = 0
+        - sin(nπ) = 0 for any integer n, because these angles correspond to points on the horizontal axis of the unit circle (at 0°, 180°, 360°, etc), where the y-coordinate is always zero
+    - And the denominator also comes out to 0
+    - So the function is actually not defined at that input, and the graph should have a hole there
+    - This also happens at x=-1, but let's focus on x=1 for now
+    - The graph certainly does seem to approach a distict value at that point
+    - How to find the output it approaches as x approaches 1, since we can't just plug in 1?
+        - One way to approximate it would be to plug in a number that is really close to 1, like 1.00001
+        - Doing that, we would get a number around -1.5708...
+    - A better way:
+        - A systematic process that takes an expression like this one, that looks like 0/0 at some input, and ask what is its limit as x approaches that input
+        - After limits help us write the definition for derivatives:
+            - lim h -> 0, df/dx
+        - Derivatives can in turn help us evaluate limits
+    - For the function sin(πx) / x²-1, consider the graphs sin(πx) and x²-1 separately:
+        - Focus on what happens on both graphs around x=1
+        - They are both 0 at that point, crossing the x-axis
+    - Let's first consider sin(πx)
+    - Just like when plugging in a specific value near 1, like 1.00001, let's zoom in on that point and consider a tiny nudge dx away from it:
+        - The value of sin(πx) is bumped down and the value of that nudge, which was caused by the nudge dx to the input, is d(sin(πx))
+        - Using the chain rule, that evaluates to cos(πx) π dx (differential notation)
+            - How is π the derivative of πx?
+                - For d/dx cx where c is any constant, the derivative equals c
+                - Think about the basic derivative rule: d/dx x = 1
+                - This means "the rate of change of x with respect to x is 1" (for every 1 unit x increases, the function increases by 1)
+                - Now multiply by a constant (when we have πx instead of just x, for every 1 unit x increases, the function increases by π)
+                - Therefore d/dx πx = π
+                - Using the constant multiple rule: d/dx(c f(x)) = c d/dx(f(x))
+                - Another example: d/dx 5x = 5
+                - Analogy: Imagine x represents time in hours, and πx represents distance traveled by a car moving at constant speed π meters per hour. The derivative (rate of change) is just the speed: π meters per hour
+        - Since the starting value was x=1, we plug x=1 to that expression
+            - cos(πx) π dx
+            - cos(π * 1) π dx
+        - The amount that this sin(πx) graph changes is roughly proportional to dx, with a proportionality constant of cos(π * 1) π dx
+            - cos(π) = -1 by trigonometry
+        - So our expression simplifyes to -π dx
+    - Now let's consider x²-1
+        - The value of this graph changes by some d(x²-1)
+        - Taking the derivative, the size of that nudge should be 2x dx:
+            - Why is 2x the derivative of x²-1?
+                - The derivative of a difference is the difference of the derivatives
+                - The derivative of any constant is zero (a constant doesn't change as x changes; if we graph y = 1, it's a horizontal line with slope 0)
+                - Think of x² - 1 as a shifted parabola. The "-1" just moves the entire parabola down by 1 unit, but doesn't change its slope at any point. So the rate of change (derivative) is the same as x² alone: 2x
+        - Again, we are starting at x=1, so we plug in x=1 to that expression 2x dx, meaning the size of the output nudge is about 2 * 1 dx
+    - What this means is that for values of x which are just a tiny nudge dx away from 1, the ratio sin(πx) / x²-1, is approximately -π dx/ 2 dx, so -π/2
+    - These approximations get more and more accurate for smaller and smaller choices of dx
+    - So this ratio -π/2 actually tells us the precise limiting value as x approaches 1
+    - This means that the limiting height on the original graph is exactly -π/2
 
+- Let's go through it again more generally:
+    - Instead of these two specific functions that both equal 0 at x=1, think of any two functions f(x) and g(x) which are both 0 at some common value x=a
+    - The only constraint is that these have to be functions where we are able to take the derivative of them at x=a, which basically means they each basically look like a line when we zoom in close enough to that value
+    - Even though we can't compute f(a)/g(a) at this trouble point (because it will return 0/0), we can ask about this ratio for values of x really close to a, the limit as x approaches a:
+        - lim x -> a, f(x)/g(x) = ?
+    - It's helpful to think of those nearby inputs as just a tiny nudge dx away from a
+    - The value of f at that nudged point is approximately the derivative of f, evaluated at a * dx
+        - df/dx a dx
+    - Likewise, the value of g at that nudged point is approximately the derivative of g, evaluated at a * dx
+        - dg/dx a dx
+    - Near that trouble point, the ratio between the outputs of f and g is actually about the same as the derivative of f at a * dx / the derivative of g at a * dx
+        - lim x -> a, f(x)/g(x) = (df/dx a dx) / (dg/dx a dx)
+    - The dx's cancel out, so the ratio of f and g near a is about the same as the ratio between their derivatives
+        - lim x -> a, f(x)/g(x) = (df/dx a) / (dg/dx a)
+    - Because each of those approximations get more and more accurate for smaller and smaller nudges, this ratio of derivatives gives the precise value for the limit
+    - This is a really handy trick for computing a lot of limits
+    - Whenever we come across some expression that seems to equal 0/0 when we plug in some particular input, we can just take the derivative of the top and bottom expressions and plugging in that same trouble input
+        - lim x -> 0, sin(x)/x = cos(0)/1 = 1
+    - This clever trick is called L'Hôpital's rule (which was actually discovered by Johann Bernoulli)
 
+    - The definition of a derivative for a given function comes down to computing the limit of a certain fraction that looks like 0/0, so L'Hôpital's rule could give us a handy way to discover new derivative formulas
+    - But that would be cheating, since presumably, we don't know what the derivative of the numerator is
+        - d(sin)/dx x = lim h -> 0, (sin(x+h) - sin(x))/h
+        - That requires knowing d(sin)/dx
+    - When it comes to discovering derivative formulas, there is no systematic method; we need to be creative
 
 
 
