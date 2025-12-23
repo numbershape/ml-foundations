@@ -840,7 +840,70 @@
 
 - All of the above is a peek into multivariable calculus, where we consider functions with multiple inputs and how they change as we tweek those multiple inputs, such as f(x,y) = sin(x)y²
 
-    
+---
+
+### Video 7: Limits, L'Hôpital's rule, and epsilon delta definitions
+
+**Key Concepts:**
+
+- Goals:
+    - Goal 1: Formal definition of a derivative
+    - Goal 2: (ε, δ) definition of limits
+    - Goal 3: L'Hôpital's rule
+
+- The formal definition of a derivative:
+    - When we have a function f(x), to think about its derivative at a particular imput, say at x=2, we imagine nudging that input a little dx and looking at the resulting change to the output, df
+    - The ratio df/dx, the rise/run slope between the starting point and the nudged point, is almost what the derivative is; but the actual derivative is whatever this ratio approaches as dx approaches 0:
+        - df/dx(2), dx -> 0
+    - The nudge to the output df, is the difference between f at the starting input plus dx, and f at the starting input; the change to the output caused by dx:
+        - (f(2+dx) - f(2)) / dx, dx -> 0
+    - To express that we want to find what this ratio approaches as dx approaches 0, we write "lim" for limit, with "dx -> 0" below it
+    - We almost never see terms with a lowercase dx inside a limit expression like this; the standard is to use the variable "Δx", or often "h"
+    - Terms with the lowercase d in the typical derivative expression have the idea of a limit already build in (the idea that dx is supposed to eventually go to 0), whereas Δx or h write out the limit process explicitly:
+        - df/dx(2) = lim h->0 (f(2+h) - f(2)) / h
+    - This is the formal definition of the derivative
+    - The paradoxical idea of an infinitely small change:
+        - We are analyzing what happens for arbitrarily small choices of h
+        - These changes to the input are ordinary numbers, not infinitesimals
+        - Remember to ask what happens when that small thing approaches 0
+        - Limits help us avoid talking about infinitely small changes, and instead ask what happens as the size of some small change to our variable approaches 0 
+
+- The (ε, δ) definition of limits:
+    - What does it mean exactly for one value to approach another?
+    - Consider the function ((2+h)³ - (2)³)/h
+    - This is the definition of a derivative of x³ evaluated at x=2: 
+        - d(x³)/dx(2)
+    - Let's think of it like any function with an input h
+    - The graph is a continuous-looking parabola (which makes sense because it's a cubic term divided by a linear term)
+    - For h=0, plugging in 0 would give us 0/0, which is undefined:
+        - ((2+0)³-(2)³) / 0 = 0/0
+    - So actually the parabola graph has a hole at that point, although it is defined for all inputs as close to 0 as we want
+    - As h approaches 0, the corresponding output (the height of this graph) approaches 12 from both sides
+    - So the limit of this ratio as h approaches 0 is equal to 12
+    - For a given range of inputs within some distance of 0 (excluding 0 itself) let's look at all possible heights of the graph within that range:
+        - As the range of input values closes in more and more tightly around 0, the range of output values closes in more and more closely around 12
+        - And the size of that range of output values can be made as small as we want
+    - As a counter example, for a function which is also not defined at 0 but kind of jumps up that point, when we approach h=0 from the right the function approaches the value 2, but when we approach h=0 from the left the function approaches the value 1
+        - Since there is not a single clear, unambiguous value that this function approaches as h approaches 0, the limit is not defined at that point
+        - When we look at any range of inputs around 0 and consider the corresponding range of outputs, as we shrink that input range the corresponding outputs don't narrow in on any specific value
+        - Instead, those outputs straddle a range that never shrinks smaller than 1 unit, even as we make that input range as tiny as we can imagine
+        - This perspective of shrinking an input range around the limiting point and seeing whether or not we are restricted in how much that shrinks the output range, leads to the (ε, δ) definition of limits
+        - This is a glimpse into the field of real analysis, that makes the intuitive ideas of calculus more vigorous
+        - When a limit exists, we can make the output range as small as we want, but when the limit doesn't exist, that output range cannot get smaller than some particular value, no matter how much we shrink the input range around the limiting input
+    - In our original example where the limit was 12:
+        - Think about any distance away from 12 (say from 11 to 13) where it is common to use epsilon (ε) to denote that distance
+        - The intent is that the distance ε is as small as we want
+        - What it means for the limit to exist, is that we will always be able to find a range of inputs around our limiting point, some distance delta (δ) around 0, so that any input within δ(0) corresponds to an output within a distance ε(12)
+            - δ could be from -0.001 to 0.001
+            - ε could be from 11 to 13
+        - That is true for any ε no matter how small; we should always be able to find the corresponding δ
+    - In contrast, when the limit does not exist, like in our example of a function not defined at 0:
+        - We can find a sufficiently small ε (like 0.4) so that no matter how small we make our range around 0, no matter how tiny δ is, the corresponding range of outputs is always too big
+        - There is no limiting output where everything is within a distance ε of that output
+    - Limits are used to formally define the derivative, ε and δ define the limit itself
+
+- How to compute limits:
+
 
 
 
