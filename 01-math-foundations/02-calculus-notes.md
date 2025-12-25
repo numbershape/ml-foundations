@@ -27,7 +27,7 @@
     - That's the circumference of the corresponding ring that the rectangle approximates
     - We can see that the graph of 2πr is a straight line with slope 2π, with all the straightened ring rectangles fitting in the area under it
     - For smaller and smaller choices of dr, it may initially look like we are getting too many values to sum up; however they eventually cover the entire area under the graph, and the portion under the graph is now just a triagle (triangle area = 1/2bh) with a base of 3 and a height 2π3
-    - So its area 1/2bh is 1/2(3)(2π·3) = π(3²)
+    - So its area 1/2bh is 1/2(3)(2π 3) = π(3²)
     - More generally, if the radius of the original circle is some value R, the area is πR²; which is the formula for the area of a circle!
     - So our problem could be approximated with the sum of many small numbers, each of which looked like 2πr dr, for values of r ranging between 0 and 3, with the small number dr representing our choice for the thickness of each ring
     - Not only is dr a factor in the quantities we are adding up 2πr dr, it also gives the spacing between the different values of r: The smaller our choice for dr, the better the approximation
@@ -106,13 +106,13 @@
 
 - The idea of ds/dt is almost what a derivative is, but the true derivative is not based on a specific value of dt
 - Instead, it's whatever that ratio approaches as our choice for dt approaches zero
-- Derivative: ***ds/dt = [s(t + dt) - s(t)] / dt, dt -> 0***
+- Derivative: ***ds/dt = [s(t + dt) - s(t)] / dt, (dt->0)***
     - Remember that for any specific choice of dt, the ratio ds/dt is the rise/run, or slope of a line passing through two separate points on the graph
     - As dt approaches 0, and as those two points approach each other, the slope of the line approaches the slope of a line tangent to the graph at whatever point t we are looking at
     - So the true derivative is not the rise/run slope between two nearby points on the graph; it's equal to the slope of a line tangent to the graph at a single point
     - The idea of "approaching 0" allows the rate of change at a single point in time
     - It's the best constant approximation for a rate of change around a point 
-    - Using "d" in calculus implies that dt -> 0 
+    - Using "d" in calculus implies that dt->0 
 
 - How the derivative gets simplified:
     - Say we have a distance/time function s(t) = t³:
@@ -379,7 +379,7 @@
     - After that move we now have (2ᵗ2ᵈᵗ - 2ᵗ)/dt
     - Which means we can factor 2ᵗ out: ***2ᵗ((2ᵈᵗ - 1)/dt)***
     - This manipulation is useful because it separates the 2ᵗ term from the dt terms - so the dt part doesn't depend on the actual time we started, it's just the nudge of the difference in time
-    - And remember that the derivative of 2ᵗ is whatever the whole expression approaches as dt approaches zero [dt -> 0]
+    - And remember that the derivative of 2ᵗ is whatever the whole expression approaches as dt approaches zero (dt->0)
     - We can start plugging in very small values for dt, for example: 
         - (2⁰·⁰⁰¹ - 1) / 0.001 = 0.6933875...
         - (2⁰·⁰⁰⁰⁰¹ - 1) / 0.00001 = 0.6931496...
@@ -399,7 +399,7 @@
     - More generally, the slope at 2ᵗ is 2ᵗ(0.6931472...)
 
 - If instead we dealt with the function 3ᵗ, the exponential property would also have led us to the conclusion that the derivative of 3ᵗ is proportional to itself, but this time it would have had a proportionality constant of 1.0986: 
-    - dM/dt(3ᵗ) = 3ᵗ((3ᵈᵗ - 1) /dt), dt -> 0
+    - dM/dt(3ᵗ) = 3ᵗ((3ᵈᵗ - 1) /dt), (dt->0)
     - 3⁰·⁰⁰⁰⁰⁰⁰⁰¹ - 1 / 0.00000001 = 1.0986123
     - Similarly, for 8ᵗ, the constant is 2.0794... (which interestingly, is 3 times more than the constant for 2ᵗ 0.6931...)
 
@@ -848,14 +848,14 @@
 
 - The formal definition of a derivative:
     - When we have a function f(x), to think about its derivative at a particular imput, say at x=2, we imagine nudging that input a little dx and looking at the resulting change to the output, df
-    - The ratio Δf/Δx (or [f(2+dx) - f(2)]/dx), the rise/run slope between the starting point and the nudged point, is almost what the derivative is; but the actual derivative is whatever this ratio approaches as dx approaches 0
+    - The ratio Δf/Δx (or f(2+dx)-f(2) / dx), the rise/run slope between the starting point and the nudged point, is almost what the derivative is; but the actual derivative is whatever this ratio approaches as dx approaches 0
         - Using Δf/Δx notation, as the df/dx notation already implies the limit has been taken
     - The nudge to the output df, is the difference between f at the starting input plus dx, and f at the starting input; the change to the output caused by dx:
-        - (f(2+dx) - f(2)) / dx, dx -> 0
-    - To express that we want to find what this ratio approaches as dx approaches 0, we write "lim" for limit, with "dx -> 0" below it
+        - f(2+dx)-f(2) / dx, (dx->0)
+    - To express that we want to find what this ratio approaches as dx approaches 0, we write "lim" for limit, with "dx->0" below it
     - We almost never see terms with a lowercase dx inside a limit expression like this; the standard is to use the variable "Δx", or often "h"
     - Terms with the lowercase d in the typical derivative expression have the idea of a limit already built in (the idea that dx is supposed to eventually go to 0), whereas Δx or h write out the limit process explicitly:
-        - df/dx(2) = lim h->0 (f(2+h) - f(2)) / h
+        - df/dx(2) = lim(h->0) f(2+h)-f(2) / h
     - This is the formal definition of the derivative
     - The paradoxical idea of an infinitely small change:
         - We are analyzing what happens for arbitrarily small choices of h
@@ -865,9 +865,9 @@
 
 - The (ε, δ) definition of limits:
     - What does it mean exactly for one value to approach another?
-    - Consider the function ((2+h)³ - (2)³)/h
-    - This is the definition of a derivative of x³ evaluated at x=2: 
-        - d(x³)/dx(2)
+    - Consider the function lim(h->0) ((2+h)³-(2)³) / h
+    - This is the expression that pops out when we unravel the definition of a derivative of x³ evaluated at x=2: 
+        - d(x³)/dx * (2)
     - But let's think of it like any function with an input h
     - The graph is a continuous-looking parabola (makes sense because it's a cubic term divided by a linear term)
     - For h=0, plugging in 0 would give us 0/0, which is undefined:
@@ -923,74 +923,79 @@
 - How to compute limits:
     - Say we have the function sin(πx)/x²-1 modelling a dampened oscilation
     - The function looks continuous, but there is a problematic value at x=1
-    - When we plug x=1 in, the denominator comes out to be 0
-    - And the numerator sin(πx) is also 0
+    - When we plug x=1 in, the denominator comes out to be 0; and the numerator sin(πx) is also 0
         - Reminder: Why sin(πx) is 0:
             - The sine function gives us the y-coordinate of a point on a unit circle
             - The angle π radians is 180°
             - At 180° we are at the point (-1,0) on the unit circle
             - The y-coordinate is 0, so sin(π) = 0
-            - sin(nπ) = 0 for any integer n, because these angles correspond to points on the horizontal axis of the unit circle (at 0°, ±180°, ±360°, etc.), where the y-coordinate is always zero
-    - So plugging in x=1 results in 0/0, meaning that the function is not defined at that input, and the graph should have a hole there
-    - This also happens at x=-1, but let's focus on x=1 for now
-    - The graph certainly does seem to approach a distict value at that point
+            - sin(nπ) = 0 for any integer n, because these angles correspond to points on the horizontal axis of the unit circle (at 0°, ±180°, ±360°, etc), where the y-coordinate is always zero
+    - So plugging in x=1 results in 0/0, meaning that the function is not defined at that input, and the graph should have a hole there (this also happens at x=-1)
+    - The graph certainly does seem to approach a distict value at x=1
     - How to find the output it approaches as x approaches 1, since we can't just plug in 1?
         - One way to approximate it would be to plug in a number that is really close to 1, like 1.00001
-        - Doing that, we would get a number around -1.5708...
+        - We would get a number around -1.5708
     
 - A better way to compute limits - L'Hôpital's rule:
-    - A systematic process that takes an expression that looks like 0/0 at some input, and asks what is its limit as x approaches that input
-    - After limits helped us write the definition for derivatives:
-        - lim h->0, df/dx
-    - Derivatives can in turn help us evaluate limits
+    - This process takes an expression that looks like 0/0 at some input, and looks for its limit as x approaches that input
+    - Limits helped us write the definition for derivatives:
+        - lim(h->0), df/dx
+    - Now derivatives can in turn help us evaluate limits
 
 - L'Hôpital's Rule - Intuitive Understanding:
     - Let's think about any two functions f(x) and g(x) which both equal 0 at some common value x=a
-    - Their ratio at that value is 0/0 which is undefined      
+    - Their ratio at that value will be 0/0 which is undefined 
+    - The solution will be to take the ratio of their derivatives instead     
     - Why does comparing derivatives work?
-        - When we zoom in on smooth curves near a point, they look like straight lines. Those straight lines are the tangent lines, with slopes equal to the derivatives
+        - When we zoom in on smooth curves near a point, they look like straight lines. Those are the tangent lines, with slopes equal to the derivatives
         - Key geometric insight - For lines through the origin:
-            - Consider two lines through the origin with different slopes (say slope₁ = 3, slope₂ = 1)
-            - Pick any vertical line at position x (say x = 2)
+            - Consider two lines through the origin with different slopes (say slope₁=3, slope₂=1)
+            - Pick any vertical line at position x (x=2)
             - Line 1 reaches height: 3 * 2 = 6
             - Line 2 reaches height: 1 * 2 = 2
             - Ratio of heights: 6/2 = 3
             - Ratio of slopes: 3/1 = 3
             - They are equal because both heights are: slope * distance
-            - The distance cancels when you take the ratio: (slope₁ * x)/(slope₂ * x) = slope₁/slope₂
-        - Why does this ONLY work for lines through the origin?
-            - Both functions have to equal y=0 at x=a
-            - Because that's when we get the indeterminate form 0/0 that we need L'Hôpital's rule to resolve
-            - Without the 0/0 form, the tangent lines have non-zero y-intercepts that prevent the distance terms from canceling
-            - For lines NOT through the origin (y = 3x + 5 and y = x + 2):
-                - The constant terms (+5, +2) don't cancel out
+            - And the distance cancels when you take the ratio: (slope₁ * x)/(slope₂ * x) = slope₁/slope₂
+    - Why does this ONLY work for lines through the origin?
+        - Both functions have to equal y=0 at x=a because that's when we get the indeterminate form 0/0 that we need L'Hôpital's rule to resolve
+            - If f(a)≠0 or g(a)≠0, we can just plug in the values directly
+            - If f(a)=5 and g(a)=2, then f(a)/g(a) = 5/2
+        - Additionally, without the 0/0 form, the tangent lines have non-zero y-intercepts that prevent the distance terms from canceling anyway
+            - For lines NOT through the origin (y=3x+5 and y=x+2):
+                - The constant terms (+5,+2) don't cancel out
                 - Ratio of heights ≠ ratio of slopes
-            - Also, if f(a) ≠ 0 or g(a) ≠ 0, we can just plug in directly:
-                - If f(a) = 5 and g(a) = 2, then f(a)/g(a) = 5/2
         
-    - Connecting to L'Hôpital:
+    - Connecting to L'Hôpital computationally:
+        - Reminder: The general tangent line formula is:
+            - The tangent line to f(x) at point x=a is:
+                - y = f(a) + f'(a)(x-a)
+            - This comes from point-slope form of a line through (a, f(a)) with slope f'(a)
         - Near x=a where f(a)=0 and g(a)=0:
+            - The constant term disappears! This is exactly the condition we need for L'Hôpital (the 0/0 form)
             - The function f(x) is approximated by its tangent line: 
+                - f(x) ≈ 0 + f'(a) * (x-a)
                 - f(x) ≈ f'(a) * (x-a)
             - The function g(x) is approximated by its tangent line: 
+                - g(x) ≈ 0 + g'(a) * (x-a)
                 - g(x) ≈ g'(a) * (x-a)
             - Therefore the ratio is: 
                 - f(x)/g(x) ≈ f'(a)(x-a) / g'(a)(x-a) = f'(a)/g'(a)
             - The (x-a) terms cancel, leaving just the ratio of derivatives
             - Because these approximations get more and more accurate as x gets closer to a, this ratio of derivatives gives the precise value for the limit
-    - Formal Statement of L'Hôpital's Rule:
-        - When lim(x→a) f(x) = 0 and lim(x→a) g(x) = 0 (giving us 0/0), and both derivatives exist at a with g'(a) ≠ 0, then:
-            - lim(x→a) f(x)/g(x) = f'(a)/g'(a)
-    - L'Hôpital's rule works when:
+
+- Formal Statement of L'Hôpital's Rule:
+    - When lim(x→a) f(x)=0 and lim(x→a) g(x)=0 (giving us 0/0), and both derivatives exist at a with g'(a)≠0, then:
+        - lim(x→a) f(x)/g(x) = f'(a)/g'(a)
+    - This is telling us that L'Hôpital's rule works when:
         - Both functions approach 0 (the 0/0 problem)
-        - Both functions are smooth enough at that point to have derivatives
-            - Derivatives must exist (the curve is smooth enough to draw a tangent line)
+        - Both functions are smooth enough at that point to have derivatives(the curve is smooth enough to draw a tangent line)
             - No derivative means that the rule is not applicable (there's a sharp corner, cusp, or vertical tangent where you can't define a unique slope)
-        - The bottom function's derivative isn't also zero (otherwise we'd just have the same problem again)
-        - The rule also works for ∞/∞ forms and can be applied multiple times if needed
+        - The bottom function's derivative isn't also zero (otherwise we would have the same problem again)
+    - The rule also works for ∞/∞ forms and can be applied multiple times if needed
             
 - Real example:
-    - For the function sin(πx)/x²-1, consider the graphs sin(πx) and x²-1 separately:
+    - For the function sin(πx)/x²-1, let's consider the graphs sin(πx) and x²-1 separately:
         - Around x=1, both graphs are both crossing the x-axis at that point
         - What matters is that both functions cross the x-axis (meaning that y=0) at the same x-value (x=1)
         - A quotient function has a hole (removable discontinuity) wherever both the numerator and denominator equal zero at the same point, creating the 0/0 indeterminate form
@@ -998,72 +1003,80 @@
 
     - Let's first consider sin(πx):
         - Just like when plugging in a specific value near 1, like 1.00001, let's zoom in on that point and consider a tiny nudge dx away from it
-        - The value of sin(πx) changes by some amount. The change in output caused by the nudge dx to the input, is approximately d(sin(πx)) ≈ derivative * dx. We use d(sin(πx)) to denote this infinitesimal change, similar to how we wouldd write dy for a generic function y
+        - The value of sin(πx) changes by some amount
+        - We use d(sin(πx)) to denote this infinitesimal change, similar to how we would write dy for a generic function y
+        - The change in output caused by the dx to the input, is approximately d(sin(πx)) ≈ derivative * dx (change in y = rate * change in x)
         - Next, we take the derivative of d(sin(πx))
-        - Using the chain rule, the derivative evaluates to cos(πx)·π, so the change in sin(πx) is approximately π·cos(πx)·dx (differential notation)
+        - Using the chain rule, the derivative evaluates to cos(πx)π, so the change in sin(πx) is approximately cos(πx)π dx (differential notation)
             - Reminder: How is π the derivative of πx?
                 - For d/dx cx where c is any constant, the derivative equals c
-                - Think about the basic derivative rule: d/dx x = 1
-                - This means "the rate of change of x with respect to x is 1" (for every 1 unit x increases, the function increases by 1)
-                - Now multiply by a constant (when we have πx instead of just x, for every 1 unit x increases, the function increases by π * 1)
+                - Think about the basic derivative rule: 
+                    - d/dx x = 1
+                - This means that the rate of change of x with respect to x is 1 (for every 1 unit x increases, the function increases by 1)
+                - Now multiply by the constant π (when we have πx instead of just x, for every 1 unit x increases, the function increases by π * 1)
                 - Therefore d/dx πx = π
-                - Using the constant multiple rule: d/dx(c f(x)) = c d/dx(f(x))
+                - Using the constant multiple rule: 
+                    - d/dx(c f(x)) = c d/dx(f(x))
                 - Another example: d/dx 5x = 5
                 - Analogy: Imagine x represents time in hours, and πx represents distance traveled by a car moving at constant speed π meters per hour. The derivative (rate of change) is just the speed: π meters per hour
 
-    - So now we have a general derivative formula: the derivative of d(sin(πx)) which is cos(πx) π dx
+    - So now we have a general derivative formula: the derivative of d(sin(πx)) which is cos(πx)π dx
         - This formula tells us the rate of change at any point x along the curve
-            - Analogy: Speed(t) = 3t² m/s - gives the speed at any time t
+            - Analogy: Speed(t) = 3t² m/s - this gives the speed at any time t
         - But we have a specific question: What is the rate of change specifically at x=1?
             - Analogy: How fast were we going at t=5 seconds? Speed(5) = 3(5²) = 75 m/s
-        - So we substitute x=1 into our general derivative formula to get the specific rate of change at that location:
-            - cos(πx) π dx
-            - cos(π * 1) π dx
+    - So we substitute x=1 into our general derivative formula to get the specific rate of change at that location:
+        - cos(πx)π dx
+        - cos(π * 1)π dx
 
-    - The amount that this sin(πx) graph changes is approximately proportional to dx, with a proportionality constant equal to the derivative: π·cos(π·1) = -π. So the change is approximately -π·dx. (The approximation becomes exact as dx→0, which is why derivatives give us "instantaneous" rates of change)
+    - The amount that the sin(πx) graph changes is approximately proportional to dx, with a proportionality constant equal to the derivative
         - Reminder: The derivative is the rate that converts input changes into output changes 
-            - For any function f(x): df ≈ f'(x) × dx
-            - Or: dy ≈ (derivative / rate) × dx 
-            - Analogy: If we are driving at 60 km/h (our "derivative"/ RATE):
+            - For any function f(x): df ≈ f'(x) * dx
+            - output dy ≈ (derivative/rate) * input dx
+            - Analogy: If we are driving at 60 km/h (our "derivative"/rate):
                 - Drive for dx = 0.1 hours
-                - Distance traveled (dy) ≈ 60 × 0.1 = 6 km
-            - The change in output (dy) is approximately proportional to the change in input (dx), and the proportionality constant IS the derivative
-            - In our case: d(sin(πx)) ≈ cos(π·1)·π × dx
-        - By trigonometry we know that cos(π) = -1
-        - So our expression simplifies to -π dx
+                - Distance traveled (dy) ≈ 60 * 0.1 = 6km
+            - The change in output (dy) is approximately proportional to the change in input (dx), and the proportionality constant is the derivative
+            - The approximation becomes exact as dx→0, which is why derivatives give us "instantaneous" rates of change
+        - In our case: d(sin(πx)) ≈ cos(π 1)π dx
+            - By trigonometry we know that cos(π) = -1
+            - So our expression simplifies to -π dx   
 
     - Now let's consider the second graph x²-1:
         - The value of this graph changes by d(x²-1)
-        - The derivative is 2x, so the size of that nudge is approximately 2x·dx:
+        - Its general derivative is 2x, so the size of that nudge is approximately 2x dx
             - Reminder: Why is 2x the derivative of x²-1?
-                - The derivative of a difference is the difference of the derivatives
-                - The derivative of any constant is zero (a constant doesn't change as x changes; if we graph y = 1, it's a horizontal line with slope 0)
+                - The derivative of a sum/difference is the sum/difference of the derivatives
+                - The derivative of any constant is zero (a constant doesn't change as x changes; if we graph y=1, it's a horizontal line with slope 0)
                 - Think of x²-1 as a shifted parabola. The "-1" just moves the entire parabola down by 1 unit, but doesn't change its slope at any point. So the rate of change (derivative) is the same as x² alone: 2x
-        - Now we plug in x=1 to the general derivative expression 2x dx, meaning the size of the output nudge is about 2(1) dx
+        - Now we plug in x=1 to the general derivative expression 2x dx to find the derivative at x=1 
+        - The size of the output nudge is about 2(1) dx
     
     - Now let's consider the ratio between the two derivatives:
-        - At x=1, the function sin(πx) has a derivative of -π, so its change is approximately -π·dx
-        - At x=1, the function x²-1 has a derivative of 2, so its change is approximately 2·dx 
+        - At x=1, the function sin(πx) has a derivative of -π, so its change in value is approximately -π dx
+            - When x increases by a small amount dx, sin(πx) changes by approximately -π dx
+        - At x=1, the function x²-1 has a derivative of 2, so its change in value is approximately 2 dx 
+            - When x increases by the same small amount dx, (x²-1) changes by approximately 2 dx
         - For the composite function sin(πx)/x²-1:
-            - Numerator change: When x moves away from x=1 by dx:
-                - sin(πx) changes by approximately the rate of -π dx
-            - Denominator change: When x moves away from x=1 by dx:
-                - x²-1 changes by approximately the rate of 2 dx
+            - Numerator change: When x moves away from x=1 by dx, sin(πx) changes by approximately -π dx
+            - Denominator change: When x moves away from x=1 by dx, x²-1 changes by approximately 2 dx
             - When both numerator and denominator change slightly, the fraction changes by approximately:
                 - change in numerator / change in denominator
                 - -π dx / 2 dx
             - Simplify by canceling out dx terms:
                 - -π/2
-                - this means the ratio is independent of how small we make dx
+                - This means the ratio is independent of how small we make dx
     
     - This tells us that near x=1, the fraction sin(πx)/x²-1 behaves like:
-        - For every tiny change in the denominator (2 dx)
-        - The numerator changes by (-π dx)
+        - For every tiny change in the denominator 2 dx
+        - The numerator changes by -π dx
         - The ratio stabilizes at -π/2
         - As dx → 0, both numerator and denominator → 0 (that's why we had 0/0 originally), but their ratio approaches the constant -π/2
         - This is L'Hôpital's rule in action: The limit of f(x)/g(x) equals the limit of f'(x)/g'(x)
-        - The limit at x=1 for the composite function sin(πx)/(x²-1) is -π/2
-            - lim (x→1) sin(πx)/(x²-1) = -π/2
+        - Therefore, the limit at x=1 for the composite function sin(πx)/(x²-1) is -π/2
+            - lim(x→1) sin(πx)/(x²-1) = -π/2
+
+    - Summary of process:
         - Direct substitution gives 0/0 (indeterminate)
         - Using L'Hôpital's rule, we take derivatives:
             - Derivative of numerator at x=1: -π
@@ -1077,36 +1090,31 @@
     - What this means graphically:
         - Even though the function sin(πx)/x²-1 is undefined at x=1 (we can't plug in 1 directly because you get 0/0), if we approach x=1 from either side, the y-value approaches -π/2 ≈ -1.571
         - There's a "hole" in the graph at x=1, but if we could "fill it in" naturally, it would be at height -π/2
-
-- Let's go through it again more generally:
-    - Even though we can't compute f(a)/g(a) at this trouble point (because it will return 0/0), we can ask about this ratio for values of x really close to a, the limit as x approaches a:
-        - lim x -> a, f(x)/g(x) = ?
-        - This is because near x=a, functions behave linearly (like straight lines when zoomed in)
-        - Since both functions START at 0, their values near a are entirely determined by how fast they are changing (their derivatives)
+        - Since both functions start at 0, their values near x=1 are entirely determined by how fast they are changing (their derivatives)
         - Analogy: Two cars start at the same point (position = 0). After a tiny time dx:
-            - Car f travels: (speed of f) × time dx
-            - Car g travels: (speed of g) × time dx
+            - Car f travels: (speed of f) * time dx
+            - Car g travels: (speed of g) * time dx
             - Ratio of distances = ratio of speeds
-    - The dx's cancel out, so the ratio of f and g near a is about the same as the ratio between their derivatives
-        - lim x -> a, f(x)/g(x) = (df/dx a) / (dg/dx a)
-    - Whenever we come across some expression that seems to equal 0/0 when we plug in some particular input, we can just take the derivative of the top and bottom expressions and plug in that same trouble input
-        - lim x -> 0, sin(x)/x = cos(0)/1 = 1
+            - The dx's cancel out, so the ratio of f and g near a is about the same as the ratio between their derivatives
+            - lim(x->a), f(x)/g(x) = (df/dx a) / (dg/dx a)
 
 - A tempting but invalid use of L'Hôpital's rule:
     - Say we are trying to discover what the derivative of sin(x) is, without knowing the answer yet
     - We use the definition of the derivative and substitute in sin(x)
-        - f'(x) = lim (h→0) [f(x+h) - f(x)] / h
-        - d(sin)/dx = lim (h→0) [sin(x+h) - sin(x)] / h
-    - We notice that when h→0, this becomes 0/0 and decide to use L'Hôpital's rule
+        - f'(x) = lim(h→0) f(x+h)-f(x) / h
+        - d(sin)/dx = lim(h→0) sin(x+h)-sin(x) / h
+    - We notice that when h → 0, this becomes 0/0 and decide to use L'Hôpital's rule
     - L'Hôpital's rule says: When you have 0/0, take the derivative of the top and bottom
-    - But we don't know the derivative of the denominator, in fact this is what we are trying to figure out
+    - But we don't know the derivative of the denominator, in fact this is what we are trying to figure out!
     - So we already need to know the derivatives we need
     - L'Hôpital's rule is great for evaluating limits, but we can't use it to discover fundamental derivatives like d(sin)/dx, d(cos)/dx, d(e^x)/dx, etc. Those require other creative methods
 
 - Summary for the L'Hôpital's rule:
-    - If we are trying to find the limit of sin(πx)/(x²-1) as x→1, using L'Hôpital's rule, we:
+    - Whenever we come across some expression that equals 0/0 when we plug in a particular input, we can take the derivative of the top and bottom expressions and plug in that same input:
+        - lim(x->0), sin(x)/x = cos(0)/1 = 1
+    - To find the limit of such a function at the trouble input using L'Hôpital's rule:
         - Take derivatives of numerator and denominator separately
-        - Evaluate those derivatives at x=1 (the point we are approaching)
+        - Evaluate those derivatives at the trouble input (the point we are approaching)
         - Take the ratio of those values
         - This ratio equals the limit at that point
 
