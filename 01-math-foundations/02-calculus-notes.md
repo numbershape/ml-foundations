@@ -1118,7 +1118,111 @@
         - Take the ratio of those values
         - This ratio equals the limit at that point
 
+---
 
-    
+### Video 8: Integration and the fundamental theorem of calculus
 
-    
+**Key Concepts:**
+
+- Say we are sitting in a car and all we see is the speedometer
+    - The car starts moving, speeds up, and then slows back down to a stop, all over the course of 8 seconds
+    - How far did we travel during that time, based only on the speedometer? What was the total distance traveled?
+    - Can we find a distance function s(t) that tells us how far we have travelled after a given amount of time t, somewhere between 0 and 8 seconds?
+- Say we take note of the velocity (which is meters/second) at every second, and make a plot of velocity over time
+    - Time will be on the x-axis and velocity will be on the y-axis
+    - A function to model that velocity over time in m/s, is v(t) = t(8-t)
+- Remember: In chapter 2 we were looking of the opposite situation, where we knew what a distance function was: s(t), and we wanted to figure out the velocity function from that
+    - The derivative of a distance vs time function gave us a velocity vs time function
+    - Currently we know the velocity, and finding the distance vs time function comes down to asking "what function has a derivative of t(8-t)?" 
+    - This is often described as finding the "antiderivative" of a function:
+        - The derivative of t² is 2t
+        - The antiderivative of 2t is t²
+    - So in our case, we need to find the antiderivative of t(8-t)
+
+- But first, how is this question related to finding the area bounded by the velocity graph?
+    - If the car was moving at a constant velocity the solution would be easy:
+        - We would do velocity (in m/s) * time passed (in s), to get the distance traveled (in m)
+        - We could visualize this product (the distance) as an area of a parallelogram (for example 10m/s x 8s, corresponding to an area of 80m)
+    - But in this case the velocity is not constant; it's changing at every instant
+        - We can think of it as changing only at a few points, staying static for the first second and then suddenly discontinuously jumping to a constant 7m/s for the next second, and so on, with discontinuous jumps to portions of constant velocity
+        - We could just compute the distance traveled on each interval by multiplying the constant velocity on that interval * change in time (for example 7m/s * 1s) and then just add all of those up
+        - Let's approximate the velocity function as if it was constant on a bunch of intervals, and refine this approximation to lead us to something more precise
+
+- The process:
+    - Chop up the time x-axis between 0 and 8 seconds, into many small intervals, each with some little width dt, something like 0.25 seconds
+    - Consider one of those intervals, like the one between t=1 and t=1.25
+    - In reality, the car speeds up from 7m/s to about 8.4m/s during that time, and we could find those numbers just by plugging in t=1 and t=1.25 to the equation for velocity v(t) = t(8-t)
+    - Let's try to approximate the car's motion as if its velocity was constant on that interval:
+        - We could choose the constant to be anything between 7 and 8.4
+        - It doesn't matter, so for convenience let's choose the true velocity at the start of each interval (the height of the graph above the left side), in this case 7
+        - In this example interval, according to our approximation, the car moves 7 m/s * 0.25s = 1.75m
+    - The 7 x 0.25 is the area of a thin rectangle under the graph
+    - In truth, that's a little under the real distance traveled, but not by much
+    - The same goes for every other interval: The approximated distance is 
+        - v(t) * dt
+    - But we would be plugging in a different value for t at each interval, returning a different height for each rectangle
+    - The sum of the areas of all those rectangles can be represented with the symbol ∫
+
+- Representing the sum:
+    - To indicate that the sum will be ranging over steps of time between 0 and 8 seconds, we note it like this:
+        - $\int_0^8$
+    - The amount we are adding up at each step of time is the velocity v(t) * the time interval dt:
+        - $\int_0^8 v(t) dt$
+    - Two things are implicit in this notation:
+        - Firstly, the value dt (the time interval) plays two separate roles:
+            - It is a factor in each quantity we are adding up 
+            - It indicates the spacing between each sampled time step
+            - So when we make dt smaller and smaller, even though it decreases the area of each rectangle, it increases the total number of rectangles whose areas we are adding up (because of they are thinner, it takes more of them to fill that space)
+        - Secondly, the reason we don't use the sigma notation Σ to indicate a sum, is that this expression is technically not any particular sum for any particular choice of dt
+            - It is meant to express whatever that sum approaches as dt approaches 0
+            - $\int_0^8 v(t) dt$$\int_0^8 v(t) dt$, (dt->0)
+            - What that approaches, is the area bounded by the curve of the graph and the horizontal axis
+    - Smaller choices of dt indicate closer approximations for the original question "how far does the car actually go?"
+        - So this limiting value for the sum, the area under the curve, gives us the precise answer to the question in full unapproximated precision
+        - area = distance traveled
+    - We had this pretty complicated idea of approximations that can involve adding up a huge number of very tiny rectagles
+    - And yet the value that those approximations approach can be described so simply, as just the area underneath the curve
+    - This expression $\int_0^8 v(t) dt$ is called an "Integral of v(t)", since it brings all of its values together, it integrates them
+
+- How does this help?
+    - We just reframed one hard question (finding how far the car has traveled) into an equally hard problem (finding the area between the graph and the horizontal axis)
+    - If the velocity-distance duo was the only thing we cared about, we could have just skipped straight ahead to finding an antiderivative for t(8-t)
+    - But finding the area between a function's graph and the horizontal axis, is a common language for many disparate problems that can be broken down and approximated as the sum of a large number of small things
+    - Understanding how to interpret and how to compute the area under a graph, is a very general problem-solving tool
+
+- Completing the integration idea:
+    - For the area under the curve of the velocity example, think of a vertical line T serving as a variable right endpoint (T could be 4s, 6s,7s)
+    - We are thinking of the integral of the velocity function between 0 and T (the area under the curve between those inputs) as a function where the upper bound is the variable:
+        - $\int_0^T v(t) dt$
+    - That area represents the distance the car has traveled after T seconds
+    - So in reality this is a distance vs time function s(t)!
+
+- What is the derivative of that function?
+    - A tiny change in distance / a tiny change in time = velocity
+        - ds/dT (T) = v(T)
+    - But there is another way to see this, which generalizes a lot better to other integral problems:
+        - A slight nudge of dt to the input, causes that area under the graph to increase by a little ds, represented by the area of a thin sliver (a rectangle)
+        - The height of that sliver is the height of the graph at that point v(T), and its width is dT
+        - For small enough dT, we can basically consider the sliver to be a rectangle, so this bit of added area ds, is approximately:
+            - ds = v(T) dT
+        - And because that's an approximation that gets better and better for smaller dt, the derivative of that area function ds/dT at this point equals v(T), the value of the velocity function at the time we started on
+    - The derivative of any function giving the area under a graph, is equal to the function for the graph itself
+    - So if our velocity function is t(8-t), what should s be? What function of t has a derivative of t(8-t)?
+        - We can expand it out to be 8t-t² and take each part one at a time
+        - What function has a derivative of 8t?
+            - We know that the derivative of t² is 2t
+            - So if we scale it up by a factor of 4, we can see that the derivative of 4t² is 8t
+        - What function might have -t² as a derivative?
+            - Using the power rule, we know that the derivative of a cubic term t³ gives us a square term 3t²
+            - So if we just scale that down by a third, the derivative of (1/3)t³ is t²
+            - And then making that negative, we would see that -(1/3)t³ has a derivative of -t²
+    - Therefore, the antiderivative of our function 8t-t², is:
+        - 4t² - (1/3)t³
+    - But there is a problem here: We could add any constant we want to this function and its derivative will still be 8t-t²:
+        - 4t² - (1/3)t³ + 2 
+        - 4t² - (1/3)t³ + 3
+    - The derivative of a constant always goes to 0
+    - And if we were to graph s(t), we could think of this in the sense that moving a graph of a distance function up and down, does nothing to affect its slope at any input
+    - So in reality there is actually infinitely many different possible antiderivative functions, and every one of them looks like:
+        - 4t² - (1/3)t³ + C, for some constant C [13:07]
+        
