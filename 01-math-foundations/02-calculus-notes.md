@@ -1131,7 +1131,7 @@
 - Say we take note of the velocity (which is meters/second) at every second, and make a plot of velocity over time
     - Time will be on the x-axis and velocity will be on the y-axis
     - A function to model that velocity over time in m/s, is v(t) = t(8-t)
-- Remember: In chapter 2 we were looking of the opposite situation, where we knew what a distance function was: s(t), and we wanted to figure out the velocity function from that
+- Remember: In chapter 2 we were looking at the opposite situation, where we knew what a distance function was: s(t), and we wanted to figure out the velocity function from that
     - The derivative of a distance vs time function gave us a velocity vs time function
     - Currently we know the velocity, and finding the distance vs time function comes down to asking "what function has a derivative of t(8-t)?" 
     - This is often described as finding the "antiderivative" of a function:
@@ -1144,9 +1144,9 @@
         - We would do velocity (in m/s) * time passed (in s), to get the distance traveled (in m)
         - We could visualize this product (the distance) as an area of a parallelogram (for example 10m/s x 8s, corresponding to an area of 80m)
     - But in this case the velocity is not constant; it's changing at every instant
-        - We can think of it as changing only at a few points, staying static for the first second and then suddenly discontinuously jumping to a constant 7m/s for the next second, and so on, with discontinuous jumps to portions of constant velocity
-        - We could just compute the distance traveled on each interval by multiplying the constant velocity on that interval * change in time (for example 7m/s * 1s) and then just add all of those up
-        - Let's approximate the velocity function as if it was constant on a bunch of intervals, and refine this approximation to lead us to something more precise
+        - We can think of it as changing only at a few points, staying static for the first second and then suddenly jumping to a constant 7m/s for the next second, and so on, with discontinuous jumps to portions of constant velocity
+        - We could just compute the distance traveled on each interval by multiplying the constant velocity on that interval * change in time (for example 7m/s * 1s) and then just add them all up
+        - So let's approximate the velocity function as if it was constant on a bunch of intervals, and refine this approximation to lead us to something more precise
 
 - The process:
     - Chop up the time x-axis between 0 and 8 seconds, into many small intervals, each with some little width dt, something like 0.25 seconds
@@ -1175,24 +1175,24 @@
             - So when we make dt smaller and smaller, even though it decreases the area of each rectangle, it increases the total number of rectangles whose areas we are adding up (because of they are thinner, it takes more of them to fill that space)
         - Secondly, the reason we don't use the sigma notation Σ to indicate a sum, is that this expression is technically not any particular sum for any particular choice of dt
             - It is meant to express whatever that sum approaches as dt approaches 0
-            - $\int_0^8 v(t) dt$$\int_0^8 v(t) dt$, (dt->0)
+                - $\int_0^8 v(t) dt$, (dt->0)
             - What that approaches, is the area bounded by the curve of the graph and the horizontal axis
     - Smaller choices of dt indicate closer approximations for the original question "how far does the car actually go?"
-        - So this limiting value for the sum, the area under the curve, gives us the precise answer to the question in full unapproximated precision
+    - So this limiting value for the sum, the area under the curve, gives us the precise answer to the question in full unapproximated precision
         - area = distance traveled
-    - We had this pretty complicated idea of approximations that can involve adding up a huge number of very tiny rectagles
+    - We started with this complicated idea of approximations that can involve adding up a huge number of very tiny rectagles
     - And yet the value that those approximations approach can be described so simply, as just the area underneath the curve
-    - This expression $\int_0^8 v(t) dt$ is called an "Integral of v(t)", since it brings all of its values together, it integrates them
+    - This expression $\int_0^8 v(t) dt$ is called an "Integral of v(t)", since it brings all of its values together, integrating them
 
 - How does this help?
     - We just reframed one hard question (finding how far the car has traveled) into an equally hard problem (finding the area between the graph and the horizontal axis)
     - If the velocity-distance duo was the only thing we cared about, we could have just skipped straight ahead to finding an antiderivative for t(8-t)
-    - But finding the area between a function's graph and the horizontal axis, is a common language for many disparate problems that can be broken down and approximated as the sum of a large number of small things
+    - But finding the area between a function's graph and the horizontal axis is a common language for many disparate problems that can be broken down and approximated as the sum of a large number of small things
     - Understanding how to interpret and how to compute the area under a graph, is a very general problem-solving tool
 
 - Completing the integration idea:
     - For the area under the curve of the velocity example, think of a vertical line T serving as a variable right endpoint (T could be 4s, 6s,7s)
-    - We are thinking of the integral of the velocity function between 0 and T (the area under the curve between those inputs) as a function where the upper bound is the variable:
+    - We are thinking of the integral of the velocity function between 0 and T (the area under the curve between those inputs) as a function where the upper bound is the variable T:
         - $\int_0^T v(t) dt$
     - That area represents the distance the car has traveled after T seconds
     - So in reality this is a distance vs time function s(t)!
@@ -1201,28 +1201,115 @@
     - A tiny change in distance / a tiny change in time = velocity
         - ds/dT (T) = v(T)
     - But there is another way to see this, which generalizes a lot better to other integral problems:
-        - A slight nudge of dt to the input, causes that area under the graph to increase by a little ds, represented by the area of a thin sliver (a rectangle)
-        - The height of that sliver is the height of the graph at that point v(T), and its width is dT
-        - For small enough dT, we can basically consider the sliver to be a rectangle, so this bit of added area ds, is approximately:
-            - ds = v(T) dT
-        - And because that's an approximation that gets better and better for smaller dt, the derivative of that area function ds/dT at this point equals v(T), the value of the velocity function at the time we started on
-    - The derivative of any function giving the area under a graph, is equal to the function for the graph itself
-    - So if our velocity function is t(8-t), what should s be? What function of t has a derivative of t(8-t)?
-        - We can expand it out to be 8t-t² and take each part one at a time
+        -  We start with an area function s(T) representing the total area (distance) from 0 to T 
+        - If we nudge the upper bound from T to T+dT, we add a thin vertical sliver to the right edge of our area, increasing it by ds
+        - We can approximate this sliver as a rectangle with height v(T) and width dT, giving us ds ≈ v(T) dT
+        - When dT is relatively large, the sliver isn't really a rectangle because the top edge is curved along the velocity function
+        - But as dT gets smaller and smaller, approaching zero, the curve at the top becomes flatter and flatter over that tiny interval (imagine zooming in on any smooth curve until it looks like a straight line) 
+        - So the sliver becomes more and more rectangular, and our approximation ds ≈ v(T) dT becomes increasingly accurate
+        - In the limit as dT → 0, the approximation becomes exact
+        - We can then rearrange ds = v(T) dT by dividing both sides by dT to get ds/dT = v(T), which is precisely the definition of the derivative of the area function
+        - So the derivative of any area function (where the area is measured from a fixed lower bound to a variable upper bound) equals the height of the original graph at that upper bound
+
+- In our case:
+    - If our velocity function is t(8-t), what should s be? What function of t has a derivative of t(8-t)?
+    - We can expand t(8-t) out to be 8t-t² and take each part one at a time
         - What function has a derivative of 8t?
             - We know that the derivative of t² is 2t
-            - So if we scale it up by a factor of 4, we can see that the derivative of 4t² is 8t
+            - 8t is 2t * 4
+            - So if we scale t² up by a factor of 4, we can see that the function 4t² is what has a derivative of 8t
         - What function might have -t² as a derivative?
             - Using the power rule, we know that the derivative of a cubic term t³ gives us a square term 3t²
             - So if we just scale that down by a third, the derivative of (1/3)t³ is t²
             - And then making that negative, we would see that -(1/3)t³ has a derivative of -t²
     - Therefore, the antiderivative of our function 8t-t², is:
         - 4t² - (1/3)t³
-    - But there is a problem here: We could add any constant we want to this function and its derivative will still be 8t-t²:
+    - But there is a problem here: We could add any constant we want to this function and its derivative would still be 8t-t²:
         - 4t² - (1/3)t³ + 2 
-        - 4t² - (1/3)t³ + 3
+        - 4t² - (1/3)t³ + 5
     - The derivative of a constant always goes to 0
     - And if we were to graph s(t), we could think of this in the sense that moving a graph of a distance function up and down, does nothing to affect its slope at any input
     - So in reality there is actually infinitely many different possible antiderivative functions, and every one of them looks like:
-        - 4t² - (1/3)t³ + C, for some constant C [13:07]
-        
+        - 4t² - (1/3)t³ + C, for some constant C
+
+- Which constant C?    
+    - Right now, we don't know whether we should add a specific constant C, and which one that would be
+    - There is one piece of information that lets us zero in on which antiderivative to use: the lower bound of the integral
+    - The intuition is that the integral needs to equal zero when we drag the variable right endpoint T all the way to the left endpoint, as the distance traveled by the car between 0 seconds and 0 seconds is zero
+    - The area under the curve expressed as a function formula is:
+        - s(T) = $\int_0^T t(8-t) dt$
+    - This function s(T) is an antiderivative of v(t) = t(8-t), which we found to be:
+        - s(T) = 4T² - (1/3)T³ + C
+    - So the function equals the antiderivative evaluated from 0 to T:
+        - s(T) = $\int_0^T t(8-t) dt$ = [4T² - (1/3)T³ + C]₀ᵀ
+    - To ensure that the integral from the lower bound to itself will indeed be zero, we need to evaluate the antiderivative at the upper bound and subtract its value at the lower bound:
+        - $\int_a^T t(8-t) dt$ = (4T² - (1/3)T³) - (4(0)² - (1/3)(0)³)
+    - This is the Fundamental Theorem of Calculus, with general form:
+         - ***$\int_a^b f(x) \, dx$ = F(b) - F(a)***
+
+- So let's try to solve it:
+    - Upper bound: The total distance traveled during the full 8 seconds is the expression (4T² - (1/3)T³) evaluated at T=8:
+        - (4(8)² - (1/3)(8)³) = 85.33
+    - Lower bound: When we evaluate the function at T=0, we get 0:
+        - (4(0)² - (1/3)(0)³) = 0
+    - Difference between upper and lower bound:
+        - 85.33 - 0 = 85.33
+        - So in this specific case, we didn't really need to subtract anything off
+    - But if we wanted to find the integral between 1 second and 7 seconds, then we would evaluate the antiderivative we found at the top bound (7) and then subtract off its value at the bottom bound (1):
+        - (4(7)² - (1/3)(7)³) - (4(1)² - (1/3)(1)³)
+    - It doesn't matter which antiderivative we choose here. If it had a constant added to it, like 5, that constant would cancel out:
+        - (4(7)² - (1/3)(7)³ + 5) - (4(1)² - (1/3)(1)³ + 5)
+    - When computing integrals with specific bounds like ∫₀⁸ ("definite" integrals), any constant added to the antiderivative cancels out when we subtract F(a) from F(b)
+    - So for definite integrals we can just use the antiderivative with C=0 for computational simplicity
+    - The constant C only matters when we are finding indefinite integrals (antiderivatives without bounds) or when the antiderivative represents a physical quantity with a starting value in differential equations 
+    - If the antiderivative has a meaning like position, or total accumulated quantity, then the constant represents the initial condition or starting value (for example, a car with a starting position of s(0) = 50 meters)
+    
+- Summary of the Fundamental Theorem of Calculus:
+    - When we want to integrate some function, we are adding up values of f(x) * dx for inputs within a certain range and asking what does that sum approach as dx approaches 0
+    - The first step to evaluating that integral (area) is to find an antiderivative, some other function F whose derivative is the thing inside the integral:
+        - dF/dx (x) = f(x)
+    - Then, the integral equals this antiderivative evaluated at the top bound minus its value at the bootom bound
+        - $\int_a^b f(x) \, dx$ = F(b) - F(a)
+    - In other words, the integral (the limiting value for the sum of all the thin rectangles) takes into account every single input on the continuum, from the lower bound to the upper bound (and that's why we use the term "integrate")
+    - And yet, to actually compute it using an antiderivative, we only look at two inmputs, the top bound and the bottom bound!
+    - Finding the antiderivative implicitly accounts for all the information needed to add up the values between those two bounds
+    - How can we account for infinitely many values by only checking two points? 
+        - The antiderivative acts like a "running total" that has already accumulated all the area as we move from left to right along the curve
+        - Analogy: Imagine tracking a bank account balance over time. If we want to know how much money we gained or lost between January 1st and December 31st, we have two options:
+            - Method 1: Add up every single transaction throughout the year (salary deposits, coffee purchases, rent payments, grocery bills, etc). This is like summing up all those thin rectangles
+            - Method 2: Simply check the account balance on December 31st and subtract the balance from the previous January 1st. If we had $2,000 on Jan 1 and $5,000 on Dec 31, we gained $3,000. Done!
+            - The December 31st balance already contains the cumulative effect of all those transactions; it's a running total that automatically incorporates every deposit and withdrawal along the way
+        - This is exactly what the antiderivative F(T) does: it's a running total of all the area accumulated from the starting point up to T
+        - So F(b) - F(a) gives us the net area between a and b. The antiderivative has already done the work of adding up all those infinitely many rectangles; we just need to check the running total at two points
+
+- Recap:
+    - We wanted to figure out how far a car goes just by looking at the speedometer
+    - What makes that hard is that velocity is always changing
+    - If we approximate velocity to be constant on multiple different intervals, we could figure out how far the car goes on each interval just with multiplication, and then add all those up
+    - Better and better approximations for the original problem correspond to collections of rectangles whose aggregate area is closer and closer to being the area under the curve between the start time and the end time
+    - So that area under the curve is actually the precise distance traveled for the true nowhere constant velocity function
+    - Which means that the derivative (rate of change) of the area function equals the original function
+    - This connection is the profound insight of the Fundamental Theorem of Calculus: differentiation and integration are inverse operations
+    - Taking the derivative undoes an integral, and taking an integral (antiderivative) undoes a derivative. This is why finding antiderivatives lets us solve area problems, even though derivatives and areas seem completely unrelated at first
+    - If we think of that area as a function itself, with a variable right endpoint, we can deduce the function for the derivative (rate of change) of that area must equal the height of the graph at every point (only height matters as dt approaches 0)
+    - To find a function giving this area, we ask "what function has v(t) as a derivative?"
+    - There are actually infinitely many antiderivatives of a given function, since we can always just add some constant without affecting the derivative 
+    - This is accounted for when subtracting off the value of whatever antiderivative function we choose at the bottom bound
+    - For definite integrals, we can use any antiderivative (meaning with any constant C) because the subtraction F(b) - F(a) makes the constant cancel out
+    - So we can always choose the simplest antiderivative with C = 0 
+    - The constant only matters when solving differential equations with initial conditions, or where the antiderivative itself has meaning (like position, or total accumulated quantity)
+    - In that case, C represents the starting value of the quantity we're tracking 
+
+- What about negative areas?
+    - What if the velocity function was negative at some point, meaning the car goes backwards?
+    - A tiny distance traveled (ds) over a little time interval, is about equal to the velocity at that time * the tiny change in time
+        - ds = v(t) dt
+    - But the number we would plug in for velocity would be negative, so the tiny change in distance is negative
+    - We can see this in the differential form: ds = v(t)dt
+    - When v(t) is negative and dt is positive, their product ds must be negative
+    - In terms of thin rectangles, if a rectangle goes below the horizontal axis, its area represents a bit of distance traveled backwards
+    - So if we just want to find the net distance between the car's starting point and its end point, this is something we should subtract
+    - It's important to distinguish between net change and total change. The integral gives us the net displacement (the straight-line distance between start and end points, accounting for direction)
+    - If we wanted the total distance traveled (regardless of direction), we would need to integrate the absolute value of velocity, or split the integral at points where velocity changes sign and add the absolute values of each piece
+    - Whenever a graph dips below the horizontal axis, the area between that portion of the graph and the horizontal axis is counted as negative
+    - Integrals don't measure area per se; they measure the signed area between the graph and the horizontal axis
