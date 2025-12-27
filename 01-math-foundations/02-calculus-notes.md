@@ -1313,3 +1313,88 @@
     - If we wanted the total distance traveled (regardless of direction), we would need to integrate the absolute value of velocity, or split the integral at points where velocity changes sign and add the absolute values of each piece
     - Whenever a graph dips below the horizontal axis, the area between that portion of the graph and the horizontal axis is counted as negative
     - Integrals don't measure area per se; they measure the signed area between the graph and the horizontal axis
+
+---
+
+### Video 9: What does area have to do with slope?
+
+**Key Concepts:**
+
+- A common type of problem where integration comes up: Finding the average of a continuous variable (an area under a curve, so the average height)
+- It can give us a different perspective for why integrals and derivatives are inverses of each other
+- Let's take a look at the graph of sin(x) between 0 and π, which is half of its period (the half above the horizontal axis)
+- What is the average height of the graph of that interval?
+
+- First of all, why is this useful?
+    - All sorts of cyclic phenomena in the world are modeled using sine waves
+    - For example, the number of hours the sun is up per day as a function of what day of the year it is, follows a sine wave pettern
+    - If we wanted to predict the average effectiveness of solar panels in summer months vs winter months, we would need to be able to answer a question like: "What is the average value of that sine function over half its period?
+
+- The average of the continuous variable:
+    - Usually with averages we think of a finite number of variables, where we can add them all up and devide that sum by how many there are
+    - But there are infinitely many values of sin(x) between 0 and π, and we cannot add up all those numbers and divide by infinity
+    - Wanting to add together infinitely many values associated with a continuum, comes up a lot in math, and almost always the key is to use an integral
+    - And the way to do that is to approximate the situation with a finite sum
+
+- In our case for sin(x) between 0 and π:
+    - Imagine sampling a finite number of points evenly spaced along the range
+    - Since it's a finite sample, we can find the average by just adding up all the heights sin(x) at each one of the intervals, and then dividing the sum by the number of points we sampled
+    - The more points we sample (adding up more and more heights) the closer the average would be to the actual average of the continuous variable
+    - This is seems like a kind of integral of sin(x) between 0 and π
+        - For the regular integral, we think of a sample of imputs on this continuum as well, but instead of adding the height sin(x) at each input and dividing by how many there are, we add up sin(x) * dx, where dx is the spacing between the samples
+        - That is, for the regular integral, we are adding up little areas, not heights
+        - And technically the integral is not quite this sum, it is whatever that sum approaches as dx approaches 0
+        - As dx -> 0, what remains is the height!
+        - So this is a rephrasing of the same integral
+    
+    - So let's reframe this expression for the average (the sum of the heights divided by the number of sampled points) in terms of dx (the spacing between the samples)
+        - $\int_0^π sin(x) dx$
+    - If the spacing between these points is 0.1, and we know that they range from 0 to π, how many are there?
+        - We can take the length of that whole interval π, and divide it by the length of the space between each sample:
+            - num samples ≈ π / 0.1 ≈ 31
+        - So generally, if we write that spacing between samples as dx, the number of samples is π / dx:
+            - num samples = π / dx 
+            - num samples * dx = π
+    - Let's substitute into our Average expression:
+        - Average = sum of heights / num samples
+        - Average = sum of heights / (π / dx)
+        - To divide by a fraction, we multiply by its reciprocal
+        - Average = sum of heights * (dx / π)
+        - Average = (sum of heights * dx) / π
+    - This means that the terms we are adding up will look like sin(x) dx, for the various inputs dx we are sampling
+        - The number of samples * dx = π (approximately, as dx → 0)
+    - So the numerator looks exactly like an integral expression!
+        -  $\int_0^π sin(x) dx$ / π
+    - And for larger and larger samples of points, this average will approach the actual integral of sin(x) between 0 and π, all divided by the length of that interval, π
+    - In other words, the average height of this graph is its area divided by its width
+        -  $\int_0^π sin(x) dx$ / π
+        - Integral ≈ sum of heights * dx
+        - Average ≈ Integral / π = (sum of heights * dx) / π
+
+- Let's compute it:
+    - $\int_0^π sin(x) dx$ / π
+    - To compute an integral, we need to find an antiderivative of the function inside the integral; some other function whose derivative is sin(x)
+    - From trig functions, we know that the derivative of cosine is -sine
+    - So the derivative of -cosine is sine
+    - And the antiderivative of sine is -cosine
+    - To evaluate the integral of sine between 0 and π specifically, we evaluate the antiderivative at the upper bound, and subtract off its value at the lower bound
+        - $\int_0^π sin(x) dx$ = (-cos(π)) - (-cos(0)) = 1 - (-1) = 2
+        - Visually, that is the difference in the height of the -cosine (antiderivative) graph above π, and the height of the same graph at 0
+        - Visually, we can see that the change in height is exactly 2 (as the -cosine wave is going from -1 to +1)
+        - And this height equals the area under the graph of sin(x) above the horizontal axis
+    - So the answer to our Average height problem, the integral / width of the region, is 2/π = 0.64:
+        - (-cos(π)) - (-cos(0)) / π-0
+        - Simplify: 2/π = 0.64
+
+- An alternate perspective on why integrals and derivatives are inverses of each other:
+- Why the area of one graph has anything to do with the slope of another graph?
+    - Finding the Average height came down to looking at the change in the antiderivative -cos(x) over the input range, divided by the length of that range:
+        - (-cos(π)) - (-cos(0)) / π-0
+    - Another way to think about that fraction is as the rise/run slope between the point of the antiderivative graph below 0, and the point of that graph above π
+    - Why does it make sense that this slope would represent an average value of sin(x) on that region?
+        - d(-cos)/dx (x) = sin(x)
+    - By definition, sin(x) is the derivative of this antiderivative graph, giving us the slope of -cosine at every point
+    - So another way to think about the Average value of sin(x) is as the Average SLOPE of -cosine over all tangent lines between 0 and π! 
+    - And the Average slope of a graph over all its points in a certain range, equals the TOTAL slope between the start and end points
+
+- Let's think about what it looks like for a general function:
