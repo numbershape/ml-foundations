@@ -1211,6 +1211,20 @@
         - We can then rearrange ds = v(T) dT by dividing both sides by dT to get ds/dT = v(T), which is precisely the definition of the derivative of the area function
         - So the derivative of any area function (where the area is measured from a fixed lower bound to a variable upper bound) equals the height of the original graph at that upper bound
 
+- When finding antiderivatives of power functions, there's a systematic rule called the power rule for integration:
+    - Increase the exponent by 1
+    - Divide by the new exponent
+    - Add the constant C
+    - ***∫xⁿ dx = xⁿ⁺¹/(n+1) + C (where n≠-1)***
+    - Examples: 
+        - ∫x² dx = x³/3 + C
+        - ∫x⁵ dx = x⁶/6 + C
+        - ∫x dx = x²/2 + C (since x = x¹)     
+    - We can verify this works by taking the derivative: 
+        - if F(x) = xⁿ⁺¹/(n+1) 
+        - then F'(x) = (n+1) xⁿ/(n+1) = xⁿ ✓
+    - This is essentially the reverse of the power rule for derivatives, where d/dx(xⁿ) = nxⁿ⁻¹
+
 - In our case:
     - If our velocity function is t(8-t), what should s be? What function of t has a derivative of t(8-t)?
     - We can expand t(8-t) out to be 8t-t² and take each part one at a time
@@ -1342,9 +1356,13 @@
     - The more points we sample (adding up more and more heights) the closer the average would be to the actual average of the continuous variable
     - This is seems like a kind of integral of sin(x) between 0 and π
         - For the regular integral, we think of a sample of imputs on this continuum as well, but instead of adding the height sin(x) at each input and dividing by how many there are, we add up sin(x) * dx, where dx is the spacing between the samples
+        - Why multiply by dx? Because we are computing area (height * width), not just summing heights; each height sin(x) is "weighted" by how much x-axis space it represents (dx)
         - That is, for the regular integral, we are adding up little areas, not heights
         - And technically the integral is not quite this sum, it is whatever that sum approaches as dx approaches 0
         - As dx -> 0, what remains is the height!
+            - More precisely: as dx → 0, the Riemann sum ∑sin(x) dx approaches the integral
+            - The dx doesn't disappear - it's part of the limiting process
+            - Think of it as: (number of samples → ∞) while (width of each sample → 0)
         - So this is a rephrasing of the same integral
     
     - So let's reframe this expression for the average (the sum of the heights divided by the number of sampled points) in terms of dx (the spacing between the samples)
@@ -1353,10 +1371,10 @@
         - We can take the length of that whole interval π, and divide it by the length of the space between each sample:
             - num samples ≈ π / 0.1 ≈ 31
         - So generally, if we write that spacing between samples as dx, the number of samples is π / dx:
+            - num samples = length / thickness per sample
             - num samples = π / dx 
             - num samples * dx = π
     - Let's substitute into our Average expression:
-        - Average = sum of heights / num samples
         - Average = sum of heights / (π / dx)
         - To divide by a fraction, we multiply by its reciprocal
         - Average = sum of heights * (dx / π)
@@ -1366,7 +1384,9 @@
     - So the numerator looks exactly like an integral expression!
         -  $\int_0^π sin(x) dx$ / π
     - And for larger and larger samples of points, this average will approach the actual integral of sin(x) between 0 and π, all divided by the length of that interval, π
-    - In other words, the average height of this graph is its area divided by its width
+        - Reminder that if f(x) goes below the x-axis, that area counts as negative (signed area)
+- The integral gives us the net signed area, not total area
+    - In other words, the Average height of this graph is its area divided by its width!
         -  $\int_0^π sin(x) dx$ / π
         - Integral ≈ sum of heights * dx
         - Average ≈ Integral / π = (sum of heights * dx) / π
@@ -1398,3 +1418,63 @@
     - And the Average slope of a graph over all its points in a certain range, equals the TOTAL slope between the start and end points
 
 - Let's think about what it looks like for a general function:
+    - For any function f(x), if we want to find its average value on some interval, say between a and b
+    - We take the integral of f on that interval / the width of that interval (b-a)
+    - Average = $\int_a^b f(x) dx$ / b-a
+    - We can think of this as the area under the graph divided by its width
+    - Or more accurately, it is the signed area of that graph (since any area below the x-axis is counted as negative)
+
+- What does this area have to do with the usual notion of a finite average, where we add up many numbers and divide by how many there are:
+    - When we take some sample of points spaced out by dx, the number of samples is about equal to the length of the interval divided by dx:
+        - num samples ≈ length of interval / thickness per sample
+        - num samples ≈ b-a / dx
+    - So if we add up the values of f(x) at each sample, and divide by the total number of samples, it's the same as adding up the product, it's the same as adding up the product f(x) dx and dividing by the width of the entire interval
+        - Added-up f(x) / (b-a)/dx
+        - Added-up f(x)dx / b-a
+    - The only difference between that and the integral, is that the integral asks what happens as dx approaches 0, but that just corresponds with samples of more and more points that approximate the true average increasingly well
+    - For any integral, evaluating it comes down to finding an antiderivative of f(x), commonly denoted capital F(x):
+        - dF/dx (x) = f(x)
+    - What we want is the change to this antiderivative between a and b, which we can think of as the change in height of this new antiderivative graph between the two bounds:
+        - F(b)-F(a)
+        - Remember that the antiderivative doesn't necessarily have to pass through 0; we can shift it up and down by adding a constant, and it would still be a valid antiderivative
+        - The constant C would not affect our answer, as it cancells out during the subtraction; geometrically, vertical shifts don't change slopes between endpoints
+    - So the solution to the average problem is the change in the height of this new antiderivative graph divided by the change to the x value (x-axis) between a and b
+        - ***Average = $\int_a^b f(x) dx$ / b-a = F(b)-F(a) / b-a***
+    - In other words, it is the slope of the antiderivative graph between the two endpoints
+
+- Summary: The solution to the average problem, is the slope of the antiderivative graph between the two endpoints
+    - That makes sense because the original f(x) gives us the slope of the tangent line to this antiderivative graph at each point
+    - After all, it is by definition the derivative of F(x)
+
+- Visual summary: Two perspectives on the same Average:
+
+    f(x)               F(x)
+     |                  |
+   1 |  ___            1|    /
+     | /   \            |   /  ← slope = 2/π
+   0 |/─────\_         0|__/
+     0      π           0    π
+   
+    Area/width = Average = Slope of F between endpoints
+
+- Left perspective (area):
+    - Graph of f(x) from a to b
+    - Shaded area under curve = ∫f(x)dx
+    - Average = area / width = ∫f(x)dx / (b-a)
+- Right perspective (slope):
+    - Graph of F(x) where F'(x) = f(x)
+    - Draw secant line connecting the left endpoint to the right endpoint
+        - Left endpoint: where x = 0, the curve is at height -1 → point (0, -1)
+        - Right endpoint: where x = π, the curve is at height 1 → point (π, 1)
+        - The secant line is just the straight line between (0, -1) and (π, 1)
+    - Average = slope of secant = F(b) - F(a) / (b-a)
+- Key insight: These are the SAME number! The average height of f equals the average slope of F
+
+- So why are antiderivatives the key to solving integrals?
+    - Apart from last chapter's intuition, a second perspective is that when we reframe the question of finding an average of a continuous value, as instead finding the average slope of a bunch of tangent lines, it lets us see the answer just by comparing endpoints (rather than having to actually tally up all of the points in between)
+    - Why is this powerful? We have traded a global summation (summing infinitely many values) for a local derivative problem (finding slopes at individual points via derivatives). Instead of adding infinitely many infinitesimal pieces, we just evaluate F at two points; all those infinitesimal changes between a and b sum to F(b)-F(a)
+    - In the last chapter we saw a sensation that should bring integrals into our mind: if we feel like the problem we are solving could be approximated by breaking it up somehow and adding a large number of small things
+    - And in this chapter we recognize a second sensation that should also bring integrals to our mind: if ever there is some idea that we understand in a finite context, and which involves adding up multiple values (like taking the average of a bunch of numbers) and if we want to generalize that idea to apply to an infinite continuous range of values, we can phrase things in terms of an integral. This comes up all the time, especially in probability
+
+- When is finding antiderivatives harder than numerical approximation?
+    - Limitation: Some functions don't have elementary antiderivatives (e^(x²), e^(sin(x)), sin(x)/x); in these cases, numerical approximations (Riemann sums, Simpson's rule) are more practical than symbolic integration
