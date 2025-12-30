@@ -1447,28 +1447,22 @@
     - After all, it is by definition the derivative of F(x)
 
 - Visual summary: Two perspectives on the same Average:
-
-    f(x)               F(x)
-     |                  |
-   1 |  ___            1|    /
-     | /   \            |   /  ← slope = 2/π
-   0 |/─────\_         0|__/
-     0      π           0    π
-   
-    Area/width = Average = Slope of F between endpoints
-
-- Left perspective (area):
-    - Graph of f(x) from a to b
-    - Shaded area under curve = ∫f(x)dx
-    - Average = area / width = ∫f(x)dx / (b-a)
-- Right perspective (slope):
-    - Graph of F(x) where F'(x) = f(x)
-    - Draw secant line connecting the left endpoint to the right endpoint
-        - Left endpoint: where x = 0, the curve is at height -1 → point (0, -1)
-        - Right endpoint: where x = π, the curve is at height 1 → point (π, 1)
-        - The secant line is just the straight line between (0, -1) and (π, 1)
-    - Average = slope of secant = F(b) - F(a) / (b-a)
-- Key insight: These are the SAME number! The average height of f equals the average slope of F
+    - Left perspective (area):
+        - Graph of f(x) from a to b
+        - Shaded area under curve = ∫f(x)dx
+        - Average = area / width = ∫f(x)dx / (b-a)
+    - Right perspective (slope):
+        - Graph of F(x) where F'(x) = f(x)
+        - Draw secant line connecting the left endpoint to the right endpoint
+            - Left endpoint: where x = 0, the curve is at height -1 → point (0, -1)
+            - Right endpoint: where x = π, the curve is at height 1 → point (π, 1)
+            - The secant line is just the straight line between (0, -1) and (π, 1)
+        - Average = slope of secant = F(b) - F(a) / (b-a)
+    - For our sin(x) example:
+        - Left: Area under sin(x) from 0 to π, divided by π
+        - Right: Slope of line connecting (0, -1) to (π, 1) on the -cos(x) graph
+        - Both equal 2/π ≈ 0.64
+    - Key insight: These are the SAME number! The average height of f equals the average slope of F
 
 - So why are antiderivatives the key to solving integrals?
     - Apart from last chapter's intuition, a second perspective is that when we reframe the question of finding an average of a continuous value, as instead finding the average slope of a bunch of tangent lines, it lets us see the answer just by comparing endpoints (rather than having to actually tally up all of the points in between)
