@@ -1341,11 +1341,11 @@
 
 - First of all, why is this useful?
     - All sorts of cyclic phenomena in the world are modeled using sine waves
-    - For example, the number of hours the sun is up per day as a function of what day of the year it is, follows a sine wave pettern
+    - For example, the number of hours the sun is up per day as a function of what day of the year it is, follows a sine wave pattern
     - If we wanted to predict the average effectiveness of solar panels in summer months vs winter months, we would need to be able to answer a question like: "What is the average value of that sine function over half its period?
 
 - The average of the continuous variable:
-    - Usually with averages we think of a finite number of variables, where we can add them all up and devide that sum by how many there are
+    - Usually with averages we think of a finite number of variables, where we can add them all up and divide that sum by how many there are
     - But there are infinitely many values of sin(x) between 0 and π, and we cannot add up all those numbers and divide by infinity
     - Wanting to add together infinitely many values associated with a continuum, comes up a lot in math, and almost always the key is to use an integral
     - And the way to do that is to approximate the situation with a finite sum
@@ -1354,8 +1354,8 @@
     - Imagine sampling a finite number of points evenly spaced along the range
     - Since it's a finite sample, we can find the average by just adding up all the heights sin(x) at each one of the intervals, and then dividing the sum by the number of points we sampled
     - The more points we sample (adding up more and more heights) the closer the average would be to the actual average of the continuous variable
-    - This is seems like a kind of integral of sin(x) between 0 and π
-        - For the regular integral, we think of a sample of imputs on this continuum as well, but instead of adding the height sin(x) at each input and dividing by how many there are, we add up sin(x) * dx, where dx is the spacing between the samples
+    - This seems like a kind of integral of sin(x) between 0 and π
+        - For the regular integral, we think of a sample of inputs on this continuum as well, but instead of adding the height sin(x) at each input and dividing by how many there are, we add up sin(x) * dx, where dx is the spacing between the samples
         - Why multiply by dx? Because we are computing area (height * width), not just summing heights; each height sin(x) is "weighted" by how much x-axis space it represents (dx)
         - That is, for the regular integral, we are adding up little areas, not heights
         - And technically the integral is not quite this sum, it is whatever that sum approaches as dx approaches 0
@@ -1472,3 +1472,71 @@
 
 - When is finding antiderivatives harder than numerical approximation?
     - Limitation: Some functions don't have elementary antiderivatives (e^(x²), e^(sin(x)), sin(x)/x); in these cases, numerical approximations (Riemann sums, Simpson's rule) are more practical than symbolic integration
+
+---
+
+### Video 10: Higher order derivatives
+
+**Key Concepts:**
+
+- We know that given a function f(x), the derivative can be interpreted as the slope of the graph above some point
+- A steep slope means a high value for the derivative, a downward slope means a negative derivative
+- A second derivative is the derivative of the derivative, meaning it tells us how the slope is changing 
+- How the graph of f(x) curves:
+    - At points where f(x) curves upwards, the slope is increasing, and that means the second derivative is positive
+    - At points where f(x) curves downwards, the slope is decreasing, so the second derivative is negative
+    - For example, a graph with its lowest tip at x=4 which is steeply decreasing to and increasing from that point, has a very positive second derivative at the point 4, since the slope is rapidly increasing around that point
+    - Whereas a graph with its lowest tip at x=4 which is slowly decreasing to and increasing from that point, still has a positive second derivative at the point 4, but it's smaller, as the slope only increases slowly
+    - At points where there is no curvature (for example a graph of an upwards diagonal line), the second derivative is just 0
+    - Formal terminology for curvature:
+        - f''(x) > 0 → concave up (holds water, ∪ shape)
+        - f''(x) < 0 → concave down (spills water, ∩ shape)
+    - Inflection points (where the curve switches from concave up to concave down, or vice versa):
+        - At an inflection point, f''(x) = 0 because it's the transition point between positive and negative curvature
+        - However, f''(x) = 0 doesn't guarantee an inflection point; the second derivative must actually switch signs (from positive to negative or vice versa)
+        - Example: For f(x) = x⁴, we have f''(0) = 0, but this is NOT an inflection point because f''(x) stays positive on both sides of x = 0 (the graph stays concave up throughout)
+
+- The usual notation:
+    - Instead of d(df/dx) / dx
+    - We write d²f / dx²
+    - Even though d is not a variable multiplied by f, for the sake of a more compact notation we would write it as d²f / dx²
+
+- Think of some input to a function and then take two small steps to the right, each one with a size of dx:
+    - The first step causes change df1
+    - The second step causes a similar (but possibly different) change df2
+    - The difference between these changes, the change in how the function changes, is what we will call d(df)
+    - More precisely: if you take two steps of size dx starting at x:
+        - After the first step: f(x+dx) - f(x) ≈ df1
+        - After the second step: f(x+2dx) - f(x+dx) ≈ df2
+        - The difference df2 - df1 approximates d(df)
+    - Analogy: Think of driving. If your speedometer goes from 30→35 km/h in the first second, and 35→41 km/h in the next second, the first change is +5, the second is +6. The change in the change is +1 mph per second per second (the acceleration)
+    - The d(df) is really small, typically proportional to the size of (dx)²
+        - d(df) ≈ some constant * (dx)²
+    - Why (dx)² appears:
+        - When we move from x to (x+dx), the function value changes from f(x) to f(x+dx)
+        - This change is: df = f(x+dx) - f(x), which for small dx is approximately df ≈ f'(x) dx
+        - f'(x) = the derivative, which tells us the ratio between output change and input change
+        - f'(x) dx = our linear approximation for how much f changes
+        - So df (the actual change in the function's output) is proportional to dx
+        - Now when we take a second step of size dx, the change d(df) in our change depends on how much f'(x) itself changed
+        - Since f'(x) changes by approximately f''(x) dx over that step, we get: d(df) ≈ f''(x) dx dx = f''(x) (dx)²
+        - In other words: the change in the change picks up a factor of dx twice, once from each derivative
+    - So for example if dx was 0.01, (dx)² would be 0.0001, and d(df) would be proportional to that
+    - The second derivative is the size of this change to the change divided by the size of (dx)², or more precisely, it's whatever that ratio approaches as dx approaches 0
+        - d(df)/(dx)² ≈ some constant
+        
+- Acceleration as a second derivative:
+    - Given some movement along a line, say we have a function that records the distance traveled vs time, with its graph steadily increasing over time
+        - s(t) <=> Displacement
+        - Graph could be looking like a slightly curvy upwards diagonal
+    - The derivative gives us the Velocity at each point in time, increasing up to some maximum and then decreasing back to 0 
+        - ds/dt (t) <=> Velocity
+        - Graph could be looking like a mountain bump (concave down)
+    - The second derivative gives us the rate of change for the Velocity, which is the Acceleration at each point in time 
+        - d²f/dx² (t) <=> Acceleration
+        - Graph could be positive for the first half of the journey, which indicates speeding up (the sensation of being pushed back into our carseat) then negative for the second half, which indicates slowing down
+    - The third derivative is called Jerk; if the Jerk is not 0, it means that the strength of the acceleration itself is changing 
+        - d³f/dx³ (t) <=> Jerk
+        - Graph could be concave up
+
+- One of the most useful things about higher order derivatives, is how they help us in approximating functions, like with Taylor series
