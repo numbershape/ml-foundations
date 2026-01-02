@@ -1590,13 +1590,20 @@
     - This leaves us free to change c₂x²
     
 - The final thing to take advantage of is the fact that the cos(x) graph curves downward above x=0, meaning it has a negative second derivative
-    - Reminder on derivatives:
-        - The first derivative is about the rate of change of height "As I take one step to the right in x, how quickly does my height change?"
-        - The second derivative is about how the slope is changing vertically as we move horizontally: "As I take one step to the right in x, how quickly does my slope value change/what is my steepness?"
-        - Why aren't both zero at the peak:
-            - First derivative uses one reference point (x=0 to x=h): measures one-sided change in height, which is negligible at a peak → goes to 0
-            - Second derivative uses two reference points (x=-h and x=+h): measures both sides to detect the curve's bend, which remains even as h→0 stays constant
-            - The curvature is detected by comparing slopes on both sides of the point, not by looking forward from a single point
+    - Why is curvature non-zero when slope is zero at a peak?
+        - Think about what each derivative measures:
+            - First derivative f'(x): "As I step right, how does my height change?"
+            - Second derivative f''(x): "As I step right, how does my slope change?"
+        - At a peak of cos(x) at x=0:
+            - Looking forward from x=0 to x=h: The slope f'(0)=0 (flat)
+            - But f''(x) compares slopes on BOTH sides of x=0
+        - The second derivative detects that:
+            - Just left of the peak (x=-h): slope is positive (going up)
+            - At the peak (x=0): slope is zero (flat)
+            - Just right of the peak (x=h): slope is negative (going down)
+        - So the slope is changing (decreasing) even though it's momentarily zero
+        - The rate of this change is f''(0)=-1, meaning the slope decreases by 1 unit per unit of x
+        - The curvature persists because it measures the transition through the peak, not just the instantaneous state at the peak
 
     - Since the derivative of cos(x) is -sin(x), the second derivative is -cos(x)
     - And at x=0, the second derivative -cos(0) = -1
@@ -1694,8 +1701,8 @@
             - d⁴/dx⁴(c₄x⁴) = 1·2·3·4·c₄ 
             - d⁴/dx⁴(c₄x⁴) = 4!·c₄
             - d⁴/dx⁴(c₄x⁴) = 4!·(1/4!) = 1 ✓
-        - So when we take the fourth derivative, the 4! from the power rule cancels the 1/4! in the coefficient:
-    
+        - So when we take the fourth derivative, the 4! from the power rule cancels the 1/4! in the coefficient
+
     - Secondly, adding on new terms does not affect what the previous terms should be:
         - For example c₄x⁴ does not change the 1 - 1/2x² part:
             - P(x) = 1 - 1/2x² + c₄x⁴
@@ -1711,22 +1718,71 @@
             - c₂ controls d²P/dx²(0)
             - c₃ controls d³P/dx³(0)
             - c₄ controls d⁴P/dx⁴(0)
+    
+    - Why does division by n! create a systematic pattern for coefficients?
+        - Consider what happens when we don't divide by factorials
+        - If we just set the COEFFICIENT of x⁴ to be 1 (instead of 1/24), then when we take the fourth derivative, we get the value:
+            - Start: 1·x⁴
+            - 1st derivative: 4x³
+            - 2nd derivative: 12x²
+            - 3rd derivative: 24x¹
+            - 4th derivative: 24
+        - The fourth derivative equals 24, not 1 like we needed! So now we'd have to find what value makes it equal 1:
+            - 24c₄ = 1
+            - c₄ = 1/24 = 1/4!
+        - Similarly, for the 5th derivative to equal some target value:
+            - 120c₅ = target
+            - c₅ = target/120
+        - Notice the pattern: we divide by 24 and 120, which are 4! and 5!
+        - Without the factorial pattern, finding coefficients is tedious:
+            - We'd have to compute what factorial appears for each term individually
+            - For the x⁴ term: "okay, 4·3·2·1 = 24, so divide by 24"
+            - For the x⁵ term: "okay, 5·4·3·2·1 = 120, so divide by 120"
+            - No systematic formula, just case-by-case calculations
+        - With the factorial pattern built in, we get a universal formula:
+            - The coefficient for (x-a)ⁿ is always: [nth derivative at a]/n!
+            - This works for ANY n, for ANY function, for ANY center point a
+            - The factorial in the denominator pre-cancels the factorial that builds up from repeated differentiation
 
-    - Thirdly, if instead we were approximating near an input other than 0, like x=π, in order to get the same effect, we would have to write our polynomial in terms of powers of x-π:
+    - If instead we were approximating near an input other than 0, like x=π, in order to get the same effect, we would have to write our polynomial in terms of powers of x-π:
         - P(x) = c₀ + c₁x + c₂x² + c₃x³ + c₄x⁴
         - Pπ(x) = c₀ + c₁(x-π) + c₂(x-π)² + c₃(x-π)³ + c₄(x-π)⁴
-    - We are essentially shifting our coordinate system so that the point x=π becomes the new origin (the "zero point"):
-        - When we use variable x, we are implicitly measuring distances from 0
-        - When we use (x-π), we re measuring distances from π instead
-        - (x-π) represents "how far x is from π" with a sign that indicates direction:
-            - When x>π: (x-π) is positive (we are to the right of π)
-            - When x<π: (x-π) is negative (we are to the left of π)
-            - When x=π: (x-π) = 0 (we are at π)
-            - The reverse, (π-x) would flip all these signs, which would flip the direction of our polynomial's behavior; every odd-power term gets negated, so this would destroy the derivative matching as P'(π) would equal -f'(π) instead of +f'(π)
-    - We are making sure that the point π looks and behaves like 0, so that plugging in x=π (substituting π for every x in the equation) will result in a lot of nice cancellations that leave only one constant
-    - Comparatively, when we evaluate derivatives at x=π:
-        - Using powers of x: terms like x², x³, x⁴ all equal π², π³, π⁴ when x=π: These don't vanish; they create messy interactions between coefficients
-        - Using powers of (x-π): terms like (x-π)², (x-π)³ all equal 0 when x=π, resulting in a clean cancellation, and each derivative being controlled by exactly one coefficient
+        - We are essentially shifting our coordinate system so that the point x=π becomes the new origin (the "zero point"):
+            - When we use variable x, we are implicitly measuring distances from 0; when we use (x-π), we are measuring distances from π instead
+            - (x-π) represents "how far x is from π" with a sign that indicates direction:
+                - When x>π: (x-π) is positive (we are to the right of π)
+                - When x<π: (x-π) is negative (we are to the left of π)
+                - When x=π: (x-π) = 0 (we are at π)
+            - Caution! The reverse, (π-x) would flip all these signs, which would flip the direction of our polynomial's behavior; every odd-power term gets negated, while even powers remain positive
+                - This would destroy the derivative matching as P'(π) would equal -f'(π) instead of +f'(π)
+                - The polynomial would have the wrong slope (negative instead of positive)
+                - For cos(x) at x=π, this would make the approximation curve upward when cos(x) curves downward
+        - We are making sure that the point π looks and behaves like 0, so that plugging in x=π (substituting π for every x) will result in a lot of nice cancellations that leave only one constant
+        - Comparatively, when we evaluate derivatives at x=π:
+            - Using powers of x: terms like x²,x³,x⁴ all equal π²,π³,π⁴ when x=π: These don't vanish and create messy interactions between coefficients
+            - Using powers of (x-π): terms like (x-π)², (x-π)³ all equal 0 when x=π, resulting in a clean cancellation, and each derivative being controlled by exactly one coefficient
+
+    - Why the (x-a) structure prevents interference:
+        - When we take derivatives and then evaluate at x=a, lower-order terms disappear (become constants or zero), and higher-order terms vanish (still contain x factors)
+        - For example, with P(x) = c₀ + c₁(x-a) + c₂(x-a)² + c₃(x-a)³:
+            - For P(a): We don't differentiate, just plug in x=a
+                - P(a) = c₀ + c₁(0) + c₂(0)² + c₃(0)³ = c₀
+                - Only c₀ survives
+            - For P'(a): First differentiate, then plug in x=a:
+                - P'(x) = 0 + c₁·1 + c₂·2(x-a) + c₃·3(x-a)²
+                - P'(a) = c₁ + 2c₂(0) + 3c₃(0)² = c₁
+                - The c₀ term disappeared (derivative of constant is 0)
+                - Higher terms still have (x-a) factors, which become 0
+                - Only c₁ survives
+            - For P''(a): Differentiate twice, then plug in x=a:
+                - P''(x) = 0 + 0 + c₂·2 + c₃·6(x-a)
+                - P''(a) = 2c₂ + 6c₃(0) = 2c₂
+                - The c₀ and c₁ terms disappeared (constants differentiate to 0)
+                - Higher terms still have (x-a) factors, which become 0
+                - Only c₂ survives (times 2!)
+        - The pattern: differentiation eliminates lower-order terms, evaluation at x=a eliminates higher-order terms
+        - Each coefficient controls exactly one derivative value; no interference between coefficients
+        - This is why we use (x-a) instead of just x when approximating near x=a
 
 - General intuition:           
     - We basically take information about higher order derivatives of a function at a single point, and translate that into information about the value of the function near that point
@@ -1735,7 +1791,7 @@
     - The derivatives of cos(x) specifically, follow a cyclic pattern: cos(x), -sin(x), -cos(x), sin(x), and repeat
     - The value of each one of these is easy to compute at x=0: it gives the cyclic pattern 1, 0, -1, 0, and repeat
     - Knowing the values of all those higher order derivatives is a lot of information about cos(x), even though it only involves plugging in a single number, x=0
-    - We are leveraging that information to get an approximation around this imput, by creating a polynomial whose higher order derivatives are designed to match up with those of cos(x), following the same cyclic pattern 1, 0, -1, 0:
+    - We are leveraging that information to get an approximation around this input, by creating a polynomial whose higher order derivatives are designed to match up with those of cos(x), following the same cyclic pattern 1, 0, -1, 0:
         - P(x) = 1 + 0x¹/1! + -1x²/2! + 0x³/3! + 1x⁴/4! + ...
     - And to do that, we make each coefficient of the polynomial follow that same pattern, while also dividing each one by the appropriate factorial (as this is what cancels out the cascading effect of many power rule applications)
     - To see why this works, let's trace what happens when we differentiate the term (1/4!)x⁴ repeatedly, to get its final value:
@@ -1761,6 +1817,24 @@
         - P(x) = f(a) + [df/dx(a) · 0(x-a)¹/1!] + [d²f/dx²(a) · -1(x-a)²/2!] + [d³f/dx³ ·(a) 0(x-a)³/3!] + [d⁴f/dx⁴(a) · 1(x-a)⁴/4!]
     - This is what Taylor polynomials look like in their fullest generality
     - Changing the value of a changes where this approximation is hugging the original function, where its higher order derivatives will be equal to those of the original function
+
+- General Taylor series formula:
+    - After building intuition with specific examples, we can write the complete formula for Taylor series centered at point a:
+    $$f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n$$
+    - The Σ symbol means "sum from n=0 to infinity"
+    - f⁽ⁿ⁾(a) means "the nth derivative of f, evaluated at x=a"
+        - f⁽⁰⁾(a) = f(a) (the function itself, "zeroth derivative")
+        - f⁽¹⁾(a) = f'(a) (first derivative)
+        - f⁽²⁾(a) = f''(a) (second derivative)
+        - And so on...
+    - (x-a)ⁿ is the polynomial basis term
+    - n! normalizes each term as discussed earlier
+    - Expanding the first few terms explicitly:
+    $$f(x) = f(a) + \frac{f'(a)}{1!}(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f'''(a)}{3!}(x-a)^3 + \cdots$$
+    - This formula encodes everything we learned:
+        - Each term requires one derivative evaluation at the point a
+        - The factorial in the denominator cancels the factorial from repeated differentiation
+        - The (x-a)ⁿ structure ensures all terms vanish except one when computing the nth derivative at x=a
 
 - One of the simplest more meaningful examples of Taylor polynomials is the function eˣ around the input x=0
     - Computing the derivatives is very easy as the derivative of eˣ is itself, and this is also true for the second derivative, the third, and so on
@@ -1811,9 +1885,44 @@
     - The derivative information of ln(x) at x=1 doesn't propagate out that far
     - In a case like this, where adding more terms of the series doesn't approach anything, we say that the series "diverges"
     - And the maximum distance between the input we are approximating and points where the outputs of these polynomials actually do converge, is called the "radius of convergence" for the Taylor series
+    - Why does ln(x) centered at x=1 have radius of convergence equal to 1?
+        - The natural log ln(x) is only defined for x > 0
+        - At x=0, ln(x) becomes undefined (it approaches -∞)
+        - This point x=0 is called a "singularity"; a point where the function breaks
+        - The distance from our center x=1 to this singularity is |1-0| = 1
+        - The radius of convergence equals the distance to the nearest singularity: R = 1
+        - Importantly, this radius works symmetrically in both directions from the center:
+            - The series converges for 0 < x < 2 (within distance 1 from x=1)
+            - The series diverges for x ≥ 2 or x ≤ 0 (distance 1 or more from x=1)
+        - This symmetry means that even though ln(2) exists and equals 0.693..., the Taylor series still fails at x=2 because it's the same distance from the center as the singularity at x=0
+    - Why does this happen?
+        - The Taylor series is built entirely from derivative information at x=1
+        - The singularity at x=0 leaves a "fingerprint" in how the derivatives behave at x=1
+        - This fingerprint limits how far the series can reach in all directions
+        - The series "doesn't know" that ln(x) exists and is well-behaved at x=2 or x=3; it only knows about the derivatives at x=1, and that information can only propagate up to distance 1
 
 - More to learn about the Taylor series:
     - Many use cases
     - Tactics for placing bounds on the error of these approximations ("Lagrange error bounds")
     - Tests for understanding when series do and don't converge ("convergence tests")
     - The fundamental intuition to keep in mind is that Taylor series translate derivative information at a single point to approximation information around that point
+
+- Deeper intuition: Taylor series as projection onto polynomial basis
+    - Think of Taylor series as decomposing a function into "polynomial components"
+    - Just like vectors can be written as combinations of basis vectors, functions can be written as combinations of basis functions (1, x, x², ...)
+    - Each coefficient in the Taylor series tells us "how much" of each polynomial basis function we need
+    - The nth coefficient captures the "nth derivative information" at the expansion point
+    - The factorial normalization ensures that each basis function contributes independently (orthogonality with respect to the derivative operator at point a)
+    - This also connects to other decompositions in mathematics (Fourier series, eigenvector expansions, etc.)
+        - Taylor series breaks down functions into combinations of simple polynomials (1, x, x², x³, ...)
+        - Fourier series breaks down periodic functions (like sound waves) into combinations of simple sine and cosine waves
+        - Eigenvector expansions breaks down vectors into components along special directions (eigenvectors)
+
+- Physical analogy:
+    - A Taylor series is like describing a curved path using straight-line instructions
+    - The zeroth order (constant term) says "start here"
+    - The first order (linear term) says "head in this direction at this speed"
+    - The second order (quadratic term) says "curve at this rate"
+    - The third order (cubic term) says "change your curvature at this rate"
+    - Higher orders add increasingly subtle corrections to the path
+    - The more instructions we include, the longer we can follow the path accurately before drifting away from the true curve
