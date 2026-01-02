@@ -1479,14 +1479,12 @@
 
 **Key Concepts:**
 
-- We know that given a function f(x), the derivative can be interpreted as the slope of the graph above some point
-- A steep slope means a high value for the derivative, a downward slope means a negative derivative
-- A second derivative is the derivative of the derivative, meaning it tells us how the slope is changing 
-- How the graph of f(x) curves:
+- We know that given a function f(x), the derivative can be interpreted as the slope of the graph above some point (a steep slope means a high value for the derivative, while a downward slope means a negative derivative)
+- A second derivative is the derivative of the derivative, meaning it tells us how the slope is changing; how the graph of f(x) curves:
     - At points where f(x) curves upwards, the slope is increasing, and that means the second derivative is positive
     - At points where f(x) curves downwards, the slope is decreasing, so the second derivative is negative
     - For example, a graph with its lowest tip at x=4 which is steeply decreasing to and increasing from that point, has a very positive second derivative at the point 4, since the slope is rapidly increasing around that point
-    - Whereas a graph with its lowest tip at x=4 which is slowly decreasing to and increasing from that point, still has a positive second derivative at the point 4, but it's smaller, as the slope only increases slowly
+    - Whereas a graph with its lowest tip at x=4 but which is slowly decreasing to and increasing from that point, still has a positive second derivative at the point 4, but it's smaller as the slope only increases slowly
     - At points where there is no curvature (for example a graph of an upwards diagonal line), the second derivative is just 0
     - Formal terminology for curvature:
         - f''(x) > 0 → concave up (holds water, ∪ shape)
@@ -1494,12 +1492,13 @@
     - Inflection points (where the curve switches from concave up to concave down, or vice versa):
         - At an inflection point, f''(x) = 0 because it's the transition point between positive and negative curvature
         - However, f''(x) = 0 doesn't guarantee an inflection point; the second derivative must actually switch signs (from positive to negative or vice versa)
-        - Example: For f(x) = x⁴, we have f''(0) = 0, but this is NOT an inflection point because f''(x) stays positive on both sides of x = 0 (the graph stays concave up throughout)
+        - Example: For f(x) = x⁴, we have f''(0) = 0, but this is NOT an inflection point because f''(x) stays positive on both sides of x=0 (the graph stays concave up throughout)
 
-- The usual notation:
+- The usual notation for the second derivative:
     - Instead of d(df/dx) / dx
     - We write d²f / dx²
     - Even though d is not a variable multiplied by f, for the sake of a more compact notation we would write it as d²f / dx²
+    - We also have the notation f''(x)
 
 - Think of some input to a function and then take two small steps to the right, each one with a size of dx:
     - The first step causes change df1
@@ -1509,15 +1508,15 @@
         - After the first step: f(x+dx) - f(x) ≈ df1
         - After the second step: f(x+2dx) - f(x+dx) ≈ df2
         - The difference df2 - df1 approximates d(df)
-    - Analogy: Think of driving. If your speedometer goes from 30→35 km/h in the first second, and 35→41 km/h in the next second, the first change is +5, the second is +6. The change in the change is +1 mph per second per second (the acceleration)
+    - Analogy: In a car, if the speedometer goes from 30→35 km/h in the first second, and 35→41 km/h in the next second, the first change is +5, the second is +6. The change in the change is +1 km/h per second per second, or +1 km/h per second squared (which is the acceleration)
     - The d(df) is really small, typically proportional to the size of (dx)²
         - d(df) ≈ some constant * (dx)²
     - Why (dx)² appears:
         - When we move from x to (x+dx), the function value changes from f(x) to f(x+dx)
-        - This change is: df = f(x+dx) - f(x), which for small dx is approximately df ≈ f'(x) dx
-        - f'(x) = the derivative, which tells us the ratio between output change and input change
-        - f'(x) dx = our linear approximation for how much f changes
-        - So df (the actual change in the function's output) is proportional to dx
+        - This change is: df = f(x+dx) - f(x), which for a small dx is approximately df ≈ f'(x) dx
+            - f'(x) = the derivative, which tells us the ratio between output change and input change (the slope)
+            - f'(x) dx = our linear approximation for how much f changes
+            - So df (the actual change in the function's output) is proportional to dx
         - Now when we take a second step of size dx, the change d(df) in our change depends on how much f'(x) itself changed
         - Since f'(x) changes by approximately f''(x) dx over that step, we get: d(df) ≈ f''(x) dx dx = f''(x) (dx)²
         - In other words: the change in the change picks up a factor of dx twice, once from each derivative
@@ -1557,7 +1556,7 @@
 
 - Firstly, at the input x=0, the value of cos(x)=1
     - So our approximation should also equal 1 at the input x=0
-    - Plugging in 0 just results in whatever c₀ is (as a constant, c₀=y when x=0), so we can set that equal to 1 at x=0:
+    - Plugging in x=0 just results in whatever c₀ is (as a constant, c₀=y when x=0), so we can set that equal to 1 at x=0:
         - P(0) = c₀ + c₁0 + c₂0²
         - P(0) = 1 + c₁0 + c₂0²
         - P(0) = 1 + 0 + 0 
@@ -1567,8 +1566,7 @@
         - P(x) = c₀ + c₁x + c₂x²
         - P(x) = 1 + c₁x + c₂x²
 
-
-- Secondly, it would also be good if our approximation had the same tangent slope as cos(x) at this point of interest; otherwise the approximation drifts away from the cos(x) graph much faster than it needs to
+- Secondly, it would also be good if our approximation had the same tangent slope as cos(x) at this point of interest; otherwise the approximation drifts away from the cos(x) graph much faster than it needs to:
     - Let's find the slope of cos(x) at x=0
     - Slope is the derivative, and the derivative of cos(x) is -sin(x)
     - At x=0, -sin(0)=0, meaning the tangent line of cos(x) is perfectly flat
@@ -1599,6 +1597,7 @@
             - First derivative uses one reference point (x=0 to x=h): measures one-sided change in height, which is negligible at a peak → goes to 0
             - Second derivative uses two reference points (x=-h and x=+h): measures both sides to detect the curve's bend, which remains even as h→0 stays constant
             - The curvature is detected by comparing slopes on both sides of the point, not by looking forward from a single point
+
     - Since the derivative of cos(x) is -sin(x), the second derivative is -cos(x)
     - And at x=0, the second derivative -cos(0) = -1
         - d²(cos)/dx²(0) = -cos(0) = -1
@@ -1615,9 +1614,8 @@
     - Substituting c₂ back into the first derivative, we get:
         - dP/dx(x) = 0 + 0 + 2c₂x¹
         - dP/dx(x) = 2(-1/2)x¹
-    - And substituting c₂ back into the original expression, we get:
+    - And substituting c₂ back into the original polynomial, we get:
         - P(x) = 1 + 0x + c₂x²
-        - P(x) = 1 + 0x + (-1/2)x²
         - P(x) = 1 + (-1/2)x²
         - P(x) = 1 - 1/2(x)²
     - This is our matching polynomial!
@@ -1642,10 +1640,10 @@
         - d²P/dx²(0) = d²(cos)/dx²(0)
     - This ensures that the way our approximation changes as we move away from x=0, and the way that the rate of change itself changes, is as similar as possible to the behavior of cos(x), given the amount of control we have
     
-- We could give ourselves more control by allowing more terms in our polynomial and matching higher order derivatives!
+- We could give ourselves more control by allowing more terms in our polynomial and matching higher order derivatives
     - Say we added on the term c₃x³ for some constant c₃:
         - P(x) = 1 - 1/2(x)² + c₃x³
-    - If we take the third derivative of a cubic polynomial, anything quadratic or smaller goes to 0:
+    - If we take the third derivative of a cubic polynomial, anything quadratic or smaller goes to 0 after the several power rule iterations:
         - So 1 - 1/2(x)² will go to 0 by the third derivative:
             - P(x) = 1 - 1/2(x)² + c₃x³
             - dP/dx = 0 - 2(1/2)x¹ + 3c₃x²
@@ -1656,14 +1654,16 @@
         - After three iterations of the power rule, we see that c₃x³:
             - 1·2·3·c₃x⁰
             - 1·2·3·c₃
+            - 6c₃
     - The third derivative of our original graph cos(x) is sin(x), which equals 0 at x=0:
         - cos(0) = 1
         - d(cos)/dx(0) = -sin(0) = 0
         - d²(cos)/dx²(0) = -cos(0) = -1
         - d³(cos)/dx³(0) = sin(0) = 0
-    - So to make sure that the third derivatives match, the constant c₃ in the original polynomial should be 0 (in order to evaluate to 0 at the third derivative):
+    - So to make sure that the third derivatives match, the constant c₃ in the original polynomial should also be 0 (in order to evaluate to 0 at the third derivative):
         - P(x) = 1 - 1/2x² + 0x³
-    - But this means that P(x) = 1 - 1/2x² is the best possible quadratic approximation of cos(x) AND the best cubic approximation!
+    - But this means that P(x) = 1 - 1/2x² is the best possible quadratic approximation AND the best cubic approximation of cos(x)!
+
     - We could actually make an improvement by adding on a fourth order term, C₄x⁴:
         - P(x) = 1 - 1/2x² + c₄x⁴
     - The fourth derivative of cos(x) is itself, which equals 1 at x=0
@@ -1672,7 +1672,7 @@
         - d⁴P/dx⁴(x) = c₄x⁴
         - d⁴P/dx⁴(x) = 1·2·3·4·c₄x⁰
         - d⁴P/dx⁴(x) = 24c₄
-    - So if we want this to match the fourth derivative of cos(x), which is 1:
+    - We set it to 1 to match the fourth derivative of cos(x), which is 1:
         - d⁴P/dx⁴(x) = 24c₄ = 1
         - d⁴P/dx⁴(x) = c₄ = 1/24
     - Substituting into the original polynomial:
@@ -1685,19 +1685,25 @@
     - cos(θ) ≈ 1 - θ²/2 + θ⁴/24
 
 - Let's notice and systematize a few things in this process:
-    - Firstly, factorial terms come up very naturally in the process: When we take n successive derivatives of the function xⁿ, letting the power rule iterate down, we are left with 1·2·3 on and on up to whatever n is
-        - So we don't simply set the coefficients of the polynomial equal to whatever derivative we want; we have to divide by the appropriate factorial to cancel out this effect:
-            - Set c⁸ = Desired derivative value / 8!
-            - d⁸/dx⁸ (c⁸x⁸) = 1·2·3·4·5·6·7·8·c⁸ / 8!
-        - For example, for c₄x⁴ the coefficient was the fourth derivative of cos(x) (which equals 1), but divided by 4!=24, resulting in 1/24
+    - Firstly, factorial terms come up very naturally in the process: When we take n successive derivatives of the function xⁿ, letting the power rule iterate down, we are left with 1·2·3 on and on, up to n
+    - To avoid manually iterating through the power rule multiple times, we can abstract this process into a formula
+    - We don't simply set the coefficients of the polynomial equal to the value of the derivative we want (ie 1); we also divide by the appropriate factorial to cancel out the power rule iterations (ie 1/4!)
+        - For c₄x⁴, the coefficient is the fourth derivative of cos(x) at x=0 which equals 1, divided by 4!, resulting in a COEFFICIENT of 1/24:
+            - c₄ = desired 4th derivative value/4! = 1/4! = 1/24
+        - For the final VALUE of the fourth derivative:
+            - d⁴/dx⁴(c₄x⁴) = 1·2·3·4·c₄ 
+            - d⁴/dx⁴(c₄x⁴) = 4!·c₄
+            - d⁴/dx⁴(c₄x⁴) = 4!·(1/4!) = 1 ✓
+        - So when we take the fourth derivative, the 4! from the power rule cancels the 1/4! in the coefficient:
+    
     - Secondly, adding on new terms does not affect what the previous terms should be:
         - For example c₄x⁴ does not change the 1 - 1/2x² part:
             - P(x) = 1 - 1/2x² + c₄x⁴
-        - The second derivative at x=0 is still equal to 2 * the second coefficient, even after we introduce higher order terms:
+        - The second derivative at x=0 will still equal 2 * the second coefficient, even after we introduce higher order terms:
             - P(x) = 1 - 1/2x² + c₄x⁴
             - dP/dx(0) = 0 + 2(-1/2)x¹ + 4c₄(0)³
             - d²P/dx²(0) = 2(-1/2) + 3·4c₄(0)²
-        - And it's because we are plugging in x=0, so the second derivative of any higher order term, which all include an x will evaluate to 0 and disappear
+        - This is because we are plugging in x=0, so the second derivative of any higher order term (which all include an x) will evaluate to 0 and disappear, as we saw above
         - The same goes for any other derivative, which is why each derivative of a polynomial is controlled by one and only one of the coefficients:
             - P(x) = c₀ + c₁x + c₂x² + c₃x³ + c₄x⁴
             - c₀ controls P(0)
@@ -1705,19 +1711,109 @@
             - c₂ controls d²P/dx²(0)
             - c₃ controls d³P/dx³(0)
             - c₄ controls d⁴P/dx⁴(0)
-        - If instead we were approximating near an input other than 0, like x=π, in order to get the same effect, we would have to write our polynomial in terms of powers of x-π:
-            - P(x) = c₀ + c₁x + c₂x² + c₃x³ + c₄x⁴
-            - Pπ(x) = c₀ + c₁(x-π) + c₂(x-π)² + c₃(x-π)³ + c₄(x-π)⁴
-        - We are essentially shifting our coordinate system so that the point x=π becomes the new origin (the "zero point")
-            - When we use variable x, we are implicitly measuring distances from 0
-            - When we use (x-π), you're measuring distances from π instead
-            - (x-π) represents "how far x is from π" with a sign that indicates direction:
-                - When x>π: (x-π) is positive (we are to the right of π)
-                - When x<π: (x-π) is negative (we are to the left of π)
-                - When x=π: (x-π) = 0 (we are at π)
-                - (π-x) would flip all these signs, which would flip the direction of our polynomial's behavior
-        - We are making sure that the point π looks and behaves like 0, so that plugging in x=π (substituting π for every x in the equation) will result in a lot of nice cancellations that leaves only one constant
-        - When we evaluate derivatives at x = π:
-            - Using powers of x: terms like x², x³, x⁴ all equal π², π³, π⁴ when x=π: These don't vanish; they create messy interactions between coefficients
-            - Using powers of (x-π): terms like (x-π)², (x-π)³ all equal 0 when x=π: Clean cancellation! Each derivative is controlled by exactly one coefficient
-            [10:23]
+
+    - Thirdly, if instead we were approximating near an input other than 0, like x=π, in order to get the same effect, we would have to write our polynomial in terms of powers of x-π:
+        - P(x) = c₀ + c₁x + c₂x² + c₃x³ + c₄x⁴
+        - Pπ(x) = c₀ + c₁(x-π) + c₂(x-π)² + c₃(x-π)³ + c₄(x-π)⁴
+    - We are essentially shifting our coordinate system so that the point x=π becomes the new origin (the "zero point"):
+        - When we use variable x, we are implicitly measuring distances from 0
+        - When we use (x-π), we re measuring distances from π instead
+        - (x-π) represents "how far x is from π" with a sign that indicates direction:
+            - When x>π: (x-π) is positive (we are to the right of π)
+            - When x<π: (x-π) is negative (we are to the left of π)
+            - When x=π: (x-π) = 0 (we are at π)
+            - The reverse, (π-x) would flip all these signs, which would flip the direction of our polynomial's behavior; every odd-power term gets negated, so this would destroy the derivative matching as P'(π) would equal -f'(π) instead of +f'(π)
+    - We are making sure that the point π looks and behaves like 0, so that plugging in x=π (substituting π for every x in the equation) will result in a lot of nice cancellations that leave only one constant
+    - Comparatively, when we evaluate derivatives at x=π:
+        - Using powers of x: terms like x², x³, x⁴ all equal π², π³, π⁴ when x=π: These don't vanish; they create messy interactions between coefficients
+        - Using powers of (x-π): terms like (x-π)², (x-π)³ all equal 0 when x=π, resulting in a clean cancellation, and each derivative being controlled by exactly one coefficient
+
+- General intuition:           
+    - We basically take information about higher order derivatives of a function at a single point, and translate that into information about the value of the function near that point
+        - Input: Derivative information at a point
+        - Output: Value information near that point
+    - The derivatives of cos(x) specifically, follow a cyclic pattern: cos(x), -sin(x), -cos(x), sin(x), and repeat
+    - The value of each one of these is easy to compute at x=0: it gives the cyclic pattern 1, 0, -1, 0, and repeat
+    - Knowing the values of all those higher order derivatives is a lot of information about cos(x), even though it only involves plugging in a single number, x=0
+    - We are leveraging that information to get an approximation around this imput, by creating a polynomial whose higher order derivatives are designed to match up with those of cos(x), following the same cyclic pattern 1, 0, -1, 0:
+        - P(x) = 1 + 0x¹/1! + -1x²/2! + 0x³/3! + 1x⁴/4! + ...
+    - And to do that, we make each coefficient of the polynomial follow that same pattern, while also dividing each one by the appropriate factorial (as this is what cancels out the cascading effect of many power rule applications)
+    - To see why this works, let's trace what happens when we differentiate the term (1/4!)x⁴ repeatedly, to get its final value:
+        - Start:           (1/4!)x⁴
+        - 1st derivative:  4·(1/4!)x³
+        - 2nd derivative:  3·4·(1/4!)x²
+        - 3rd derivative:  2·3·4·(1/4!)x¹
+        - 4th derivative:  1·2·3·4·(1/4!)x⁰ = 4!·(1/4!) = 1
+    - Notice how the factorial in the denominator perfectly cancels the factorial that builds up from repeated differentiation
+    - The polynomials we get by stopping this process at any point are called "Taylor polynomials" for cos(x)
+        - P(x) = 1 + 0x¹/1! + -1x²/2! + 0x³/3! + 1x⁴/4! 
+        - Simplified: - P(x) = 1 - x²/2! + x⁴/4! - x⁶/6! + ...
+
+- Summary of process in abstract terms:
+    - We first take the original function f and compute its derivative, its second derivative, and so on, getting as many terms as we would like, and we evaluate each one of them at x=0
+    - Then, to create an approximating polynomial, the coefficient of each xⁿ term should be equal to the value of the nᵗʰ derivative of the original function evaluated at x=0, divided by n factorial
+    - For example, for cos(x):
+        - P(x) = f(0) + [df/dx(0) · 0x¹/1!] + [d²f/dx²(0) · -1x²/2!] + [d³f/dx³ ·(0) 0x³/3!] + [d⁴f/dx⁴(0) · 1x⁴/4!]
+    - The constant term f(0) ensures that the value of the polynomial matches with the value of f at x=0, the next term df/dx(0) ensures that the slope of the polynomial matches the slope of f at x=0, the next term d²f/dx²(0) ensures that the rate at which the slope changes is the same as for f at x=0, and so on, depending on how many terms we want
+    - The more terms we choose, the closer the approximation, with the tradeoff of a more complicated polynomial
+    - If we want to approximate near some input other than 0, which we will call a, we should write this polynomial in terms of powers of x-a, and evaluate all the derivatives of f at that input a
+    - For example, for cos(x):
+        - P(x) = f(a) + [df/dx(a) · 0(x-a)¹/1!] + [d²f/dx²(a) · -1(x-a)²/2!] + [d³f/dx³ ·(a) 0(x-a)³/3!] + [d⁴f/dx⁴(a) · 1(x-a)⁴/4!]
+    - This is what Taylor polynomials look like in their fullest generality
+    - Changing the value of a changes where this approximation is hugging the original function, where its higher order derivatives will be equal to those of the original function
+
+- One of the simplest more meaningful examples of Taylor polynomials is the function eˣ around the input x=0
+    - Computing the derivatives is very easy as the derivative of eˣ is itself, and this is also true for the second derivative, the third, and so on
+    - So at the point x=0, all of the derivatives are equal to 1
+    - And what that means is that the polynomial approximation should look like:
+        - P(x) = 1 + 1x¹/1! + 1x²/2! + 1x³/3! + 1x⁴/4! + ...
+    - These are the Taylor polynomials for eˣ
+
+- To show the connection between Calculus topics, let's see a different way to understand the second order term (d²f/dx²(a)(x-a)²) of the Taylor polynomials geometrically, related to the Fundamental Theorem of Calculus:
+    - Second order term found in: f(a) + df/dx(a)(x-a) + d²f/dx²(a)(x-a)²
+    - Consider a function that gives the area under a graph between a fixed left point and a variable right point
+    - Let's think about how to approximate the area function (NOT the function for the graph itself)
+    - Focusing on that area is what is going to make the second order term pop out
+    - The Fundamental Theorem of Calculus is that the graph itself represents the derivative of the area function df area/dx(x)
+    - And it's because a slight nudge dx to the right bound of the area, gives a new bit of area approximately equal to the height of the graph * dx (and that approximation is increasingly accurate for smaller and smaller choices of dx)
+    - But if we wanted to be more accurate about this change in area, given some change in x that isn't meant to approach 0, we would have to take into account the little extra area above the parallelogram that dx forms, which is approximately a triangle
+    - Let's name the starting input a, and the nudged input above it x, so the dx change is x-a
+        - The base of the little triangle is equals that change (x-a)
+        - The height of the little triangle is (slope of the graph) * (x-a)
+    - Since this graph is the derivative of the area function, its slope is the SECOND derivative of the area function, evaluated at the input a
+    - So the area of this triangle (1/2 * base * height), is:
+        - 1/2 * the second derivative of the area function at a * (x-a)²
+        - 1/2 * d²f area/dx²(a) * (x-a)²
+    - And this is exactly what we would see with a Taylor polynomial!
+    - If we knew the various derivative information about this area function at the point a, we could approximate the area at the point x
+        - We have to include all that area up to a
+        - Plus the area of the dx rectangle, which is the first derivative * (x-a)
+        - Plus the area of the little dx triangle, which is 1/2 * the second derivative * (x-a)²
+
+- Does it make sense to add infinitely many terms in a Taylor series?
+    - An infinite sum is called a "series", so even though these approximations are called Taylor polynomials when they have finitely many terms, adding infinitely many terms gives what's called a Taylor series
+    - If we have a series where adding more and more terms gets us increasingly close to some specific value, we say that the series "converges" to that value, or that the series as a whole (this infinite sum) equals the value it's converging to
+    - For example, if we take the Taylor polynomial for eˣ and plug in some input like x=1:
+        - P(x) = 1 + 1x¹/1! + 1x²/2! + 1x³/3! + 1x⁴/4! + ...
+        - P(1) = 1 + 1¹/1! + 1²/2! + 1³/3! + 1⁴/4! + ...
+    - As we add more and more polynomial terms, the total sum gets closer and closer to the value e (2.7182818...) so we say that this infinite series converges to (or equals) the number eˣ, which is e¹ or simply e
+    - It turns out that if we plug in any other value of x, like x=2, and look at the value of the higher and higher order Taylor polynomials at this value, they will converge towards eˣ, which is e²
+    - This is true for any input, no matter how far away from 0 it is, even though these Taylor polynomials are constructed only from derivative information gathered at the input 0 
+    - In a case like this, we say that eˣ equals its own Taylor series at all inputs x
+    - This is also true for a couple of other important functions, like sine and cosine
+    
+- But sometimes these series only converge within a certain range around the input whose derivative information we are using:
+    - If we work out the Taylor series for the natural log of x, ln(x), around the input x=1, which is built by evaluating the higher order derivatives of ln(x) at x=1, it would look like:
+        - ln(x) -> (x-a)¹ - (x-a)²/2 + (x-a)³/3 - (x-a)⁴/4 + ...
+    - When we plug in an input between 0 and 2, adding more and more terms of this series, will indeed gets us closer and closer to the natural log of that input
+    - But outside of that range, even by just a little bit, the series fails to approach anything: as we add more and more terms, the sum bounces back and forth wildly
+    - It does not approach the natural log of that value, even though ln(x) is perfectly well-defined for inputs above 2
+    - The derivative information of ln(x) at x=1 doesn't propagate out that far
+    - In a case like this, where adding more terms of the series doesn't approach anything, we say that the series "diverges"
+    - And the maximum distance between the input we are approximating and points where the outputs of these polynomials actually do converge, is called the "radius of convergence" for the Taylor series
+
+- More to learn about the Taylor series:
+    - Many use cases
+    - Tactics for placing bounds on the error of these approximations ("Lagrange error bounds")
+    - Tests for understanding when series do and don't converge ("convergence tests")
+    - The fundamental intuition to keep in mind is that Taylor series translate derivative information at a single point to approximation information around that point
