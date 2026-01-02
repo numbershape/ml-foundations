@@ -1540,3 +1540,184 @@
         - Graph could be concave up
 
 - One of the most useful things about higher order derivatives, is how they help us in approximating functions, like with Taylor series
+
+---
+
+### Video 11: Taylor series 
+
+**Key Concepts:**
+
+- Taylor series is a tool for approximating functions
+- We take non-polynomial functions and find polynomials that approximate them near some input
+- The reason is that polynomials tend to be much easier to compute, to take derivatives, to integrate
+
+- Lets construct a quadratic approximation for cos(x) near x=0:
+    - Of all the possible polynomials that look like P(x) = c₀ + c₁x + c₂x², find the one that most resembles cos(x) near x=0 
+    - Meaning that their graphs should roughly match at that point
+
+- Firstly, at the input x=0, the value of cos(x)=1
+    - So our approximation should also equal 1 at the input x=0
+    - Plugging in 0 just results in whatever c₀ is (as a constant, c₀=y when x=0), so we can set that equal to 1 at x=0:
+        - P(0) = c₀ + c₁0 + c₂0²
+        - P(0) = 1 + c₁0 + c₂0²
+        - P(0) = 1 + 0 + 0 
+    - This leaves us free to choose constants c₁ and c₂ to make this approximation as good as possible
+    - But nothing we do with them will change the fact that the polynomial equals 1 at x=0; it can only vary at the rest of the points
+    - So far we have found that c₀ = 1:
+        - P(x) = c₀ + c₁x + c₂x²
+        - P(x) = 1 + c₁x + c₂x²
+
+
+- Secondly, it would also be good if our approximation had the same tangent slope as cos(x) at this point of interest; otherwise the approximation drifts away from the cos(x) graph much faster than it needs to
+    - Let's find the slope of cos(x) at x=0
+    - Slope is the derivative, and the derivative of cos(x) is -sin(x)
+    - At x=0, -sin(0)=0, meaning the tangent line of cos(x) is perfectly flat
+    - On the other hand, when we work out the derivative of our quadratic, we get:
+        - P(x) = c₀ + c₁x + c₂x² 
+        - P(x) = c₀x⁰ + c₁x¹ + c₂x²
+        - dP/dx(x) = 0c₀x⁻¹ + 1c₁x⁰ + 2c₂x¹
+        - dP/dx(x) = 0 + c₁ + 2c₂x
+        - dP/dx(x) = c₁ + 2c₂x
+    - We can see that at x=0, the derivative equals whatever we choose for c₁:
+        - dP/dx(0) = c₁ + 2c₂0
+        - dP/dx(0) = c₁ + 0
+    - So the constant c₁ has complete control over the derivative of our approximation around x=0
+    - Setting it equal to 0 will ensure that our approximation also has a flat tangent line at this point! (slope of 0 = flat)
+        - dP/dx(0) = c₁ + 0
+        - dP/dx(0) = 0 + 0
+    - The coefficient c₁ must be 0 for the derivative to be 0 at that point
+    - So far the value and the slope of our polynomial at x=0 are both locked in place to match that of cos(x). So we got:
+        - P(x) = c₀ + c₁x + c₂x²
+        - P(x) = 1 + 0x + c₂x²
+    - This leaves us free to change c₂x²
+    
+- The final thing to take advantage of is the fact that the cos(x) graph curves downward above x=0, meaning it has a negative second derivative
+    - Reminder on derivatives:
+        - The first derivative is about the rate of change of height "As I take one step to the right in x, how quickly does my height change?"
+        - The second derivative is about how the slope is changing vertically as we move horizontally: "As I take one step to the right in x, how quickly does my slope value change/what is my steepness?"
+        - Why aren't both zero at the peak:
+            - First derivative uses one reference point (x=0 to x=h): measures one-sided change in height, which is negligible at a peak → goes to 0
+            - Second derivative uses two reference points (x=-h and x=+h): measures both sides to detect the curve's bend, which remains even as h→0 stays constant
+            - The curvature is detected by comparing slopes on both sides of the point, not by looking forward from a single point
+    - Since the derivative of cos(x) is -sin(x), the second derivative is -cos(x)
+    - And at x=0, the second derivative -cos(0) = -1
+        - d²(cos)/dx²(0) = -cos(0) = -1
+    - So the second derivative of the polynomial needs to also equal -1
+    - Making sure their second derivatives match will ensure that they curve at the same rate
+    - We see that the second derivative of the polynomial is 2c₂:
+        - P(x) = 1 + 0x + c₂x²
+        - dP/dx(x) = 0 + 0 + 2c₂x¹
+        - d²P/dx²(x) = 2c₂x⁰
+        - d²P/dx²(x) = 2c₂
+    - So to make sure that the second derivative also equals -1 at x=0, 2c₂ has to equal -1:
+        - d²P/dx²(x) = 2c₂ = -1
+        - d²P/dx²(x) = c₂ = -1/2
+    - Substituting c₂ back into the first derivative, we get:
+        - dP/dx(x) = 0 + 0 + 2c₂x¹
+        - dP/dx(x) = 2(-1/2)x¹
+    - And substituting c₂ back into the original expression, we get:
+        - P(x) = 1 + 0x + c₂x²
+        - P(x) = 1 + 0x + (-1/2)x²
+        - P(x) = 1 + (-1/2)x²
+        - P(x) = 1 - 1/2(x)²
+    - This is our matching polynomial!
+        - cos(x) ≈ 1 - 1/2(x)²
+
+- Now, let's verify:
+    - If we estimate cos(0.1) using the polynomial:
+        - cos(x) ≈ 1 - 1/2(x)²
+        - cos(0.1) ≈ 1 - 1/2(0.1)² = 0.995
+    - And this is the true value of cos(0.1):
+        - cos(0.1) = 0.9950042...
+    - It's a great approximation!
+
+- Summary of the above process:
+    - We had 3 degrees of freedom with this quadratic approximation, the constants c₀, c₁, c₂:
+        - P(x) = c₀ + c₁x + c₂x²
+    - c₀ was responsible for making sure that the output of the approximation matches that of cos(x) at x=0:
+        - P(0) = cos(0)
+    - c₁ was in charge of making sure that the derivatives match at x=0:
+        - dP/dx(0) = d(cos)/dx(0)
+    - c₂ was responsible for making sure that the second derivatives match at x=0:
+        - d²P/dx²(0) = d²(cos)/dx²(0)
+    - This ensures that the way our approximation changes as we move away from x=0, and the way that the rate of change itself changes, is as similar as possible to the behavior of cos(x), given the amount of control we have
+    
+- We could give ourselves more control by allowing more terms in our polynomial and matching higher order derivatives!
+    - Say we added on the term c₃x³ for some constant c₃:
+        - P(x) = 1 - 1/2(x)² + c₃x³
+    - If we take the third derivative of a cubic polynomial, anything quadratic or smaller goes to 0:
+        - So 1 - 1/2(x)² will go to 0 by the third derivative:
+            - P(x) = 1 - 1/2(x)² + c₃x³
+            - dP/dx = 0 - 2(1/2)x¹ + 3c₃x²
+            - dP/dx = -x¹ + 3c₃x²
+            - d²P/dx²(x) = -1 + 6c₃x¹
+            - d³P/dx³(x) = 0 + 6c₃x⁰
+            - d³P/dx³(x) = 6c₃
+        - After three iterations of the power rule, we see that c₃x³:
+            - 1·2·3·c₃x⁰
+            - 1·2·3·c₃
+    - The third derivative of our original graph cos(x) is sin(x), which equals 0 at x=0:
+        - cos(0) = 1
+        - d(cos)/dx(0) = -sin(0) = 0
+        - d²(cos)/dx²(0) = -cos(0) = -1
+        - d³(cos)/dx³(0) = sin(0) = 0
+    - So to make sure that the third derivatives match, the constant c₃ in the original polynomial should be 0 (in order to evaluate to 0 at the third derivative):
+        - P(x) = 1 - 1/2x² + 0x³
+    - But this means that P(x) = 1 - 1/2x² is the best possible quadratic approximation of cos(x) AND the best cubic approximation!
+    - We could actually make an improvement by adding on a fourth order term, C₄x⁴:
+        - P(x) = 1 - 1/2x² + c₄x⁴
+    - The fourth derivative of cos(x) is itself, which equals 1 at x=0
+        - d⁴(cos)/dx⁴(0) = cos(0) = 1
+    - And the fourth derivative of our polynomial is:
+        - d⁴P/dx⁴(x) = c₄x⁴
+        - d⁴P/dx⁴(x) = 1·2·3·4·c₄x⁰
+        - d⁴P/dx⁴(x) = 24c₄
+    - So if we want this to match the fourth derivative of cos(x), which is 1:
+        - d⁴P/dx⁴(x) = 24c₄ = 1
+        - d⁴P/dx⁴(x) = c₄ = 1/24
+    - Substituting into the original polynomial:
+        - P(x) = 1 - 1/2x² + 1/24x⁴
+    - This polynomial is a very close approximation for cos(x) around x=0
+
+- In any physics problem involving the cosine of a small angle for example, predictions would be almost unnoticeably different if we substituted this polynomial for cos(x):
+    - P(x) = 1 - 1/2 x² + 1/24 x⁴
+    - cos(θ) ≈ 1 - 1/2 θ² + 1/24 θ⁴
+    - cos(θ) ≈ 1 - θ²/2 + θ⁴/24
+
+- Let's notice and systematize a few things in this process:
+    - Firstly, factorial terms come up very naturally in the process: When we take n successive derivatives of the function xⁿ, letting the power rule iterate down, we are left with 1·2·3 on and on up to whatever n is
+        - So we don't simply set the coefficients of the polynomial equal to whatever derivative we want; we have to divide by the appropriate factorial to cancel out this effect:
+            - Set c⁸ = Desired derivative value / 8!
+            - d⁸/dx⁸ (c⁸x⁸) = 1·2·3·4·5·6·7·8·c⁸ / 8!
+        - For example, for c₄x⁴ the coefficient was the fourth derivative of cos(x) (which equals 1), but divided by 4!=24, resulting in 1/24
+    - Secondly, adding on new terms does not affect what the previous terms should be:
+        - For example c₄x⁴ does not change the 1 - 1/2x² part:
+            - P(x) = 1 - 1/2x² + c₄x⁴
+        - The second derivative at x=0 is still equal to 2 * the second coefficient, even after we introduce higher order terms:
+            - P(x) = 1 - 1/2x² + c₄x⁴
+            - dP/dx(0) = 0 + 2(-1/2)x¹ + 4c₄(0)³
+            - d²P/dx²(0) = 2(-1/2) + 3·4c₄(0)²
+        - And it's because we are plugging in x=0, so the second derivative of any higher order term, which all include an x will evaluate to 0 and disappear
+        - The same goes for any other derivative, which is why each derivative of a polynomial is controlled by one and only one of the coefficients:
+            - P(x) = c₀ + c₁x + c₂x² + c₃x³ + c₄x⁴
+            - c₀ controls P(0)
+            - c₁ controls dP/dx(0)
+            - c₂ controls d²P/dx²(0)
+            - c₃ controls d³P/dx³(0)
+            - c₄ controls d⁴P/dx⁴(0)
+        - If instead we were approximating near an input other than 0, like x=π, in order to get the same effect, we would have to write our polynomial in terms of powers of x-π:
+            - P(x) = c₀ + c₁x + c₂x² + c₃x³ + c₄x⁴
+            - Pπ(x) = c₀ + c₁(x-π) + c₂(x-π)² + c₃(x-π)³ + c₄(x-π)⁴
+        - We are essentially shifting our coordinate system so that the point x=π becomes the new origin (the "zero point")
+            - When we use variable x, we are implicitly measuring distances from 0
+            - When we use (x-π), you're measuring distances from π instead
+            - (x-π) represents "how far x is from π" with a sign that indicates direction:
+                - When x>π: (x-π) is positive (we are to the right of π)
+                - When x<π: (x-π) is negative (we are to the left of π)
+                - When x=π: (x-π) = 0 (we are at π)
+                - (π-x) would flip all these signs, which would flip the direction of our polynomial's behavior
+        - We are making sure that the point π looks and behaves like 0, so that plugging in x=π (substituting π for every x in the equation) will result in a lot of nice cancellations that leaves only one constant
+        - When we evaluate derivatives at x = π:
+            - Using powers of x: terms like x², x³, x⁴ all equal π², π³, π⁴ when x=π: These don't vanish; they create messy interactions between coefficients
+            - Using powers of (x-π): terms like (x-π)², (x-π)³ all equal 0 when x=π: Clean cancellation! Each derivative is controlled by exactly one coefficient
+            [10:23]
