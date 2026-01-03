@@ -1903,6 +1903,7 @@
 
 - More to learn about the Taylor series:
     - Many use cases
+    - Taylor's Theorem
     - Tactics for placing bounds on the error of these approximations ("Lagrange error bounds")
     - Tests for understanding when series do and don't converge ("convergence tests")
     - The fundamental intuition to keep in mind is that Taylor series translate derivative information at a single point to approximation information around that point
@@ -1926,3 +1927,142 @@
     - The third order (cubic term) says "change your curvature at this rate"
     - Higher orders add increasingly subtle corrections to the path
     - The more instructions we include, the longer we can follow the path accurately before drifting away from the true curve
+
+---
+
+### Video 12: The other way to visualize derivatives
+
+**Key Concepts:**
+
+- The Standard visual view:
+    - If we were to graph a function, which takes real numbers as inputs and outputs, the derivative gives the slope of the graph
+    - The derivative of the function is a new function, for which every input returns that slope
+    - We shouldn't think of this slope idea as the definition of the derivative; instead we should think of it as being about how sensitive the function is to tiny little nudges around the input; the slope is just ony way to think about that sensitivity 
+
+- "Transformational view" of derivatives: 
+    - The basic idea behind this alternate visual for the derivative is to think of this function as mapping all of the input points on the number line to their corresponding outputs on a different number line
+    - In this context, what the derivative gives us is a measure of how much the input space gets stretched or squished in various regions of the output line
+    - If we were to zoom in around a specific input and take a look at some evenly spaced points around it, the derivative of the function of that input will tell us how spread out or contracted those points become after the mapping 
+    - Doing derivatives as a change in density helps with learning what comes after single variable calculus, generalizing into contexts like Multivariable Calculus, Complex Analysis, Differential Geometry
+
+- Let's take the function f(x) = x²:
+    - It maps 1-to-1, 2-to-4, 3-to-9, and so on; we can also see how it acts on all the points in between
+    - If we zoom in on a little cluster of points around the input 1 and see where they land around the relevant output (also 1), we notice that they tend to get stretched out
+    - It looks like they are getting stretched out roughly by a factor of 2, and the closer we zoom in, the more this local behavior looks like multiplying by a factor of 2
+        - This is what it means for the derivative of x² at the input x=1 to be 2
+        - df/dx(1) = 2
+    - Similarly, if we look at a neighborhood of points around the input 3, they roughly get stretched out by a factor of 6
+        - This is what it means for the derivative of x² at the input x=3 to be 6
+        - df/dx(3) = 6
+    - What about fractions? Around the input 1/4 (0.25), a small region tends to get contracted by a factor of 1/2  
+        - This is what it looks like for a derivative to be smaller than 1
+        - df/dx(1/4) = 1/2
+    - What about zero? The input 0 is interesting: Zooming in by a factor of 10 (-0.10, 0, 0.10), it doesn't really look like a constant stretching or squishing; but all of the outputs end up on the right positive side
+    - As we zoom in closer and closer, by 100x, or 1000x, it looks more and more like a small neighborhood of points around 0 just gets collapsed into 0 itself
+        - This is what it looks like for the derivative to be 0
+        - df/dx(0) = 0
+    - The local behavior looks more and more like multiplying the whole number line by 0. And it doesn't have to completely collapse everything to a point at a particular zoom level; instead it's a matter of what the limiting behavior is as we zoom in closer and closer
+    - What about negative inputs? Negative inputs "collide" with where all the positive input values go, and this is one of the downsides of thinking of functions as transformations
+        - Example: When we view x² as a transformation, both -2 and +2 map to 4 on the output line, so they "collide" at the same output point. Globally, the function isn't one-to-one (injective), which makes the full transformation picture ambiguous
+    - But for derivatives, we only really care about the local behavior anyway: what happens in a small range around a given input
+    - Notice that the inputs in a little neighborhood around say -2, don't just get stretched out, but they also get flipped around
+    - Specifically, the action on such a neighborhood looks more and more like multiplying by -4 the closer we zoom in
+        - This is what it looks like for the derivative of a function to be negative
+        - df/dx(-2) = -4
+
+- How is this useful in solving a problem?
+    - Think of the infinite fraction 1 + [1 / 1+ (1/(1+(...)))] 
+    - The typical way to evaluate an expression like this is to set it equal to x
+    - Notice that there is a copy of the full fraction inside itself
+    - We can replace the copy with another x, and then just solve for x:
+        - 1 + 1/x = x
+    - That is, we want to find a fixed point of the function f(x) = 1 + 1/x
+    - However, there are actually two solutions for x in this equation; two special numbers where 1 + 1/that number, gives us back the number:
+        - One is the golden ratio φ, around 1.618
+        - And the other is -0.618, which happens to be -1/φ and has the same properties as φ
+            - Mathematical relationship: Note that -1/φ = 1-φ
+            - This isn't coincidental; it follows from the golden ratio's defining equation φ² = φ + 1
+            - If we divide both sides by φ, we get φ = 1 + 1/φ
+            - And rearranging gives 1/φ = φ - 1, so -1/φ = 1-φ
+            - Both solutions satisfy the fixed point equation, but only one is stable under iteration
+    - On a regular graph of y = 1 + 1/x, these points can be found by drawing the line y = x and seeing where it meets our function in two points
+    - Would it be valid to say that the infinite fraction equals -0.618, apart from 1.618?
+        - Initially it seems counterintutive, as everything on the left hand side of the expression is positive; so how could it possibly equal a negative number?
+        - But let's think of what an expression like this actually means
+        - Imagine starting with some constant like 1, and then repeatedly applying the function, asking "what does this series approach as we keep going?"
+        - Maybe our constant is a negative number, like -0.65:
+            - 1 + 1/0.65, then 1 + 1/[1 + (1/-0.65)], repeating
+            - Perhaps this way the whole expression could end up negative
+        - Or if we start with -1/φ:
+            - 1 + 1/(-1/φ), then 1 + 1/[1 + (1/(-1/φ))], repeating
+            - We get back the same number: -1/φ
+            - So no matter how many times we apply it, we are staying fixed at the value -0.618
+        - But even then, φ still makes more sense:
+            - On a calculator if we plug any random number into the function 1 + 1/x, and then plug the result into 1 + 1/x repeating, no matter what constant we start with, we will eventually end up with 1.618! 
+            - This happens even if we start with a negative number, including anything very close to -1/φ, eventually it jumps back over to φ
+        - So one of the fixed points is "favored" over the other, and this is related to derivatives
+
+- Let's see how we apply a function repeatedly with graphs:
+    - Firstly, let's see how the graph of f(x) = 1 + 1/x looks like:
+        - Two symmetric curved branches separated by a vertical asymptote gap at x=0 and a horizontal asymptote at y=1:
+        - Right branch (x>0): U-shaped concave-up curve that "opens toward" or "looks at" the top right quadrant, where both x and y are positive
+        - Left branch (x<0): U-shaped concave-down curve that "opens toward" or "looks at" the bottom left quadrant, where x and y are negative
+        - The diagonal line y=x with slope 1 intercepts the curves at one point each (x,y = 1.618 and x,y = -0.618)
+        
+    - If we were to plug in some random input to this function (say x≈1), the corresponding y-value (say y≈2) would give the output; to get it, we move from the x-axis up to meet the y-value of the function
+    - But now, to follow the repeating process, we need to plug in that y-value output back into the function as the new x-value!
+    - To convert it into an x-value, we first have to move a few steps horizontally until we hit the diagonal line y=x, as this will give us a position where the y-value (still y≈2 because we just move horizontally) matches the x-value (x≈2)
+    - Now we want to find the new y-value for x≈2; so we now need to move vertically down (keeping x≈2) to meet our new y-value (say y≈1.5)
+    - And then we repeat all those steps: 
+        - Move horizontally to the left, to the line y=x to keep y≈1.5 and find a point whose x-value is also x≈1.5
+        - Then we move from y=x at x≈1.5, vertically upwards to find the y-value of the function at x≈1.5
+        - This is making it zoom in (clockwise-inwards) to the point 1.618
+
+    - What if we do the same on the negative concave-down curve?
+        - It starts the same way as in the concave-up example above
+        - But instead of zooming in, the process is zooming out
+        - At some point, when we reach x≈-2.4 and y≈1.6, it is at a point where the concave-down function curve starts to "straighten out" and heading left towards the y=1 asymptote
+        - At that point, to convert y≈1.6 to x≈1.6, we have to take several steps horizontally to the right and cross the y-axis, until we find the y=x diagonal at x,y≈1.6
+        - The shift happens there!! At x≈1.6, the only y (y≈3.7) is found on the concave-up curve. We can't go back down to the concave-down curve we started from, as it does not cross the y-axis and there is no matching value on the bottom right quadrant! 
+        - At that point, our cobweb diagram looks like we are climbing a staircase from the concave-down to the concave-up curve
+        - To convert y≈3.7 to x≈3.7, we take some steps to the right to find y=x, which outputs y≈1.4, and from there on, it starts spiraling inward towards point 1.618, just like if we started from that concave-up curve from the start!
+
+- Now let's view the function as a transformation instead:
+    - Imagine two number lines: 
+        - A top horizontal line representing the input domain (x-values)
+        - A bottom horizontal line representing the output range (y-values)
+        - This is showing the graph as a mapping surface
+    - Imagine arrows that indicate where the various input points will go into the output line
+        - They form a curved surface with a "black hole" in it
+        - The formed curved surface shows how inputs map to outputs  
+    - Regarding the "black hole" forming between the two lines:
+        - What the "hole" actually represents: It's not a physical hole, but rather unmappable space that visualizes the function's asymptotic behavior (singularity where the input-output mapping breaks down)
+        - Visually, the top of the diagonal black circle is on the input line at 0, while the bottom is on the output at 1
+        - At the input side (x = 0): The top of the circle touches the input line at 0. Inputs arbitrarily close to 0 map to outputs that shoot off toward ±∞. As x approaches 0 from the right, outputs approach +∞; as x approaches 0 from the left, outputs approach -∞
+        - At the output side (y = 1): The bottom of the circle has a gap around output value 1. No matter how large the input, no input value produces an output exactly at or very close to 1; this is the horizontal asymptote. As inputs go to ±∞, outputs approach 1 but never reach it
+        - Visual interpretation: The curved surface connecting the input and output lines shows the actual mapping. The "black hole" represents the region where the mapping breaks down: inputs near the singularity (0) produce undefined or infinite outputs, and certain output values (near 1) are unreachable
+        - This visualization elegantly illustrates both asymptotes of the function f(x) = 1 + 1/x: vertical (at x=0) and horizontal (at y=1)
+
+    - What if we repeatedly apply the function like we did on the graph version? 
+        - After mapping all the inputs to the outputs, we should consider those as the new inputs, and apply the same process again and again
+        - After some iterations, all the outputs start to clump in around 1.618
+        - We know that both 1.618 and -0.618 stay fixed in place during each iteration of this process
+        - But if we zoom in on a neighbourhood around φ, we see that during the mapping, points in that region get contracted around φ, meaning that the function 1 + 1/x has a DERIVATIVE with a magnitude less than 1 at this input:
+            - |df/dx(φ)| < 1 ≈ |-0.38|
+        - That means that each repeated application scrunches and flips the neighborhood around this number smaller and smaller, like a gravitational pull towards φ
+        - What about -0.618? Its derivative is larger than 1, so points near the fixed point are "repelled away" from it:
+            - |df/dx(-1/φ)| > 1 ≈ |-2.62|
+            - Breaking down the derivative: The derivative at -1/φ is approximately -2.62. The magnitude |−2.62| = 2.62 tells us the stretching factor, while the negative sign tells us there's also a flip
+            - What happens during iteration: Each time we apply the function, a small neighborhood around -0.618 gets stretched by a factor of 2.62, making it larger, and flipped to the opposite side of the fixed point. This double action (expand and flip) pushes points away
+        - This is why φ (1.618) is called a "stable fixed point", while -1/φ (-0.618) is an "unstable fixed point"
+        - Something is considered stable if when you perturb it just a little bit, it tends to come back where it started rather than moving away from it
+        - So the stability of a fixed point is determined by whether or not the magnitude of its DERIVATIVE is bigger or smaller than 1!
+        - This explains why φ appears on the numerical play where we are just hitting enter on our calculator over and over, but -1/φ never does
+
+- So is -1/φ a valid value of the infinite fraction?
+    - It depends on context
+    - If we think of this expression as representing a limiting process (a limit), then because every possible seed value other than -1/φ gives us a series converging to φ, it shouldn't count as equally valid
+    - If we don't think of it as a limit, but as a purely algebraic object (like the solutions of a polynomial which simply has multiple values) then -1/φ  should count as one of the possible solutions.
+
+
+        
