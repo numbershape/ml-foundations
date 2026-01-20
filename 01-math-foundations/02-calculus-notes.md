@@ -1259,7 +1259,7 @@
     - To ensure that the integral from the lower bound to itself will indeed be zero, we need to evaluate the antiderivative at the upper bound and subtract its value at the lower bound:
         - $\int_a^T t(8-t) dt$ = (4T² - (1/3)T³) - (4(0)² - (1/3)(0)³)
     - This is the Fundamental Theorem of Calculus, with general form:
-         - ***$\int_a^b f(x) \, dx$ = F(b) - F(a)***
+         - $\int_a^b f(x) \, dx$ = F(b) - F(a)
 
 - So let's try to solve it:
     - Upper bound: The total distance traveled during the full 8 seconds is the expression (4T² - (1/3)T³) evaluated at T=8:
@@ -1282,10 +1282,10 @@
     - When we want to integrate some function, we are adding up values of f(x) * dx for inputs within a certain range and asking what does that sum approach as dx approaches 0
     - The first step to evaluating that integral (area) is to find an antiderivative, some other function F whose derivative is the thing inside the integral:
         - dF/dx (x) = f(x)
-    - Then, the integral equals this antiderivative evaluated at the top bound minus its value at the bootom bound
+    - Then, the integral equals this antiderivative evaluated at the top bound minus its value at the bottom bound
         - $\int_a^b f(x) \, dx$ = F(b) - F(a)
     - In other words, the integral (the limiting value for the sum of all the thin rectangles) takes into account every single input on the continuum, from the lower bound to the upper bound (and that's why we use the term "integrate")
-    - And yet, to actually compute it using an antiderivative, we only look at two inmputs, the top bound and the bottom bound!
+    - And yet, to actually compute it using an antiderivative, we only look at two inputs, the top bound and the bottom bound!
     - Finding the antiderivative implicitly accounts for all the information needed to add up the values between those two bounds
     - How can we account for infinitely many values by only checking two points? 
         - The antiderivative acts like a "running total" that has already accumulated all the area as we move from left to right along the curve
