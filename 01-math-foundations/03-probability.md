@@ -125,15 +125,15 @@
     - So we are left with: the probability that someone in StatLand has heard of Troll 2 times the outcome (-1), plus the probability that someone has not heard of Troll 2 times the outcome (1)
     - When we do the math, we get the exact same result as before:
         - E(X) = (0.17 * -1) + (0.83 * 1) = 0.66
-    - This Expected Value represents what we would expect per bet if we made this bet a bunch of times
+    - This Expected Value represents what we would expect on average per bet if we made this bet a bunch of times
 
 - Sigma notation:
     - Using sigma notation, the Expected Value of E(x) is the sum of each specific outcome x, times the probability of observing each outcome x:
-        - E(X) = Σ x P(X=x)
-        - Σ means sum
-        - x is the outcome
-        - P(X=x) means "the probability of each outcome"
-        - E(X) = (0.17 * -1) + (0.83 * 1) = 0.66 = Σ x P(X=x)
+        - E(X) = Σ x P(X = x)
+            - Σ: sum of
+            - x: specific outcome
+            - P(X = x): the probability of observing that specific outcome
+        - E(X) = (0.17 * -1) + (0.83 * 1) = 0.66 = Σ x P(X = x)
     - So for the first term, Heard of Troll 2, the outcome is -1, and the probability of observing that specific outcome is 0.17
     - So we multiply those values together (-1 * 0.17)
     - Then the Sigma tells us to add that term, to the term for Not heard of Troll 2
@@ -146,9 +146,9 @@
     - Will we win money or lose money if we make this bet a bunch of times?
     - Let's calculate the Expected Value to find out!
     - The outcome for when someone has Heard of Troll 2 is 10, because we will gain 10 USD; and the outcome for when someone has Not heard of Troll 2 is -1 because we will lose 1 USD
-    - The Expected Value is the sum (Σ) of: each outcome (x) times the probability of observing that outcome (P(X=x))
-        - E(X) = Σ x P(X=x)
-        - E(X) = Σ x P(X=x) = (10 * 0.17) + (-1 * 0.83) = 1.7 - 0.83 = 0.87
+    - The Expected Value is the sum (Σ) of: each outcome (x) times the probability of observing that outcome (P(X = x))
+        - E(X) = Σ x P(X = x)
+        - E(X) = Σ x P(X = x) = (10 * 0.17) + (-1 * 0.83) = 1.7 - 0.83 = 0.87
     - The Expected Value is 0.87
     - That means that we expect to gain on average, 87 cents every time we make this bet, which is even better than before
 
@@ -160,5 +160,104 @@
 
 **Key Concepts:**
 
-- 
-    
+- When we calculate the Expected Value for a bet like the one we saw, we are calculating the Expected Value for a Discrete Variable
+- In this case, the Discrete Variable is the bet, and it has two outcomes: lose 1 USD or gain 1 USD
+- In general, any time we have discrete outcomes, we have a Discrete Variable
+- What about Expected Values for Continuous Variables?
+
+- Continuous Variables come from measuring things with continuous outcomes
+    - Imagine we walk with StatSquatch around StatLand, and he says "I wonder how long we would have to wait, per person, to see people"
+    - StatSquatch wants to know the Expected Value for waiting time
+        - After 10 seconds, we meet one person
+        - We keep track of that by putting a dot on a numberline at 10
+        - The next person we meet shows up after 30 seconds
+        - The next person shows up immediately
+        - The next person shows up in 10 seconds, etc
+    - A histogram appears, higher in the beginning due to more data points, and lower as it continues; but there are gaps in the data, which usually means we still have more data to collect
+    - Also, the data is plotted using 10 second intervals; what if we wanted different interval sizes, like 5 or 2.5 seconds?
+    - Instead of collecting more data and/or worrying about interval size, we can model the waiting times with an Exponential Distribution
+
+- The Exponential Distribution:
+    - This is a curve that touches the top of the data points 
+    - The unit on the x-axis is Time (seconds), while the y-axis is Likelihood
+    - The equation for the Exponential Distribution is:
+        - $f(X = x) = \lambda e^{-\lambda x}$ when $x \geq 0$, otherwise $0$
+    - λ is the Rate, a parameter that defines the shape of the curve
+    - In this example, the Rate refers to the number of people we meet per second, because that is the unit on the x-axis
+    - And if we set λ to 0.05, we get a curve that fits the data we have already collected (starts high up and lowers as it goes, until almost touching the x-axis)
+        - $f(X = x, λ = 0.05) = \lambda e^{-\lambda x}$ when $x \geq 0$, otherwise $0$
+    - However, if we set λ to 0.1, meaning we meet more people per second, then we get a curve that has a steeper slope close to 0
+    - And if we set λ to 0.01, meaning we met fewer people per second, then we get a curve that barely bends, but ends up higher on the right side compared to the other curves (looks like a straight horizontal line slightly higher on the left)
+
+- Calculating probabilities from the curve:
+    - If we want to calculate the probability that we meet someone in 10 seconds or less, we calculate the area under the curve between 0 and 10
+    - In other words, we integrate the Exponential Distribution from 0 to 10
+        - $\int_0^{10} f(X = x, \lambda = 0.05) = \int_0^{10} \lambda e^{-\lambda x}$
+        - This integral equals 0.39
+    - This means that the probability we will meet someone in 10 seconds or less is 0.39
+    - Alternatively, if we wanted to know the probability of meeting someone between 25.302 seconds and 30.122 seconds, then we can calculate the area under the curve between 25.302 and 30.122
+    - In this case, the area under the curve is 0.06, which means that the probability we will meet someone in this range of time is 0.06
+    - In summary, the Exponential Distribution fits the data that we have collected so far, but it doesn't have any gaps or missing values, and we can use it to make calculations on any interval we want
+
+- Notes:
+    - We call the y-axis "Likelihood" because the y-axis coordinates generated by this equation: $\lambda e^{-\lambda x}$, are the Likelihood values that we use for Maximum Likelihood estimation, which we will see in a next lesson
+    - The y-axis is scaled so that the total area under the curve equals 1
+    - In theory, this curve should go all the way to positive infinity on the x-axis, but we stop drawing at 90 seconds, because at that time the curve is pretty close to 0 on the y-axis
+
+- How to calculate the Expected Value for the Continuous Distribution:
+    - Let's pretend this is a Discrete Distribution and let each 10 second interval represent an Outcome
+    - Let's draw the curve to go through the midpoint of each sample top side
+    - Since the interval is 10 seconds long, the curve intersects the first rectangle at 5 seconds, the second one at 15 seconds, etc
+    - Now instead of having to integrate the function to get the area under the curve, we can approximate the area under the curve for each Outcome with the corresponding area of each rectangle
+    - For example, the probability of meeting someone in the first 10 seconds is approximately the width of the first rectangle (10) times its height
+    - To calculate the height, we need to find the y-axis coordinate for where the top edge of the rectangle intersects the curve
+    - This means we need to find the y-axis coordinate for this exponential distribution when time=5
+    - So we plug x = 5 into the equation:
+        - $f(X = 5, λ = 0.05) = \lambda e^{-\lambda x}$ when $x \geq 0$, otherwise $0$ 
+        - $= 0.05e^{-0.05 \times 5}$ 
+        - $= 0.04$
+    - So the height of the rectangle is 0.04
+    - And the area of the rectangle is the height * the width:
+        - 0.04 * 10 = 0.4
+    - That means the probability of meeting someone in the first 10 seconds is approximately 0.4
+    - Compared to the exact probability calculated with the integral (0.39) the approximation is quite close
+    - Likewise, we use the Exponential Distribution to calculate the height for each rectangle and the probabilities for each Outcome (0.4, 0.2, 0.1, 0.09, 0.05, 0.02, 0.01, 0.01)
+    - Now, if we want to approximate the Expected Value of the exponential distribution, we can plug the outcomes and their approximated probabilities into the equation for Discrete Outcomes:
+        - E(X) = Σ x P(X = x)
+    - For example, the first Outcome is meeting people in 10 seconds or less, and the probability is 0.4, so the first term is 10 * 0.4:
+        - E(X) = Σ x P(X = x) = (10 * 0.4)
+    - The second Outcome is the 10 second interval that ends at 20 seconds, and the associated probability is 0.2, so the second term is 20 * 0.2:
+        - E(X) = Σ x P(X = x) = (10 * 0.4) + (20 * 0.2)
+    - Likewise, we add the remaining terms, and when we do the math, we get 22:
+        - E(X) = Σ x P(X = x) = (10 * 0.4) + (20 * 0.2) + ... = 22
+    - That suggests that, on average, we expect to wait 22 seconds between each time we meet someone
+    - Now, if we want to improve our approximation, we can cut the intervals in half, so that each one lasts 5 seconds instead of 10
+    - And when we do the math, plugging in each Outcome and its corresponding probability, we get 21.8:
+        - E(X) = Σ x P(X = x) = (5 * 0.22) + (10 * 0.17) + ... = 21.8
+    - To improve the estimate of the Expected Value even more, we can keep decreasing the width of each rectangle, until the width goes to 0 and the number of rectangles goes to infinity
+    - When we have an infinite number of rectangles with 0 width, then we are no longer approximating the area under the curve, but calculating it exactly
+    - Remember that the probability of observing a specific Outcome is the height * width of the associated rectangle:
+        - Σ x (height * width)
+    - And that the height, the y-axis coordinate of the top of each rectangle, is the Likelihood at that point
+    - And the width can be written as Δx
+        - lim Σ x (L(X = x) * Δx)
+    - If the sum of the number of rectangles goes to infinity and the width goes to 0, then we end up with an integral:
+        - ∫ x L(X = x) dx
+
+- To summarize:
+    - When we have a Discrete Distribution, the Expected Value E of the corresponding Discrete Variable X, is the sum of the Outcomes * their associated probabilities:
+        - E(X) = Σ x P(X = x)
+    - When we have a Continuous Distribution, then the Expected Value E of the corresponding Continuous Variable X, uses an integral instead of a sum, and the rest of the equations are very similar, except we replace the Probability P with the Likelihood L (the y-axis coordinate):
+        - E(X) = ∫ x L(X = x) dx
+    - Although we have been using the exponential distribution, this formula works for any Continuous Variable
+
+- Now that we have a formula, let's calculate the Expected Value for a Continuous Variable from the exponential distribution:
+    - Since we use the exponential distribution equation to calculate the Likelihoods:
+        - $f(X = x) = \lambda e^{-\lambda x}$ when $x \geq 0$, otherwise $0$
+    - Let's plug it into the equation for the Expected Value:
+        - E(X) = ∫ x L(X = x) dx
+        - E(X) = ∫ x L $\lambda e^{-\lambda x}$ dx
+    - And because the exponential distribution is defined for all values >=0, we will integrate everything from 0 to infinity
+        - $E(X) = \int_0^{\infty} x \lambda e^{-\lambda x} dx$
+    - Because we can split it into two functions  (x) and ($\lambda e^{-\lambda x}$), we can use Integration by Parts to find the solution:
+        - $$\int_0^{\infty} f(x)g'(x) dx = f(x)g(x) \bigg|_0^{\infty} - \int_0^{\infty} f'(x)g(x) dx$$
