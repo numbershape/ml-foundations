@@ -266,8 +266,65 @@
         - 1/0.05 = 20
     - So we expect to wait on average 20 seconds between meeting people
 
-### Video 5: Calculating the Mean, Variance and Standard Deviation, Clearly Explained!!!
+### Video 5: The Normal Distribution, Clearly Explained!!!
+
+**Note:**
+
+***From this video onward, I will only be writing concise summaries of key concepts due to time limitations***
 
 **Key Concepts:**
 
-- W
+- The width of the Normal Distribution curve is defined by the "standard deviation"
+- Knowing the standard deviation is helpful because normal curves are drawn such that 95% of the measurements fall between +/- 2 standard deviations around the mean:
+    - If the width is 0.6, 95% of measurements fall between +/- 1.2 the central point
+    - If the width is 4, 95% of measurements fall between +/- 8 the central point
+- To draw a normal distribution, we need:
+    - The average measurement (central point)
+    - The standard deviation (width of the curve; this also determines the height of the curve in an inverse relationship)
+
+### Video 6: Standard Deviation vs Standard Error, Clearly Explained!!!
+
+**Key Concepts:**
+
+- The standard deviation of the mean of all the means of several samples, is called the Standard Error
+- The standard deviation quantifies the variation within a set of measurements
+- The standard error quantifies the variation in the means from multiple sets of measurements
+- However, the standard error can be estimated from a single set of measurements, even though it describes the means from multiple sets
+
+### Video 7: Population and Estimated Parameters, Clearly Explained!!!
+
+**Key Concepts:**
+
+- A population represents every piece of the data group we are measuring
+- The parameters that determine how a distribution fits the population data are called population parameters
+    - The normal curve has the mean and standard deviation as population parameters
+    - For an exponential distribution, its shape is determined by the eate, and that would be the population rate
+    - The shape of a Gamma distribution is determined by two parameters, Shape and Rate, so these are its population parameters
+- We rarely have all the population data, so we always estimate the population parameters
+- We also calculate how much confidence we should have in those population estimates
+- Specifically, we calculate p-values and confidence intervals to quantify the confidence in the estimated parameters
+- The more data we have, the more confidence we have
+- By estimating population parameters and quantifying our confidence, we can generate reproducible results
+
+### Video 8: Calculating the Mean, Variance and Standard Deviation, Clearly Explained!!!
+
+**Key Concepts:**
+
+- Population mean = sum of measurements / total number of measurements
+- Statistitians often use the symbol x̄ (x-bar) to refer to the estimated mean, also called the sample mean, and the symbol μ (mu) to refer to the true population mean
+- The formula we use to calculate (not estimate) the Population Variance is :
+    - ${\frac{\sum (x - \mu)^2}{n}}$
+    - x - μ: each measurement - population mean
+    - n: all measurements
+- Squaring each term ensure that each difference is positive, otherwise the measurements on the left side of the mean would give negative differences, which would cancel out the positive differences from the measurements on the right side of the mean
+- But because each term is squared, the units for the results are the original units squared.
+- To compensate, we take the square root of the entire expression, and that gives us the Population Standard Deviation:
+    - $\sqrt{\frac{\sum (x - \mu)^2}{n}}$
+
+- Usually, we don't have all the data. So instead of calculating, we estimate. Estimated Population Variance:
+    - ${\frac{\sum (x - \bar{x})^2}{n-1}}$
+- Dividing by n-1 compensates for the fact that we are calculating differences from the sample mean instead of the population mean, otherwise we would consistently underestimate the variance around the population mean
+- This is because the differences between the data and the sample mean tend to be smaller than the differences between the data and the population mean, resulting in a larger average:
+    - ${\frac{\sum (x - \bar{x})^2}{n}}$ < ${\frac{\sum (x - \mu)^2}{n}}$
+- And for the Estimated Population Standard Deviation:
+    - ${\sqrt\frac{\sum (x - \bar{x})^2}{n-1}}$
