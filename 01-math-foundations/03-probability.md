@@ -261,3 +261,13 @@
         - $E(X) = \int_0^{\infty} x \lambda e^{-\lambda x} dx$
     - Because we can split it into two functions  (x) and ($\lambda e^{-\lambda x}$), we can use Integration by Parts to find the solution:
         - $$\int_0^{\infty} f(x)g'(x) dx = f(x)g(x) \bigg|_0^{\infty} - \int_0^{\infty} f'(x)g(x) dx$$
+    - Doing the calculation, we get E(X) = 1/λ
+    - Given the specific Exponential Distribution, where λ (lambda) = 0.05:
+        - 1/0.05 = 20
+    - So we expect to wait on average 20 seconds between meeting people
+
+### Video 5: Calculating the Mean, Variance and Standard Deviation, Clearly Explained!!!
+
+**Key Concepts:**
+
+- W
