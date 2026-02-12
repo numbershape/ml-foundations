@@ -328,3 +328,132 @@
     - ${\frac{\sum (x - \bar{x})^2}{n}}$ < ${\frac{\sum (x - \mu)^2}{n}}$
 - And for the Estimated Population Standard Deviation:
     - ${\sqrt\frac{\sum (x - \bar{x})^2}{n-1}}$
+
+### Video 9: The Central Limit Theorem, Clearly Explained!!!
+
+**Key Concepts:**
+
+- When we do an experiment, we don't always know what distribution our data comes from
+- But it turns out that it doesn't matter, because if we take several samples from any kind of distribution, the means of those samples form a normal distribution (no matter what the original distribution was)
+    - If we collect 20 measurements and calculate the mean, and then do that a bunch of times (collect 20 measurements and calculate a mean), a histogram of those means will be a normal distribution
+    - This suggests that an individual mean, calculated from 20 measurements, is, in and of itself, normally distributed
+    - For example, if we had a uniform distribution and we collected 20 values from it and calculated the mean, then that mean would be normally distributed 
+    - We know this because if we repeated the process (collected another 20 values, calculated the mean, and then did that a bunch of times) the histogram of all the means we calculated would be a normal distribution
+- We can use the mean's normal distribution to make confidence intervals, t-tests (where we ask if there is a difference between the means from two samples), ANOVA (where we ask if there is a difference among the means from three or more samples), and pretty much any statistical test that uses the sample mean
+- For the Central Limit Theorem to work, as a rule of thumb, the sample size must be at least thirty
+- Additionally, we have to be able to calculate a mean from our sample (for example, the Cauchy distribution doesn't have a sample mean, but this is very rare)
+
+### Video 10: The Binomial Distribution and Test, Clearly Explained!!!
+
+**Key Concepts:**
+
+- If 4 people say they like Orange Fanta and 3 people say they like Grape Fanta, is this enough to be confident that "most people like Orange Fanta"?
+    - We need to find out what to expect when there is no preference between two choices
+    - We use the binomial formula to find out what to expect when there is no preference: $$pr(x | n, p) = \left(\frac{n!}{x!(n-x)!}\right) p^x (1-p)^{n-x}$$
+    - If our results fit those expectations, then both Fantas are loved equally
+    - If they don't, then we can reject the idea of no preference (that both Fantas are loved equally)
+
+- Let's assume we asked 3 people if they liked Orange Fanta more than Grape Fanta: The first two people said they preferred Orange, and the third person said they prefer Grape
+- We assume that if no preference, then there is a 50% chance to pick Orange and 50% to pick Grape
+- We can then calculate the probability of the first two people randomly choosing Orange and the third randomly choosing Grape:
+    - The probability of the first person preferring Orange is 0.5
+    - The probability of the first two people preferring Orange is 0.5 * 0.5 = 0.25
+    - The probability of the first two people preferring Orange and the third person preferring Grape is 0.5 * 0.5 * 0.5 = 0.125
+- BUT this is not the probability that ANY 2 out of 3 people would prefer Orange:
+    - If the order of preferences was different, we would multiply the same numbers together in a different order
+    - So all 3 combinations (G-O-O, O-G-O, O-O-G) are equally likely
+- This means that the probability that ANY 2 out of 3 people preferring Orange, is the sum of the 3 possible orders:
+    - 0.125 + 0.125 + 0.125 = 0.375
+
+- Alternatively, we could have done the math using the formula: $$pr(x | n, p) = \left(\frac{n!}{x!(n-x)!}\right) p^x (1-p)^{n-x}$$
+    - First part of formula (before the = sign):
+        - x is the number of people who preferred Orange (in this case, x = 2)
+        - n is the total number of people we asked (n = 3)
+        - note: so n - x is the people who said they prefer Grape
+        - p is the probability that someone will pick Orange (p = 0.5)
+        - note: so 1 - p is the probability that someone prefers Grape
+        - Together this says "The probability of x (the number of people who prefer Orange), given n (the number of people asked) and p (the probability of picking Orange)..."
+    - Second part of formula (factorials):
+        - The factorials in the formula, are due to the number of different ways 2 of 3 people could say they prefer Orange
+        - When done manually, we saw that there are 3 ways for 2/3 people to say they prefer Orange
+        - So if we plug in n = 3 and x = 2 into the factorials inside the parenthesis, we get 3, representing the 3 ways
+    - Third part of formula, p^x:
+        - This corresponds to the probability that Orange was chosen 2 of the 3 times (0.5 * 0.5 = 0.5²)
+    - Fourth part of the formula:
+        - It corresponds to the probability someone prefers Grape (remember that 1 - p is the probability that someone prefers Grape, and n - x is the people who said they prefer Grape)
+        - If we plug in n = 3, x = 2, p = 0.5, we get 0.5, corresponding to the one person who liked Grape
+    - So the third and the fourth part of the equation correspond to: 
+        - 0.5 * 0.5 * 0.5
+    - And the second part (factorials) multiplies that by 3
+    - Eventually the formula gets us:
+        - pr(x = 2|n = 3, p = 0.5) = 3 * 0.5 * 0.5 * 0.5 = 0.375
+
+- So the binomial distribution tells us that the probability that 2 of 3 people will prefer Orange due to random chance is 0.375
+- Going back to our original question: If 4 people say they like Orange Fanta and 3 people say they like Grape Fanta, can we conclude that "most people like Orange Fanta"?
+    - We plug in x = 4 (the number of people that preferred Orange), n = 7 (the number of people we asked), and p = 0.5 (the probability that someone would randomly pick Orange)
+    - With the formula, we get 0.273, which is the probability that 4 of 7 people would randomly prefer Orange
+
+- When we use a binomial distribution to calculate a p-value, it's called a Binomial Test
+    - The p-value is the probability of the observed data (4 of 7 people prefering Orange), plus the probabilities of all other possibilities that are equally likely or rarer
+    - So in our case of 4 Orange and 3 Grape, we need to calculate its reverse (3 Orange and 4 Grape), as well as 5-2, 6-1, and 7-0 (and their reverse) combinations
+    - When including the reverse combinations, we are calculating a "two-sided p-value"
+    - When adding up all the probabilities, we get 0.5 (Orange is preferred) plus 0.5 for the reverse (Grape is preferred)
+    - The sum of the probabilities of all combinations of events with an equal or rarer probability is 0.5 + 0.5 = 1
+    - So the p-value for 4 out of 7 people saying they prefer Orange is 1
+    - This means that the model, the binomial distribution with p = 0.5 (meaning that both drinks are equally preferred) is a good fit for the observed data
+    - Thus we conclude that given the sample size, 7, we cannot rule out the possibility that both Orange and Grape are equally loved
+
+- Note that the binomial distribution works only when the probability that someone likes Orange does not change if someone else already said they liked Orange (they are independent to each other)
+
+### Video 11: p-values: What they are and how to interpret them
+
+**Key Concepts:**
+
+- How to tell if drug A is more effective than drug B, and be sure that it's not just by random chance?
+    - Drug A: 73 cured; 125 not cured (37% cured)
+    - Drug B: 59 cured; 131 not cured (31% cured)
+    - How confident can we be that drug A is superior?
+
+- p-values are numbers between 0 and 1 that quantify how confident we should be that Drug A is different from Drug B
+- The closer a p-value is to 0, the more confidence we have that Drug A and Drug B are different
+- In practice, a commonly used threshold is 0.05. It means that if there is no difference between Drug A and Drug B, and if we did this experiment a bunch of times, then only 5% of those experiments would result in the wrong decision
+
+- Say that we gave the same Drug A to both groups; now any differences in the results are 100% attributable to weird random things:
+    - Drug A, group 1: 73 cured; 125 not cured 
+    - Drug A, group B: 71 cured; 127 not cured
+    - In this case, the p-value would be p = 0.9 (this is calculated using Fisher's Exact Test; we will see that in a following chapter)
+    - 0.9 is way larger than 0.05, meaning that we fail to see a difference between these two groups
+- If we repeated this same experiment a lot of times, most of the time we would get similarly large p-values, with very few exceptions due to random chance, like:
+    - Drug A, group 1: 60 cured; 138 not cured 
+    - Drug A, group B: 84 cured; 114 not cured
+    - In this case, p-value is p = 0.01, and we would say that the two groups are different (even though they both took the same drug)
+    - Getting a small p-value when there is no difference is called a False Positive
+- A 0.05 threshold for p-values means that 5% of the experiments (where the only differences come from weird random reasons) will generate a p-value smaller than 0.05
+- In other words, if there is no difference between Drug A and Drug B, 5% of the times we do the experiment, we will get a p-value less than 0.05, aka a False Positive
+
+- Going back to our original numbers:
+    - Drug A: 73 cured; 125 not cured (37% cured)
+    - Drug B: 59 cured; 131 not cured (31% cured)
+- The p-value is 0.24. Which means we are not confident that Drug A is different from Drug B
+
+- The idea of trying to determine if these drugs are the same or not is called Hypothesis Testing:
+    - The Null Hypothesis is that the drugs are the same
+    - The p-value helps us decide if we should reject the Null Hypothesis or not
+    - Rejecting the Null Hypothesis means that the drugs are different
+
+- While a small p-value helps us decide if Drug A is different from Drug B, it does not tell us HOW different they are:
+    - We can have a small p-value regardless of the size of difference between Drug A and Drug B; the difference can be tiny or huge
+    - For example, our above experiment gave us a relatively large p-value, 0.24, even though there is a 6 point difference between Drug A and Drug B (37% vs 31% cured)
+    - In contrast, the below experiment, which involves a lot more people, gives us a p = 0.04, even though there is only a 1 point difference between Drug A and Drug B:
+        - Drug A: 5005 cured; 9868 not cured (34% cured)
+        - Drug B: 4800 cured; 9000 not cured (35% cured)
+    - So a small p-value does not imply that the effect size (or difference between Drug A and Drug B) is large
+
+### Video 12: One or Two Tailed P-Values
+
+**Key Concepts:**
+
+-
+    
+
+
