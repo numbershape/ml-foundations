@@ -36,6 +36,7 @@
     - The low parts shows the measurements that are less likely
     - There are all kinds of distributions with all kinds of interesting shapes
 
+
 ### Video 2: Sampling from a Distribution, Clearly Explained!!!
 
 **Key Concepts:**
@@ -59,6 +60,7 @@
     - If we had two separate distributions, a t-test is supposed to give us a small p-value
     - If we took lots of samples, we could do lots of t-tests and see how frequently the t-test worked and gave us a small p-value; this would tell us if we needed to increase our sample size or not
     - Taking samples from a distribution, or multiple distributions, ie getting a computer to generate a bunch of random numbers that reflect the probabilities of a distribition, lets us determine what a statistical test is capable of doing without doing too much work
+
 
 ### Video 3: Expected Values, Main Ideas!!!
 
@@ -155,6 +157,7 @@
 - In this lesson we only talked about how to calculate Expected Values for discrete events, like whether or not someone has heard of Troll 2
 - However, we will next see how to calculate Expected Values for continuous events, like how much time passes between text messages on our phone
 - In the future, we will also see why we divide the sample variance by n-1, and why dividing by n underestimates the variance
+
 
 ### Video 4: Expected Values for Continious Variables!!!
 
@@ -266,11 +269,8 @@
         - 1/0.05 = 20
     - So we expect to wait on average 20 seconds between meeting people
 
+
 ### Video 5: The Normal Distribution, Clearly Explained!!!
-
-**Note:**
-
-***From this video onward, I will only be writing concise summaries of key concepts due to time limitations***
 
 **Key Concepts:**
 
@@ -282,6 +282,7 @@
     - The average measurement (central point)
     - The standard deviation (width of the curve; this also determines the height of the curve in an inverse relationship)
 
+
 ### Video 6: Standard Deviation vs Standard Error, Clearly Explained!!!
 
 **Key Concepts:**
@@ -290,6 +291,7 @@
 - The standard deviation quantifies the variation within a set of measurements
 - The standard error quantifies the variation in the means from multiple sets of measurements
 - However, the standard error can be estimated from a single set of measurements, even though it describes the means from multiple sets
+
 
 ### Video 7: Population and Estimated Parameters, Clearly Explained!!!
 
@@ -305,6 +307,7 @@
 - Specifically, we calculate p-values and confidence intervals to quantify the confidence in the estimated parameters
 - The more data we have, the more confidence we have
 - By estimating population parameters and quantifying our confidence, we can generate reproducible results
+
 
 ### Video 8: Calculating the Mean, Variance and Standard Deviation, Clearly Explained!!!
 
@@ -329,6 +332,7 @@
 - And for the Estimated Population Standard Deviation:
     - ${\sqrt\frac{\sum (x - \bar{x})^2}{n-1}}$
 
+
 ### Video 9: The Central Limit Theorem, Clearly Explained!!!
 
 **Key Concepts:**
@@ -342,6 +346,7 @@
 - We can use the mean's normal distribution to make confidence intervals, t-tests (where we ask if there is a difference between the means from two samples), ANOVA (where we ask if there is a difference among the means from three or more samples), and pretty much any statistical test that uses the sample mean
 - For the Central Limit Theorem to work, as a rule of thumb, the sample size must be at least thirty
 - Additionally, we have to be able to calculate a mean from our sample (for example, the Cauchy distribution doesn't have a sample mean, but this is very rare)
+
 
 ### Video 10: The Binomial Distribution and Test, Clearly Explained!!!
 
@@ -405,6 +410,7 @@
 
 - Note that the binomial distribution works only when the probability that someone likes Orange does not change if someone else already said they liked Orange (they are independent to each other)
 
+
 ### Video 11: p-values: What they are and how to interpret them
 
 **Key Concepts:**
@@ -449,11 +455,128 @@
         - Drug B: 4800 cured; 9000 not cured (35% cured)
     - So a small p-value does not imply that the effect size (or difference between Drug A and Drug B) is large
 
+
 ### Video 12: One or Two Tailed P-Values
 
 **Key Concepts:**
 
--
+- If one-tailed test gives a p-value of 0.03, and two-tailed test gives a p-value of 0.06, which p-value should we use?
+    - The one-tailed p-value tests the hypothesis that our treatment is "better" than the standard treatment (but it doesn't distinguish between "worse" and "not significantly different")
+    - The two-tailed p-value tests whether the new treatment is "better", "worse", or "not significantly different"
+    - Since we would want to know if our new treatment was worse than the standard treatment, we should use the two-tailed p-value
+
+- But doesn't the data suggest that we don't need to test the new drug for being "worse", since it's skewed towards it being "better" anyway?
+    - No. Good statistical practice means we need to decide what test and what p-value we want to use BEFORE we do the experiment, otherwise we are "p-hacking", which increases the probability of reporting invalid results
+
+- Imagine taking 2 samples of 3 data points each, from a normal distribution
+    - In most cases, a two-tailed t-test on these two samples should give a p-value > 0.05, because the 2 samples will overlap most of the time (in the center, where probabilities are higher - meaning that we cannot be confident the 2 samples are different)
+    - Every now and then, the samples will not overlap, and the t-test will give a p-value < 0.05 (because the samples are different)
+    - This happens 5% of the time and is called a "false positive"
+    - Now imagine taking 10,000 two-tailed t-tests like this
+    - 5% of 10,000 = 500, so we expect 500 false positives
+    
+- What if we switched to a one-tailed test when things look good?
+    - If sample 1 had two or more values that were LESS than all of values in sample 3, then we used a one-tailed t-test
+    - The chance of reporting a false positive went from 5% to 8% (from 500 to 800 false positives)
+
+- So when we have a choice, we should always go with a two-tailed p-value, as we always want to know both sides of the story
+
+
+### Video 13: p-hacking and power calculations
+
+**Key Concepts:**
+
+- Say our p-value is 0.051 so totally borderline, and we have time to run one more replicate
+    - On a normal distribution, most of the time we expect the values of two samples to be close to each other and to overlap
+    - Rarely we get the opposite where the p-value is < 0.05, and in this case we conclude that the data were gathered from two separate distributions (for example, two different mouse strains, if we are talking about mice weights). This is how we get a false positive sometimes
+
+- But let's focus on the samples that have p-values barely greater than 0.05
+    - The goal is to have a test that works 95% of the time
+    - For most of science, the cost/benefit ratio of being more stict does not make sense
+    - If 53 out of 1000 p-values < 0.05, it means it's a 5.3% false positives, which means that the t-test performs as expected
+    - But what about the next ~50 p-values that are barely over 0.05, like 0.051 and so on? They are so close to 0.05
+    - It would be tempting to think "if I add one more replicate, maybe the p-value will get below 0.05"
+    - So we add one more random value to datasets with p-values between 0.05 and 0.1
+    - And now 30% of the new t-tests result in p-values < 0.05
+
+- Why 30%? Understanding the mechanism:
+    - We're running 1000 separate experiments, each with small sample sizes (n ≈ 5-20 per group)
+    - About 50 experiments land in the borderline zone (p between 0.05-0.1)
+    - For those 50, we add 1 sample to each group and recompute
+    - Result: ~15 of those 50 cross the threshold (30%)
+    - The key: with n=10 per group, adding 1 sample means old:new ratio = 20:2 = 90% old data
+    - The original "lucky fluctuation" that produced p=0.051 still dominates the result
+    - One new sample per group is enough to nudge a borderline case over the threshold, but not enough to dilute the existing pattern
+    - This gives the 30% crossing rate (vs the 5% we would expect from a fresh experiment)
+    - Overall false positive rate: 5% → 6.5% (50 + 15 out of 1000)
+    - Conditional rate for p-hacked experiments: 30% (the rate that matters when we are the researcher with p=0.051)
+    - Among experiments where we p-hacked (the 50 borderline ones):
+        - 15 out of 50 became false positives
+        - That's a 30% false positive rate for the p-hacked subset
+
+ - So when totally bogus data gave a "close" p-value, adding more bogus data gave a "significant" p-value 30% of the time, which is a huge false positive rate
+    - So we should not just add samples until we get a good p-value, because this increases our chances of reporting a false positivey
+    - Instead we should do a Power Calculation before the experiment to determine how many samples we need to do
+
+- A Power Calculation is a way to determine how many samples we need in advance of doing an experiment in order to correctly get a small p-value
+    - Power = The probability a test will correctly give a small p-value
+    - 4 things effect power:
+        - The effect size (how "apart" the distributions are)
+        - The variation in the data (how "thin" the distribution curve is). When variation is small, there is a high probability that our samples will also have low variations, and we will correctly get a small p-value
+        - The sample size (a large sample size can compensate for a small effect size and high variation). If we are using a t-test (which compares means, which are estimated from the samples), it is more accurate when the sample is larger. Additionally, the variation determines how much power will increase when sample size is increased
+        - The statistical test we use (some tests are more powerful than others)
+    - How to do a Power Calculation:
+        - Gather preliminary data or guesses
+        - Estimate means
+        - Calculate standard deviations
+        - With means and standard deviations, estimate how the distributions will look like
+        - If there is quite a bit of overlap, it means that the effect size is small, so we will need a larger sample size
+        - The variation in the means of sample sizes, is called the Standard Error and it is easily calculated. If N = sample size:
+            - Standard Error = Standard Deviation / √N
+        - We need 2 of these 3 variables:
+            - effect size
+            - variation in data
+            - sample size 
+        -  For sample & effect size, if we don't have preliminary data, start by assuming 3 replicates, looking for a 2 fold difference; then we will see how much variation will still give good power, and increase sample size/effect size accordingly
+        - Alternatively, if we have the known variation, plug in an effect size we want to detect and determine the sample size, or the other way around
+
+
+### Video 13: p-hacking: What it is and how to avoid it!
+
+**Key Concepts:**
+
+- Doing a lot of tests and ending up with false positives is called the Multiple Testing Problem
+- There are many ways to compensate for it, like the False Discovery Rate, with which we input the p-values for every single comparison, the math adjusts p-values that are usually larger than the original p-values, and some of the tests that were False Positives before, end up with adjusted p-values > 0.05
+- A Power Analysis is performed before doing an experiment and tells us how many replicates we need in order to have a relatively high probability of correctly rejecting the null hypothesis (the hypothesis that there is no difference between the groups)
+
+
+### Video 14: Power Analysis, Clearly Explained!!!
+
+**Key Concepts:**
+
+- Say we test two drugs and get a p value of 0.06. Because the p-value is > 0.05, the threshold that we are using to define a statistically significant difference, we can't say that Drug A is better than Drug B
+- Even though we suspect that the measurements represent two different distributions, we cannot rule out that the data doesn't come from a common distribution formed where they overlap
+- It would be tempting to give one more person Drug A and one more person Drug B and recalculate the means and redo the statistical test, but that would be p-hacking
+- Instead, we will do a Power Analysis to determine the sample size for the next run of the experiment
+- As we know, a Power Analysis determines what Sample Size will ensure a high probability that we correctly reject the Null Hypothesis that there is no difference between the two groups
+- If we use the Sample Size recommended by the Power Analysis, we will know that regardless of the p-value
+, we used enough data to make a good decision
+- Two main factors:
+    - How much overlap there is between the two distributions we want to identify
+    - The Sample Size; the number of measurements we collect from each group
+
+- To calculate:
+    - First, we need to decide how much power we want 
+        - A common value for Power is 0.8
+        - A power of 0.8 means having at least 80% chance of correctly rejecting the Null Hypothesis. If there is very little overlap, we only need a small Sample size to get that 0.8; and the other way around
+    - We will also need to determine the threshold for significance ("alpha")
+        - We can use any value between 0 and 1, but a very common threshold is 0.05
+    - Lastly, we need to estimate the Overlap between the two distributions. This is effected by both the distance between the population means and the standard deviations
+        - To combine means and standard deviations into a single metric, we can use Effect Size(d) = Estimated difference in the means / Pooled estimated standard deviations 
+        - Pooled estimated standard deviations  = √ (s²+s² / 2), with the s representing the estimated standard deviation for each distribution
+    - Once we know the Effect size (say 1.5), and the power (0.8) and the threshold for significance (0.05), we can use an online statistics power calculator. With the above numbers, this would give a sample size of 9
+    - This means that if we get 9 measurements per group, we will have an 80% chance to correctly reject the Null Hypothesis
+
     
 
 
