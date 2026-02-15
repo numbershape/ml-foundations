@@ -577,6 +577,192 @@
     - Once we know the Effect size (say 1.5), and the power (0.8) and the threshold for significance (0.05), we can use an online statistics power calculator. With the above numbers, this would give a sample size of 9
     - This means that if we get 9 measurements per group, we will have an 80% chance to correctly reject the Null Hypothesis
 
+
+### Video 15: Conditional Probabilities, Clearly Explained!!!
+
+**Key Concepts:**
+
+- Say we ask 14 people whether they love Candy and/or Soda:
+    - 4 people love just Candy
+    - 2 people love Candy AND Soda
+    - 5 people love just Soda
+    - 3 people don't love either
+- So basically Candy is loved by 6 people, and Soda is loved by 7 people
+- We can track the data through a Contingency Table
+    - Loves Candy + Loves Soda: 2
+    - Loves Candy + Doesn't Love Soda: 4
+    - Doesn't Love Candy + Loves Soda: 5
+    - Doesn't Love Candy + Doesn't Love Soda: 3
+
+- Let's calculate the probability of meeting someone who loves both:
+    - p(loves candy and soda) = 2/14 = 0.14 (a pretty small probability)
+- Let's calculate all the probabilities in a similar way:
+    - Loves Candy + Loves Soda: 2, p=2/14 = 0.14 
+    - Loves Candy + Doesn't Love Soda: 4, p=4/14 = 0.29
+    - Doesn't Love Candy + Loves Soda: 5, p=5/14 = 0.36
+    - Doesn't Love Candy + Doesn't Love Soda: 3, p=3/14 = 0.21
+- We can also determine:
+    - The probability that someone loves Soda, regardless of how they feel about Candy: 2 + 5 = 7, p=7/14
+    - The probability that someone does not love Soda, regardless of how they feel about Candy: 4 + 3 = 7, p=7/14
+    - The probability that someone loves Candy, regardless of how they feel about Soda: 2 + 4 = 6, p=6/14
+    - The probability that someone does not love Candy, regardless of how they feel about Soda: 5 + 3 = 8, p=8/14
+
+- Conditional Probability: Knowing that a person loves Soda, what is the probability that they ALSO love Candy?
+    - In other words, what is the probability that someone loves Soda AND Candy, given that we know they love Soda? ("Given that" is represented by the | symbol):
+        - p(loves candy and soda | loves soda), or
+        - p(loves c and s | loves s), or
+        - p(loves c | loves s)
+    - Earlier, we calculated the probability that someone loved both, but without already knowing that they loved Soda. Because we didn't already know that, the denominator consisted of the total number of people, 14
+    - But now that we know the person loves Soda, we can focus on just the 7 people who love Soda
+    - As we know, there are only 2 people that love both, so we put that in the numerator, and since there are 7 people in total who love Soda, we put that in the denominator:
+        - p(loves c and s | loves s) = 2/(2+5) = 0.29
+    - So the probability that someone loves Candy given that we know they love Soda, is 0.29
+    - And as we can see, this probability is different from the original probability, that was calculated without knowing whether or not they liked Soda
+    - Knowing that they loved Soda, increased the probability that they would love Candy
+
+- Another Conditional Probability:
+    - What is the probability that someone doesn't love Candy, given that we know they love Soda?
+        - p(not love c and loves s | loves s)
+    - As we know, there are 5 people that don't love Candy and love Soda, so we put 5 in the numerator
+    - And there are 7 people in total who love Soda, so we put that in the denominator
+        - p(not love c and loves s | loves s) = 5/(2+5) = 0.71
+    - So the probability that someone doesn't love Candy (but loves Soda), given that we know they love Soda, is 0.71
+    - Interestingly, if we divide both the numerator and the denominator by the total number of people (14), we get the same probability:
+        - 5/14 / (2+5)/14 = 0.71
+    - But now the numerator (5/14) is the original, unconditional probability that someone from the entire group does not love Candy but loves Soda, and the denominator (7/14) is the unconditional probability that someone from the entire group loves Soda
+    - So the probability that someone does not love Candy but loves Soda, given that we know that they love Soda, is equal to the probability that someone does not love Candy but loves Soda, divided by the probability that someone in the entire group loves Soda
+        - p(not love c and loves s | loves s) = p(not love c and loves s) / p(loves s) = 0.71
+- In general, a Conditional Probability is the probability that something will happen, scaled by the knowledge we alrady have about the event
+
+
+### Video 16: Bayes' Theorem, Clearly Explained!!!
+
+**Key Concepts:**
+
+- Continuing from the previous chapter:
+    - Let's change the knowledge we have about the event, from knowing that they love Soda, to knowing that they do not love Candy
+        - p(not love c & loves s | not love c) = p(not love c and loves s) / p(not loves c) = (5/14) / (8/14) = 0.63
+    - In both cases (previous and present chapter), we wanted to know the probability of the same event: meeting someone who does not love Candy but loves Soda
+    - However, since we have different knowledge in each case, we scale the probabilities of the events differently, and ultimately get different probabilities
+
+- But what if we didn't know at all the p(not love c and loves s)? Can we still solve the Conditional Probabilities without the numerator? Yes, with algebraic manipulation!
+    - We can multiply both sides of the first equation by p(loves s) and get:
+        - p(not love c & loves s | loves s) * p(loves s) = p(not love c & loves s) / p(loves s) * p(loves s)
+        - p(not love c & loves s | loves s) * p(loves s) = p(not love c & loves s)
+    - Likewise, we can multiply both sides of the second equation by p(no love c) and get:
+        - p(not love c & loves s | not love c) * p(not love c) = p(not love c and loves s) / p(not love c) * p(not love c)
+        - p(not love c & loves s | not love c) * p(not love c) = p(not love c and loves s)
+    - In both cases, we end up with the probability of meeting someone who does not love Candy but loves Soda p(not love c and loves s), equal to:
+        - p(not love c & loves s | loves s) * p(loves s), and
+        - p(not love c & loves s | not love c) * p(not love c)
+    - Which means that both equations are equal to each other:
+        - p(not love c & loves s | loves s) * p(loves s) = p(not love c & loves s | not love c) * p(not love c)
+    - Remember that we want to solve for these two terms:
+        - p(not love c & loves s | loves s)
+        - p(not love c & loves s | not love c)
+    - Starting with the first one, we divide both sides by p(loves s) and get:
+        - [p(not love c & loves s | loves s) * p(loves s)] / p(loves s) = [p(not love c & loves s | not love c) * p(not love c)] / p(loves s)
+        - p(not love c & loves s | loves s) = [p(not love c & loves s | not love c) * p(not love c)] / p(loves s)
+    - And now with the second one, we divide both sides by p(not love c) and get:
+        - [p(not love c & loves s | not love c) * p(not love c)] / p(not love c) = [p(not love c & loves s | loves s) * p(loves s)] / p(not love c)
+        - p(not love c & loves s | not love c) = [p(not love c & loves s | loves s) * p(loves s)] / p(not love c)
+    - So we dont need to know p(not love c & loves s). We have derived Bayes's Theorem!
+
+- Bayes' Theorem tells us that the first Conditional Probability, which is based on knowing that the person loves Soda, can be derived from the second Conditional Probability, based on knowing that the person do not love Candy (and the other way around)
+    - If we use A for "does not love Candy" and B for "loves Soda", then we can rewrite each equation into the standard formula for Bayes' Theorem:
+        - p(A&B|B) = p(A&B|A)*p(A) / p(B)
+        - p(A&B|A) = p(A&B|B)*p(B) / p(A)
+    - The Conditional Probability given that we know one thing about an event, can be derived from knowing the other thing about the event
+    - If we don't have all the data, we can use this formula. For example if we know:
+        - p(not love c & loves s | loves s) = 0.71
+        - p(loves s) ≈ 0.6
+        - p(not love c) = 0.57
+    - Then we plug in the numbers:
+        - p(not love c & loves s | not love c) = (0.71 * 0.6) / 0.57 ≈ 0.75
+
+- Note that we got a different number now (0.75) than before (0.63), because we guessed one of the probabilities (0.6)
+    - Bayesian Statistics is about understanding what it means to make a guess like this (in absence of real data) and all it implies
+    - Bayes' Theorem is the basis for Bayesian Statistics, which is this equation paired with a broader philosophy of how statistics should be calculated
+
+
+### Video 17: Naive Bayes, Clearly Explained!!!
+
+**Key Concepts:**
+
+- By Naive Bayes we mean the Multinomial Naive Bayes Classifier; There is another commonly used version called Gaussian Naive Bayes Classification, which we will see on the next chapter
+- Imagine we receive normal messages from friends and family, and we also receive spam, and want to filter out the spam messages
+    - We make a histogram of all the words that occur in the normal messages from friends and family, and we can use it to calculate the probabilities of seeing each word, given that it was in a normal message:
+        - "Dear": p(Dear|Normal) = 8/17 = 0.47
+        - "Friend": p(Friend|Normal) = 5/17 = 0.29
+        - "Lunch": p(Lunch|Normal) = 3/17 = 0.18
+        - "Money": p(Money|Normal) = 1/17 = 0.06
+    - Now we make a histogram of all the words that occur in the spam messages, and calculate the probabilities of seeing each word, given that it was in a spam message:
+        - "Dear": p(Dear|Spam) = 2/7 = 0.29
+        - "Friend": p(Friend|Spam) = 1/7 = 0.14
+        - "Lunch": p(Lunch|Spam) = 0/7 = 0.00
+        - "Money": p(Money|Spam) = 4/7 = 0.57
+    - These Probabilities are also called Likelihoods, being of discrete, individual words and not something continuous
+
+- Now imagine we got a new message saying "Dear Friend", and we want to decide if it's a normal message or spam:
+    - We start with an initial guess about the probability that any message, regardless of what it says, is a normal message:
+        - The guess can be any probability that we want, but a common guess is estimated from the training data
+        - For example, since 8 of the initial 12 messages were normal messages, our initial guess will be 0.67:
+            - p(N) = 8 / (8+4) = 0.67
+        - The initial guess that our message is normal, is called a Prior Probability
+        - Now we multiply the initial guess by the probability that the word Dear occurs in a normal message, and the probability that the word Friend occurs in a normal message:
+            - p(N) * p(Dear|N) * p(Friend|N)
+            - 0.67 * 0.47 * 0.29 = 0.09
+        - So 0.09 is the score that Dear Friend gets if it is a normal message
+        - However, technically, it is proportional to the probability that the message is normal, given that it says Dear Friend:
+            - p(N|Dear Friend) ∝ 0.09 
+    - Now we repeat the process with an initial guess about the probability that any message, regardless of what it says, is a spam message:
+        - From the training data we estimate that p(S) is 0.33:
+            - p(S) = 4 / (4+8) = 0.33
+        - Now we multiply the initial guess by the probability that the word Dear occurs in a spam message, and the probability that the word Friend occurs in a spam message:
+            - p(S) * p(Dear|S) * p(Friend|S)
+            - 0.33 * 0.29 * 0.14 = 0.01
+        - So 0.01 is the score that Dear Friend gets if it is a spam message
+        - However, technically, it is proportional to the probability that the message is normal, given that it says Dear Friend:
+            - p(S|Dear Friend) ∝ 0.01
+    - Because 0.09 > 0.01, we conclude that the message is normal
+    - This is the way Naive Bayes Classification works
+
+- Now, let's try to classify the message "Lunch Money Money Money Money"
+    - Since p(Money|N) = 0.06 and p(Money|S) = 0.57, it seems reasonable to predict that this message will end up being spam, especially with "Money" being repeated four times
+    - However, we encounter an issue:
+        - First, we guess that it is a normal message:
+            - p(N) * p(Lunch|N) * p(Money|N)⁴ = 0.000002
+        - Then, we guess that it is a spam message:
+            - p(S) * p(Lunch|S) * p(Money|S)⁴ = 0 
+    - The issue is that we only get 0 just because the probability of Lunch in spam was 0, since it was not in the Training Data. That 0 makes the entire equation equal 0
+    - That means that no matter how many times we see the word Money, if the word Lunch is in the same message, it always will be classified as normal!
+    - The solution is to add 1 count to each word for all words (i.e. if the probability was 4/12 before, now it is 5/12)
+    - The number of counts we add to each word is typically referred to with the Greek letter α (alpha). In this case α = 1, but we could have set it to anything
+    - Now the probability of the word Lunch in a spam message is:
+        - p(Lunch|S) = 1 / (7+4) = 0.09
+    - Note: Adding counts to each word does not change our initial guess that a message is normal p(N), or spam p(S), because it did not change the number of messages in the Training Dataset that are normal (8) or spam (4)
+    - Now if we recalculate the scores for this message:
+        - p(N) * p(Lunch|N) * p(Money|N)⁴ = 0.00001
+        - p(S) * p(Lunch|S) * p(Money|S)⁴ = 0.00122
+    - Since 0.00122 > 0.00001, we classify the message as spam
+
+- Why is Naive Bayes, naive?
+    - It treats all word orders the same:
+    - The Normal message score for the phrase "Dear Friend" is the same as the score for "Friend Dear", which is not how people communicate
+    - Naive Bayes ignores grammar rules and common phrases, treating language like a bag full of words and each message is a random handful of them
+    - But it performs surprisingly well when separating Normal messages from Spam
+    - In ML lingo, we say that Naive Bayes has high bias (because it ignores relationships among words) and low variance (because it works well in practice)
+
+
+### Video 18: Gaussian Naive Bayes, Clearly Explained!!!
+
+**Key Concepts:**
+
+- By Na
+
+
+
+
     
 
 
