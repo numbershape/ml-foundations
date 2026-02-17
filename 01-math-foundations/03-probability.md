@@ -541,7 +541,7 @@
         - Alternatively, if we have the known variation, plug in an effect size we want to detect and determine the sample size, or the other way around
 
 
-### Video 13: p-hacking: What it is and how to avoid it!
+### Video 14: p-hacking: What it is and how to avoid it!
 
 **Key Concepts:**
 
@@ -550,7 +550,7 @@
 - A Power Analysis is performed before doing an experiment and tells us how many replicates we need in order to have a relatively high probability of correctly rejecting the null hypothesis (the hypothesis that there is no difference between the groups)
 
 
-### Video 14: Power Analysis, Clearly Explained!!!
+### Video 15: Power Analysis, Clearly Explained!!!
 
 **Key Concepts:**
 
@@ -578,7 +578,7 @@
     - This means that if we get 9 measurements per group, we will have an 80% chance to correctly reject the Null Hypothesis
 
 
-### Video 15: Conditional Probabilities, Clearly Explained!!!
+### Video 16: Conditional Probabilities, Clearly Explained!!!
 
 **Key Concepts:**
 
@@ -635,7 +635,7 @@
 - In general, a Conditional Probability is the probability that something will happen, scaled by the knowledge we alrady have about the event
 
 
-### Video 16: Bayes' Theorem, Clearly Explained!!!
+### Video 17: Bayes' Theorem, Clearly Explained!!!
 
 **Key Concepts:**
 
@@ -685,7 +685,7 @@
     - Bayes' Theorem is the basis for Bayesian Statistics, which is this equation paired with a broader philosophy of how statistics should be calculated
 
 
-### Video 17: Naive Bayes, Clearly Explained!!!
+### Video 18: Naive Bayes, Clearly Explained!!!
 
 **Key Concepts:**
 
@@ -754,11 +754,113 @@
     - In ML lingo, we say that Naive Bayes has high bias (because it ignores relationships among words) and low variance (because it works well in practice)
 
 
-### Video 18: Gaussian Naive Bayes, Clearly Explained!!!
+### Video 19: Gaussian Naive Bayes, Clearly Explained!!!
 
 **Key Concepts:**
 
-- By Na
+- Gaussian Naive Bayes is named after the Gaussian distributions that represent the data in the Training Dataset
+- Say we wanted to predict if someone would love the 1990 movie Troll 2 or not
+    - We measure the amount of popcorn, soda pop, and candy they consume per day
+    - For example, the mean for popcorn for people who loved Troll 2 was 24, and standard deviation was 4; this forms a "Gaussian", or normal distribution
+    - We go on to plot the normal distributions for all three datasets: We create three graphs (popcorn, soda, and candy) containing the love/don't love bell curves for each. Some overlap, and some don't
+    
+- Say someone new shows up and says they eat 20g of popcorn, drink 500ml of soda and eat 25g of candy every day. Let's use the Gaussian Naive Bayes to decide if they love Troll 2 or not
+    - First, we make an initial guess ("prior probability") that they love Troll 2, based on the training data
+    - Since 8 of the 16 people in the training data loved Troll 2, the initial guess is 0.5:
+        - p(loves Troll 2) = 0.5
+        - p(does not love Troll 2) = 0.5
+    - The score for loves Troll 2 is the initial guess that the person loves Troll 2, times the Likelihood that they eat 20g of popcorn given that they love Troll 2, times the Likelihood that they drink 500ml of soda given that they love Troll 2, times the Likelihood that they drink 25g of candy given that they love Troll 2 (note: the Likelihood is the y-axis coordinate on the curve that corresponds to the x-axis coordinate)
+        - p(loves) * L(popcorn = 20 | loves) * L(soda = 500 | loves)
+        - 0.5 * 0.06 * 0.004 * a really small number
+    - When we get really small numbers, it's a good idea to take the log() of everything to prevent something called Underflow:
+        - Every computer has a limit to how close a number can get to 0 before it can no longer accurately keep track of that number. When a number gets smaller than that limit, we run into Underflow problems and errors occur
+        - So we use the log() function to avoid it. Any log will do, but the natural log (ln), or log base e, is the most commonly used log() in statistics and machine learning
+    - So we take the log (base e) of:
+        - 0.5 * 0.06 * 0.004 * a really small number
+    - The log() turns the multiplication to addition:
+        - log(0.5) + log(0.06) + log(0.004) + log(a really small number)
+        - (-0.69) + (-2.8) + (-5.5) + (-115) = -124
+        - log(loves Troll 2 Score) = -124
+    - We repeat the same process for Does not love Troll 2, and get:
+        - log(not love Troll 2 Score) = - 48
+    - Since -48 > -124, we classify the person as someone who does not love Troll 2
+
+- When we looked at the raw data (the graphs), visually it almost looked like we should have classified this person as someone who loves Troll 2, because in 2 out of the 3 graphs (popcorn and soda), the person was inside the "love Troll 2" distributions. However, it turns out that candy had a much larger say, due to its large distance from the "love Troll 2" distribution
+    - This means we may only need candy to make classifications
+    - We can use Cross Validation to help us decide which things (popcorn, soda, and/or candy) make the best classifications. We will see Cross Validation in a future lesson
+
+
+### Video 20: In Statistics, Probability is not Likelihood.
+
+**Key Concepts:**
+
+- For probability, imagine a normal distribution of mouse weights:
+    - It has a mean of 32 grams and a standard deviation of 2.5
+    - On the low end we have 24 grams and on the high end we have 40 grams
+    - The probability that we will weigh a randomly selected mouse between 32 and 34 grams, is the area under the curve between 32 and 34 grams
+    - That area equals 0.29, meaning there is a 29% chance a randomly selected mouse will weigh between 32 and 34 grams:
+        - pr(weight between 32 and 34 grams | mean = 32 and standard deviation = 2.5) = 0.29
+    - If we want to see different mouse weights, we change the left side of the equation. The right side, describing the distribution, stays the same
+    - When we talk about probabilities, we are talking about a distribution that is described by the right side of the equation, and the area under the curve that is described on the left side
+    - Using the same distribution, we can change the left side to get a new probability
+
+- Likelihood is the opposite:
+    - In this case we have already weighed our mouse/mice
+    - Say our mouse weighs 34 grams
+    - The likelihood of weighing a 34 gram mouse is, the y-axis height when x = 34; this equals 0.12:
+        - L(mean = 32 and standard deviation = 2.5 | mouse weighs 34 grams) = 0.12
+    - If we shifted the distribution over so that the mean was 34 grams, the new likelihood would now be the top of the bell curve, with y-axis value 0.21
+    - So with likelihoods, the measurements on the right side are fixed, and we modify the shape and location of the distribution with the left side
+
+- In summary: 
+    - Probabilities are the areas under a fixed distribution:
+        - pr(data|distribution)
+    - Likelihoods are the y-axis valies for fixed data points with distributions that can be moved
+        - L(distribution|data)
+
+
+### Video 21: Maximum Likelihood, clearly explained!!!
+
+**Key Concepts:**
+
+- Let's say we weighed a bunch of mice:
+    - The goal of maximum likelihood is to find the optimal way to fit a distribution to the data
+    - There are lots of different types of distributions for different types of data, but in this case, we think the weights may be normally distributed
+    - As "normally distributed", we expect:
+        - Most of the measurements to be close to the mean (average)
+        - The measurements to be relatively symmetrical around the mean
+    - Once we settle on the shape, we have to figure out where to center it
+    - Most of the values we measure (the average weight) should be near the distibution's mean/average
+    - Then the probability, or "likelihood" of observing these weights is relatively high
+
+- Find the maximum likelihood estimate for the mean:
+    - We can plot the likelihood of observing the data (y-axis) over the location of the center of the distribution (x-axis)
+        - We start on the left with a leftmost distribution and plot the likelihood of observing these measurements
+        - We continue to the right, all the way to the end
+        - We want the location that "maximizes the likelihood" of observing the weights we measured
+        - We see that the central location for the mean does that, and thus it is the "maximum likelihood estimate for the mean" (the mean of the distribution, not the data; but in a normal distribution those two things are the same)
+
+- Find the maximum likelihood estimate for the standard deviation:
+    - Similar to before, we can plot the likelihood of observing the data, for different values of the standard deviation
+    - And we find the standard deviation that maximizes the likelihood of observing the weights that we measured
+
+- So now we have a normal distribution that has been "fit" to the data, by using the maximum likelihood estimations for the mean and standard deviation
+    - So when someone says that they have the maximum likelihood estimates for the mean or the standard deviation or for something else, it means that they found the value for the mean or standard deviation or something else, that maximizes the likelihood that we observed what we observed
+    - As we saw on the previous chapter, "likelihood" refers to this situation, where we are trying to find the optimal value for the mean or standard deviation for a distribution, given a bunch of observed measurements
+
+
+### Video 22: How to calculate p-values
+
+**Key Concepts:**
+
+- Imagine we flipped a coin twice and got Heads both times
+    - At this point we may be tempted to think "My coin is special because it landed on Heads twice in a row". This is a "hypothesis"
+    - However, in Statistics Lingo, the hypothesis is the opposite: "Even though I got 2 Heads in a row, my coin is no different from a normal coin"
+    - This is the "Null Hypothesis", and a small p-value rejects it, and in that case, we know that our coin is special
+    - So let's test this hypothesis by calculating a p-value
+
+- p-values are determined by adding up probabilities
+    - 
 
 
 
