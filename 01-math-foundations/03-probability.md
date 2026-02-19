@@ -1,7 +1,7 @@
 # Probability
 
 ## Resources
-- StatQuest with Josh Starmer: selected videos
+- StatQuest with Josh Starmer: Statistics & Probability videos
 
 ---
 
