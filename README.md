@@ -20,10 +20,10 @@ Combining linguistic expertise with machine learning enables more sophisticated 
 **Phase 1: Mathematical Foundations** (in progress)
 - Linear Algebra ✅
 - Calculus ✅
-- Probability & Statistics ✅
+- Probability & Statistics ⏳
 
-**Phase 2: Classical Machine Learning**
-- Machine Learning Fundamentals ⏳
+**Phase 2: Classical Machine Learning** (next up)
+- Machine Learning Fundamentals 
 
 **Coming next:** Deep Learning, Python ML Libraries, Natural Language Processing
 
