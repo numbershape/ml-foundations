@@ -2,7 +2,6 @@
 
 ## Resources
 - StatQuest with Josh Starmer: selected videos
-- Claude Sonnet 4.5: Supporting tools for investigation, additional notes and final summary
 
 ---
 
@@ -550,7 +549,46 @@
 - A Power Analysis is performed before doing an experiment and tells us how many replicates we need in order to have a relatively high probability of correctly rejecting the null hypothesis (the hypothesis that there is no difference between the groups)
 
 
-### Video 15: Power Analysis, Clearly Explained!!!
+### Video 15: How to calculate p-values
+
+**Key Concepts:**
+
+- Imagine we flipped a coin twice and got Heads both times
+    - At this point we may be tempted to think "My coin is special because it landed on Heads twice in a row". This is a "hypothesis"
+    - However, in Statistics Lingo, the hypothesis is the opposite: "Even though I got 2 Heads in a row, my coin is no different from a normal coin"
+    - This is the "Null Hypothesis", and a small p-value rejects it, and in that case, we know that our coin is special
+    - So let's test this hypothesis by calculating a p-value
+
+- p-values are determined by adding up probabilities. So let's start by figuring out the probability of getting 2 Heads in a row:
+    - There is a 50% chance in each toss, that we will get Heads
+    - Getting 2 Heads in a row can result in H-H, H-T, T-H, T-T
+    - So 1 out of 4 possible outcomes equals 1/4 = 0.25
+    - This is the number of times we got 2 Heads / The total number of outcomes
+
+- A p-value is composed of 3 parts:
+    - The probability random chance would result in the observation (0.25)
+    - The probability of observing something else that is equally rare (0.25 for T-T)
+    - The probability of observing something rarer or more extreme (0)
+    - Add everything together: p-value = 0.5
+    - Note that the probability (0.25) is different from the p-value (0.5)
+    - So this does not reject Null hypothesis
+
+- When we calculate probabilities and p-values for something continuous like Height, we usually use a statistical distribution
+    - The area under the curve shows the probability of a value being within the values covered by the area
+    - To calculate p-values with a distribution, we add up the percentages of area under the curve
+    - "Is this measurement so far away from the mean of the assumed distribution, that we can reject the idea that it came from it?"
+    - If so, that would suggest that another distribution might do a better job explaining the data
+    - When working with a distribution, we are interested in adding equal to or more extreme values to the p-value (rather than rarer values)
+    - A p-value of 0.03 rejects the hypothesis that "given the assumed distribution, it is normal to get those measurements", meaning that it's pretty special getting those measurements, which means that a different distribution makes more sense
+
+- One sided p-value:
+    - A two-sided p-value from a drug performance distribution for illness recovery times, would calculate both extremes giving a p-value of 0.03, which tells us that the drug did something unusual, and that some other distribution does a better job at explaining the data
+    - For a one-sided value, we check only one side for recovery time (if recovering time is shorter). So only values from one side are counted as "more extreme" than our cutoff. p-value results in 0.016, showing the drug did something unusual, even more so than before.
+    - But if the drug was not good and recovery time was longer than not taking it (15 days), a two-sided p-value would still be 0.03 but the one-sided p-value (if we are still checking the shorter recovery time side) would be 0.98, not detecting anything unusual, so missing the issue
+    - The two-sided p-value detects both unusual cases (short and long recovery times)
+
+
+### Video 16: Power Analysis, Clearly Explained!!!
 
 **Key Concepts:**
 
@@ -578,7 +616,7 @@
     - This means that if we get 9 measurements per group, we will have an 80% chance to correctly reject the Null Hypothesis
 
 
-### Video 16: Conditional Probabilities, Clearly Explained!!!
+### Video 17: Conditional Probabilities, Clearly Explained!!!
 
 **Key Concepts:**
 
@@ -635,7 +673,7 @@
 - In general, a Conditional Probability is the probability that something will happen, scaled by the knowledge we alrady have about the event
 
 
-### Video 17: Bayes' Theorem, Clearly Explained!!!
+### Video 18: Bayes' Theorem, Clearly Explained!!!
 
 **Key Concepts:**
 
@@ -685,7 +723,7 @@
     - Bayes' Theorem is the basis for Bayesian Statistics, which is this equation paired with a broader philosophy of how statistics should be calculated
 
 
-### Video 18: Naive Bayes, Clearly Explained!!!
+### Video 19: Naive Bayes, Clearly Explained!!!
 
 **Key Concepts:**
 
@@ -754,7 +792,7 @@
     - In ML lingo, we say that Naive Bayes has high bias (because it ignores relationships among words) and low variance (because it works well in practice)
 
 
-### Video 19: Gaussian Naive Bayes, Clearly Explained!!!
+### Video 20: Gaussian Naive Bayes, Clearly Explained!!!
 
 **Key Concepts:**
 
@@ -790,7 +828,7 @@
     - We can use Cross Validation to help us decide which things (popcorn, soda, and/or candy) make the best classifications. We will see Cross Validation in a future lesson
 
 
-### Video 20: In Statistics, Probability is not Likelihood.
+### Video 21: In Statistics, Probability is not Likelihood.
 
 **Key Concepts:**
 
@@ -819,7 +857,7 @@
         - L(distribution|data)
 
 
-### Video 21: Maximum Likelihood, clearly explained!!!
+### Video 22: Maximum Likelihood, clearly explained!!!
 
 **Key Concepts:**
 
@@ -849,20 +887,11 @@
     - As we saw on the previous chapter, "likelihood" refers to this situation, where we are trying to find the optimal value for the mean or standard deviation for a distribution, given a bunch of observed measurements
 
 
-### Video 22: How to calculate p-values
+### Video 23:
 
 **Key Concepts:**
 
-- Imagine we flipped a coin twice and got Heads both times
-    - At this point we may be tempted to think "My coin is special because it landed on Heads twice in a row". This is a "hypothesis"
-    - However, in Statistics Lingo, the hypothesis is the opposite: "Even though I got 2 Heads in a row, my coin is no different from a normal coin"
-    - This is the "Null Hypothesis", and a small p-value rejects it, and in that case, we know that our coin is special
-    - So let's test this hypothesis by calculating a p-value
-
-- p-values are determined by adding up probabilities
-    - 
-
-
+- 
 
 
     
