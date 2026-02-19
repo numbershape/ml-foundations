@@ -11,7 +11,7 @@ This repository serves three purposes:
 2. **Professional portfolio** — Demonstrating self-directed learning and technical development
 3. **Knowledge sharing** — Providing a potential resource for others on a similar path from language to code
 
-## Value Proposition
+## Objective
 
 Combining linguistic expertise with machine learning enables more sophisticated approaches to automation challenges, particularly for systems involving text processing, automated content validation, localization testing, accessibility testing, A/B test analysis, search result quality assessment, and SEO content analysis.
 
@@ -19,9 +19,13 @@ Combining linguistic expertise with machine learning enables more sophisticated 
 
 **Phase 1: Mathematical Foundations** (in progress)
 - Linear Algebra ✅
-- Calculus ⏳
+- Calculus ✅
+- Probability & Statistics ✅
 
-**Coming next:** Probability & Statistics, Python for ML, Classical Machine Learning, Deep Learning, Natural Language Processing
+**Phase 2: Classical Machine Learning**
+- Machine Learning Fundamentals ⏳
+
+**Coming next:** Deep Learning, Python ML Libraries, Natural Language Processing
 
 ## Repository Structure
 
@@ -30,9 +34,9 @@ Combining linguistic expertise with machine learning enables more sophisticated 
 ├── linear-algebra/
 ├── calculus/            
 └── probability-stats/     
-02-python-ml/             
-03-classical-ml/             
-04-deep-learning/          
+02-classical-ml/             
+03-deep-learning/    
+04-python-ml-libraries      
 05-nlp/
 06-portfolio/
 ```
@@ -46,26 +50,16 @@ This is a **12-15 month structured learning plan** that prioritizes:
 - Combining theory with practice - every concept is applied through code
 - Leveraging domain expertise - using analytical skills as a competitive advantage
 
-### Phase 1: Mathematical Foundations (Weeks 1-10)
+### Phase 1: Mathematical Foundations
 Building the mathematical intuition necessary to understand machine learning and neural networks at a fundamental level.
 
-- **Linear Algebra** (Weeks 1-5): Vectors, matrices, transformations, dot products, eigenvalues
-- **Calculus** (Weeks 6-7): Derivatives, gradients, optimization, gradient descent
-- **Probability & Statistics** (Weeks 8-10): Distributions, Bayes' theorem, statistical inference
+- **Linear Algebra**: Vectors, matrices, transformations, dot products, eigenvalues
+- **Calculus**: Derivatives, gradients, optimization, gradient descent
+- **Probability & Statistics**: Distributions, Bayes' theorem, statistical inference
 
 **Deliverable:** Can explain ML mathematical foundations without references and implement basic operations that underlie neural networks.
 
-### Phase 2: Python for Machine Learning (Weeks 11-14)
-Mastering Python tools and libraries essential for ML/NLP work.
-
-- **NumPy**: Arrays, vectorized operations, broadcasting
-- **Pandas**: DataFrames, data cleaning, transformation
-- **Matplotlib**: Data visualization and model performance plotting
-- **Practical project**: Complete exploratory data analysis on real dataset
-
-**Deliverable:** Can manipulate real-world datasets, create visualizations, and prepare data for machine learning with clean, documented code.
-
-### Phase 3: Classical Machine Learning (Weeks 15-28)
+### Phase 2: Classical Machine Learning
 Understanding foundational algorithms and principles that underlie all modern ML.
 
 - **Supervised Learning**: Linear/logistic regression, gradient descent, regularization
@@ -76,7 +70,7 @@ Understanding foundational algorithms and principles that underlie all modern ML
 
 **Deliverable:** Deep understanding of how ML works. Can explain gradient descent and backpropagation intuitively. Portfolio includes from-scratch implementations.
 
-### Phase 4: Deep Learning (Weeks 29-42)
+### Phase 3: Deep Learning
 Mastering modern neural network architectures and PyTorch framework.
 
 - **Deep Learning Foundations**: Deep networks, optimization, batch normalization, dropout
@@ -88,7 +82,17 @@ Mastering modern neural network architectures and PyTorch framework.
 
 **Deliverable:** Can explain and implement transformers. Can train deep learning models in PyTorch or TensorFlow. Portfolio includes deep learning experiments.
 
-### Phase 5: Natural Language Processing (Weeks 43-57)
+### Phase 4: Python for Machine Learning
+Mastering Python tools and libraries essential for ML/NLP work.
+
+- **NumPy**: Arrays, vectorized operations, broadcasting
+- **Pandas**: DataFrames, data cleaning, transformation
+- **Matplotlib**: Data visualization and model performance plotting
+- **Practical project**: Complete exploratory data analysis on real dataset
+
+**Deliverable:** Can manipulate real-world datasets, create visualizations, and prepare data for machine learning with clean, documented code.
+
+### Phase 5: Natural Language Processing
 Mastering modern NLP methods and applications to real-world text analysis problems.
 
 - **NLP Fundamentals**: Tokenization, embeddings, text classification, NER, sentiment analysis
@@ -100,7 +104,7 @@ Mastering modern NLP methods and applications to real-world text analysis proble
 
 **Deliverable:** Can fine-tune transformers on custom data. Fluent with Hugging Face ecosystem. Portfolio shows practical NLP applications.
 
-### Phase 6: Portfolio Development (Weeks 58-65+)
+### Phase 6: Portfolio Development
 Creating 2-3 high-quality projects demonstrating automation, ML, and NLP skills.
 
 **Potential Project Areas:**
