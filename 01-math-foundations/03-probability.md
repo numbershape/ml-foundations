@@ -274,7 +274,7 @@
 **Key Concepts:**
 
 - The width of the Normal Distribution curve is defined by the "standard deviation"
-- Knowing the standard deviation is helpful because normal curves are drawn such that 95% of the measurements fall between +/- 2 standard deviations around the mean:
+- Knowing the standard deviation is helpful because normal curves are drawn such that 95% of the measurements fall between +/- 2 standard deviations ("2 widths") around the mean:
     - If the width is 0.6, 95% of measurements fall between +/- 1.2 the central point
     - If the width is 4, 95% of measurements fall between +/- 8 the central point
 - To draw a normal distribution, we need:
@@ -887,11 +887,36 @@
     - As we saw on the previous chapter, "likelihood" refers to this situation, where we are trying to find the optimal value for the mean or standard deviation for a distribution, given a bunch of observed measurements
 
 
-### Video 23:
+### Video 23: The Main Ideas of Fitting a Line to Data (The Main Ideas of Least Squares and Linear Regression.)
 
 **Key Concepts:**
 
-- 
+- How to fit a line in our plotted data?
+    - We want to minimize the distance between the data points and the line
+    - We square the difference between each data point and then add them up
+    - The reason we square them is for all values to be positive, whether the data point lies on top or below the line
+    - The result is the "sum of the squared residuals" 
+    - A smaller value is a better fit
+
+- Method:
+    - Take the generic line equation:
+        - y = ax + b, where a is the slope and b is the y-intercept
+    - We want to find the optimal values for a and b to minimize the value of squared residuals
+    - Since we want the line that will give us the smallest sum of squares, this method is called "Least squares"
+    - Distance between line and observed value:
+        - ((a x₁ + b) - y₁)² + ((a x₂ + b) - y₂)² + ...
+    - Try a few lines (rotate the line a few times) and plot the results of the sum of squared residuals for each calculation; the sum data points will go down and then back up
+    - To find the optimal rotation for the line, take the derivative (slope) of the function of the plotted sum of squared residuals, and find where it equals zero
+    - Remember that the different rotations are just different values for a (line slope) and b (line intercept)
+    - Taking the derivatives of both the slope and the intercepts tells us where the optimal values are for the best fit
+    
+
+### Video 24: Lowess and Loess, Clearly Explained!!!
+
+**Key Concepts:**
+
+- What about fitting a curve to data?
+    - Use a sliding window to divide 
 
 
     
