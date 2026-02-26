@@ -1,31 +1,31 @@
 # ML & NLP Learning Journey
 
-Building mathematical and technical foundations for advanced machine learning (ML) and natural language processing (NLP) capabilities, one concept at a time.
+Building mathematical and technical foundations for advanced machine learning (ML) and natural language processing (NLP) capabilities.
 
 ## Background
 
-With an MA in Applied Linguistics and experience as a Quality Assurance analyst transitioning to automation development, I'm systematically building advanced machine learning and natural language processing capabilities to enhance automation and testing workflows.
+I am an SQA developer with previous experience in manual QA/UAT. Additionally, I have a Master's degree in Applied Linguistics. I'm systematically building advanced ML/NLP capabilities to enhance automation and testing workflows.
+
+## Objective
+
+Combining linguistic expertise with machine learning enables sophisticated approaches to automation challenges, particularly for systems involving text processing, automated content validation, localization testing, accessibility testing, A/B test analysis, search result quality assessment, and SEO content analysis.
 
 This repository serves three purposes:
 1. **Personal tracking** — Organizing my learning progress through structured notes and exercises
 2. **Professional portfolio** — Demonstrating self-directed learning and technical development
 3. **Knowledge sharing** — Providing a potential resource for others on a similar path from language to code
 
-## Objective
-
-Combining linguistic expertise with machine learning enables more sophisticated approaches to automation challenges, particularly for systems involving text processing, automated content validation, localization testing, accessibility testing, A/B test analysis, search result quality assessment, and SEO content analysis.
-
 ## Current Progress
 
-**Phase 1: Mathematical Foundations** (in progress)
+**Phase 1: Mathematical Foundations**
 - Linear Algebra ✅
 - Calculus ✅
-- Probability & Statistics ⏳
+- Probability & Statistics ✅
 
-**Phase 2: Classical Machine Learning** (next up)
-- Machine Learning Fundamentals 
+**Phase 2: Classical Machine Learning**
+- Machine Learning Fundamentals ⏳
 
-**Coming next:** Deep Learning, Python ML Libraries, Natural Language Processing
+**Next Phases:** Deep Learning, Python ML Libraries, Natural Language Processing
 
 ## Repository Structure
 
@@ -43,9 +43,9 @@ Combining linguistic expertise with machine learning enables more sophisticated 
 
 ## Learning Plan Overview
 
-This is a **12-15 month structured learning plan** that prioritizes:
+This is a structured learning plan that prioritizes:
 - Foundational understanding over surface-level knowledge
-- "Why" before "how" - understanding concepts before applying them
+- "Why" before "how" and understanding concepts before applying them
 - Building from first principles - implementing algorithms before using libraries
 - Combining theory with practice - every concept is applied through code
 - Leveraging domain expertise - using analytical skills as a competitive advantage
