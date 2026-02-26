@@ -909,14 +909,6 @@
     - To find the optimal rotation for the line, take the derivative (slope) of the function of the plotted sum of squared residuals, and find where it equals zero
     - Remember that the different rotations are just different values for a (line slope) and b (line intercept)
     - Taking the derivatives of both the slope and the intercepts tells us where the optimal values are for the best fit
-    
-
-### Video 24: Lowess and Loess, Clearly Explained!!!
-
-**Key Concepts:**
-
-- What about fitting a curve to data?
-    - Use a sliding window to divide 
 
 
     
